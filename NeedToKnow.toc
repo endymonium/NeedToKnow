@@ -10,6 +10,7 @@
 ## LoadOnDemand: 0
 ## SavedVariablesPerCharacter: NeedToKnow_Settings, NeedToKnow_CharSettings
 ## SavedVariables: NeedToKnow_Globals
+## X-Curse-Project-ID: 296636
 libs\LibStub\LibStub.lua
 libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
 libs\LibSharedMedia-3.0\lib.xml
