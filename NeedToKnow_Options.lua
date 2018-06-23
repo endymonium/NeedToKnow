@@ -31,7 +31,7 @@ function NeedToKnow.SlashCommand(cmd)
 
     cmd = args[1]
     table.remove(args,1)
-    
+
     if not cmd then
         NeedToKnow.LockToggle();
     elseif ( cmd == NEEDTOKNOW.CMD_RESET ) then
@@ -57,11 +57,11 @@ function NeedToKnow.SlashCommand(cmd)
         end
     else
         print("Unknown NeedToKnow command",cmd)
-    end    
+    end
 end
 
 function NeedToKnow.LockToggle(bLock)
-    if nil == bLock then 
+    if nil == bLock then
         if NeedToKnow.CharSettings["Locked"] then
             bLock = false;
         else
@@ -70,7 +70,6 @@ function NeedToKnow.LockToggle(bLock)
     end
 
     NeedToKnow.Show(true);
-    PlaySound("UChatScrollButton");
 
     if NeedToKnow.CharSettings["Locked"] ~= bLock then
         NeedToKnow.CharSettings["Locked"] = bLock;
@@ -152,7 +151,7 @@ end
 function NeedToKnowOptions.NumberbarsButton_OnClick(self, increment)
     local groupID = self:GetParent():GetParent():GetID();
     local oldNumber = NeedToKnow.ProfileSettings.Groups[groupID]["NumberBars"];
-    if ( oldNumber == 1 ) and ( increment < 0 ) then 
+    if ( oldNumber == 1 ) and ( increment < 0 ) then
         return;
     elseif ( oldNumber == NEEDTOKNOW.MAXBARS ) and ( increment > 0 ) then
         return;
@@ -195,20 +194,20 @@ function NeedToKnowOptions.UIPanel_Appearance_OnLoad(self)
     self.cancel = NeedToKnowOptions.Cancel
     -- need different way to handle cancel?  users might open appearance panel without opening main panel
     InterfaceOptions_AddCategory(self)
-    
+
     local panelName = self:GetName()
     _G[panelName.."Version"]:SetText(NEEDTOKNOW.VERSION)
     _G[panelName.."SubText1"]:SetText(NEEDTOKNOW.UIPANEL_APPEARANCE_SUBTEXT1)
 
     self.Textures.fnClick = NeedToKnowOptions.OnClickTextureItem
-    self.Textures.configure = function(i, btn, label) 
+    self.Textures.configure = function(i, btn, label)
         btn.Bg:SetTexture(NeedToKnow.LSM:Fetch("statusbar",label))
     end
     self.Textures.List.update = NeedToKnowOptions.UpdateBarTextureDropDown
     self.Textures.normal_color =  { 0.7, 0.7, 0.7, 1 }
 
     self.Fonts.fnClick = NeedToKnowOptions.OnClickFontItem
-    self.Fonts.configure = function(i, btn, label) 
+    self.Fonts.configure = function(i, btn, label)
         local fontPath = NeedToKnow.LSM:Fetch("font",label)
         btn.text:SetFont(fontPath, 12)
         btn.Bg:SetTexture(NeedToKnow.LSM:Fetch("statusbar","Minimalist"))
@@ -255,7 +254,7 @@ function NeedToKnowOptions.UIPanel_Appearance_Update()
     local panelName = "InterfaceOptionsNeedToKnowAppearancePanel";
     local panel = _G[panelName]
     if not panel or not panel:IsVisible() then return end
-    
+
     local settings = NeedToKnow.ProfileSettings;
     local barSpacingSlider = _G[panelName.."BarSpacingSlider"];
     local barPaddingSlider = _G[panelName.."BarPaddingSlider"];
@@ -299,7 +298,7 @@ function NeedToKnowOptions.UIPanel_Profile_OnLoad(self)
     _G[panelName.."Version"]:SetText(NEEDTOKNOW.VERSION);
     _G[panelName.."SubText1"]:SetText(NEEDTOKNOW.UIPANEL_PROFILES_SUBTEXT1);
 
-    self.Profiles.configure = function(i, btn, label) 
+    self.Profiles.configure = function(i, btn, label)
         btn.Bg:SetTexture(NeedToKnow.LSM:Fetch("statusbar","Minimalist"))
     end
     self.Profiles.List.update = NeedToKnowOptions.UpdateProfileList
@@ -451,8 +450,8 @@ StaticPopupDialogs["NEEDTOKNOW.CONFIRMDLG"] = {
         self:SetFrameStrata("TOOLTIP")
     end,
     OnHide = function(self)
-        if self.oldStrata then 
-            self:SetFrameStrata(self.oldStrata) 
+        if self.oldStrata then
+            self:SetFrameStrata(self.oldStrata)
         end
     end
 };
@@ -468,10 +467,10 @@ function NeedToKnowOptions.UIPanel_Profile_DeleteSelected(panel)
                 print("NeedToKnow: Won't delete the active profile!")
             else
                 NeedToKnow_Profiles[k] = nil;
-                if NeedToKnow_Globals.Profiles[k] then 
+                if NeedToKnow_Globals.Profiles[k] then
                     print("NeedToKnow: deleted account-wide profile", NeedToKnow_Globals.Profiles[k].name) -- LOCME
                     NeedToKnow_Globals.Profiles[k] = nil;
-                elseif NeedToKnow_CharSettings.Profiles[k] then 
+                elseif NeedToKnow_CharSettings.Profiles[k] then
                     print("NeedToKnow: deleted character profile", NeedToKnow_CharSettings.Profiles[k].name) -- LOCME
                     NeedToKnow_CharSettings.Profiles[k] = nil;
                 end
@@ -678,7 +677,7 @@ end
 -- BAR GUI
 -- --------
 
-NeedToKnowRMB.CurrentBar = { groupID = 1, barID = 1 };        -- a dirty hack, i know.  
+NeedToKnowRMB.CurrentBar = { groupID = 1, barID = 1 };        -- a dirty hack, i know.
 
 StaticPopupDialogs["NEEDTOKNOW.CHOOSENAME_DIALOG"] = {
     text = NEEDTOKNOW.CHOOSENAME_DIALOG,
@@ -703,7 +702,7 @@ StaticPopupDialogs["NEEDTOKNOW.CHOOSENAME_DIALOG"] = {
     end,
     OnHide = function(self)
     -- Removed for wow 3.3.5, it seems like there is a focu stack
-    -- now that obsoletes this anyway.  If not, there isn't a 
+    -- now that obsoletes this anyway.  If not, there isn't a
     -- single ChatFrameEditBox anymore, there's ChatFrame1EditBox etc.
         -- if ( ChatFrameEditBox:IsVisible() ) then
         --    ChatFrameEditBox:SetFocus();
@@ -721,8 +720,8 @@ NeedToKnowRMB.BarMenu_MoreOptions = {
     { VariableName = "BuffOrDebuff", MenuText = NEEDTOKNOW.BARMENU_BUFFORDEBUFF, Type = "Submenu" },
     { VariableName = "Options", MenuText = "Settings", Type = "Submenu" },
     {},
-    { VariableName = "TimeFormat", MenuText = NEEDTOKNOW.BARMENU_TIMEFORMAT, Type = "Submenu" }, 
-    { VariableName = "Show", MenuText = NEEDTOKNOW.BARMENU_SHOW, Type = "Submenu" }, 
+    { VariableName = "TimeFormat", MenuText = NEEDTOKNOW.BARMENU_TIMEFORMAT, Type = "Submenu" },
+    { VariableName = "Show", MenuText = NEEDTOKNOW.BARMENU_SHOW, Type = "Submenu" },
     { VariableName = "VisualCastTime", MenuText = NEEDTOKNOW.BARMENU_VISUALCASTTIME, Type = "Submenu" },
     { VariableName = "BlinkSettings", MenuText = "Blink Settings", Type = "Submenu" }, -- LOCME
     { VariableName = "BarColor", MenuText = NEEDTOKNOW.BARMENU_BARCOLOR, Type = "Color" },
@@ -750,20 +749,20 @@ NeedToKnowRMB.BarMenu_SubMenus = {
           { Setting = "Fmt_Float", MenuText = NEEDTOKNOW.FMT_FLOAT },
     },
     Unit = {
-        { Setting = "player", MenuText = NEEDTOKNOW.BARMENU_PLAYER }, 
-        { Setting = "target", MenuText = NEEDTOKNOW.BARMENU_TARGET }, 
-        { Setting = "targettarget", MenuText = NEEDTOKNOW.BARMENU_TARGETTARGET }, 
-        { Setting = "focus", MenuText = NEEDTOKNOW.BARMENU_FOCUS }, 
-        { Setting = "pet", MenuText = NEEDTOKNOW.BARMENU_PET }, 
-        { Setting = "vehicle", MenuText = NEEDTOKNOW.BARMENU_VEHICLE }, 
+        { Setting = "player", MenuText = NEEDTOKNOW.BARMENU_PLAYER },
+        { Setting = "target", MenuText = NEEDTOKNOW.BARMENU_TARGET },
+        { Setting = "targettarget", MenuText = NEEDTOKNOW.BARMENU_TARGETTARGET },
+        { Setting = "focus", MenuText = NEEDTOKNOW.BARMENU_FOCUS },
+        { Setting = "pet", MenuText = NEEDTOKNOW.BARMENU_PET },
+        { Setting = "vehicle", MenuText = NEEDTOKNOW.BARMENU_VEHICLE },
         { Setting = "lastraid", MenuText = NEEDTOKNOW.BARMENU_LAST_RAID },
     },
     DebuffUnit = {
-        { Setting = "player", MenuText = NEEDTOKNOW.BARMENU_PLAYER }, 
-        { Setting = "target", MenuText = NEEDTOKNOW.BARMENU_TARGET }, 
-        { Setting = "targettarget", MenuText = NEEDTOKNOW.BARMENU_TARGETTARGET }, 
-        { Setting = "focus", MenuText = NEEDTOKNOW.BARMENU_FOCUS }, 
-        { Setting = "pet", MenuText = NEEDTOKNOW.BARMENU_PET }, 
+        { Setting = "player", MenuText = NEEDTOKNOW.BARMENU_PLAYER },
+        { Setting = "target", MenuText = NEEDTOKNOW.BARMENU_TARGET },
+        { Setting = "targettarget", MenuText = NEEDTOKNOW.BARMENU_TARGETTARGET },
+        { Setting = "focus", MenuText = NEEDTOKNOW.BARMENU_FOCUS },
+        { Setting = "pet", MenuText = NEEDTOKNOW.BARMENU_PET },
         { Setting = "vehicle", MenuText = NEEDTOKNOW.BARMENU_VEHICLE },
     },
     Opt_HELPFUL = {
@@ -779,21 +778,21 @@ NeedToKnowRMB.BarMenu_SubMenus = {
       { VariableName = "show_all_stacks", MenuText = "Sum stacks from all casters" },
     },
     Opt_TOTEM = {},
-    Opt_CASTCD = 
+    Opt_CASTCD =
     {
         { VariableName = "append_cd", MenuText = "Append \"CD\"" }, -- LOCME
         { VariableName = "show_charges", MenuText = "Show first and last charge CD" }, -- LOCME
     },
-    Opt_EQUIPSLOT = 
+    Opt_EQUIPSLOT =
     {
         { VariableName = "append_cd", MenuText = "Append \"CD\"" }, -- LOCME
     },
-    Opt_POWER = 
+    Opt_POWER =
     {
       { VariableName = "Unit", MenuText = NEEDTOKNOW.BARMENU_CHOOSEUNIT, Type = "Submenu" },
       { VariableName = "power_sole", MenuText = "Only Show When Primary" }, -- LOCME
     },
-    Opt_BUFFCD = 
+    Opt_BUFFCD =
     {
         { VariableName = "buffcd_duration", MenuText = "Cooldown duration...", Type = "Dialog", DialogText = "BUFFCD_DURATION_DIALOG", Numeric=true },
         { VariableName = "buffcd_reset_spells", MenuText = "Reset on buff...", Type = "Dialog", DialogText = "BUFFCD_RESET_DIALOG" },
@@ -849,14 +848,14 @@ NeedToKnowRMB.BarMenu_SubMenus = {
     },
     BlinkSettings = {
         { VariableName = "blink_enabled", MenuText = NEEDTOKNOW.BARMENU_VCT_ENABLE },
-        { VariableName = "blink_label", MenuText = "Bar text while blinking...", Type = "Dialog", DialogText="CHOOSE_BLINK_TITLE_DIALOG" }, 
+        { VariableName = "blink_label", MenuText = "Bar text while blinking...", Type = "Dialog", DialogText="CHOOSE_BLINK_TITLE_DIALOG" },
         { VariableName = "MissingBlink", MenuText = "Bar color when blinking...", Type = "Color" }, -- LOCME
         { VariableName = "blink_ooc", MenuText = "Blink out of combat" }, -- LOCME
         { VariableName = "blink_boss", MenuText = "Blink only for bosses" }, -- LOCME
     },
 };
 
-NeedToKnowRMB.VariableRedirects = 
+NeedToKnowRMB.VariableRedirects =
 {
   DebuffUnit = "Unit",
   EquipmentSlotList = "AuraName",
@@ -867,7 +866,7 @@ function NeedToKnowRMB.ShowMenu(bar)
     NeedToKnowRMB.CurrentBar["barID"] = bar:GetID();
     NeedToKnowRMB.CurrentBar["groupID"] = bar:GetParent():GetID();
     if not NeedToKnowRMB.DropDown then
-        NeedToKnowRMB.DropDown = CreateFrame("Frame", "NeedToKnowDropDown", nil, "NeedToKnow_DropDownTemplate") 
+        NeedToKnowRMB.DropDown = CreateFrame("Frame", "NeedToKnowDropDown", nil, "NeedToKnow_DropDownTemplate")
     end
 
     -- There's no OpenDropDownMenu that forces it to show in the new place,
@@ -891,12 +890,12 @@ function NeedToKnowRMB.BarMenu_AddButton(barSettings, i_desc, i_parent)
         info.value = i_desc["VariableName"];
         varSettings = barSettings[info.value];
     end
-    
+
     if ( not varSettings and (item_type == "Check" or item_type == "Color") ) then
-        print (string.format("NTK: Could not find %s in", info.value), barSettings); 
+        print (string.format("NTK: Could not find %s in", info.value), barSettings);
         return
     end
-    
+
     info.hasArrow = false;
     local b = i_desc["Checked"]
     if b then
@@ -947,9 +946,9 @@ function NeedToKnowRMB.BarMenu_AddButton(barSettings, i_desc, i_parent)
         info.func = UIDropDownMenuButton_OpenColorPicker;
         info.keepShownOnClick = false;
     end
-  
+
     UIDropDownMenu_AddButton(info, UIDROPDOWNMENU_MENU_LEVEL);
-    
+
     -- Code to get the button copied from UIDropDownMenu_AddButton
     local level = UIDROPDOWNMENU_MENU_LEVEL;
     local listFrame = _G["DropDownList"..level];
@@ -976,7 +975,7 @@ function NeedToKnowRMB.BarMenu_Initialize()
         barSettings.blink_enabled = false;
     end
     NeedToKnowRMB.BarMenu_SubMenus.Options = NeedToKnowRMB.BarMenu_SubMenus["Opt_"..barSettings.BuffOrDebuff];
-   
+
     if ( UIDROPDOWNMENU_MENU_LEVEL > 1 ) then
         if ( UIDROPDOWNMENU_MENU_VALUE == "VisualCastTime" ) then
             -- Create a summary title for the visual cast time submenu
@@ -999,7 +998,7 @@ function NeedToKnowRMB.BarMenu_Initialize()
                 UIDropDownMenu_AddButton(info, UIDROPDOWNMENU_MENU_LEVEL);
             end
         end
-        
+
         local subMenus = NeedToKnowRMB.BarMenu_SubMenus;
         for index, value in ipairs(subMenus[UIDROPDOWNMENU_MENU_VALUE]) do
             NeedToKnowRMB.BarMenu_AddButton(barSettings, value, UIDROPDOWNMENU_MENU_VALUE);
@@ -1010,7 +1009,7 @@ function NeedToKnowRMB.BarMenu_Initialize()
         end
         return;
     end
-    
+
     -- show name
     if ( barSettings.AuraName ) and ( barSettings.AuraName ~= "" ) then
         local info = UIDropDownMenu_CreateInfo();
@@ -1043,8 +1042,8 @@ function NeedToKnowRMB.BarMenu_ToggleSetting(self, a1, a2, checked)
     local barSettings = NeedToKnow.ProfileSettings.Groups[groupID]["Bars"][barID];
     barSettings[self.value] = self.checked;
     local level = NeedToKnowRMB.BarMenu_GetItemLevel(self);
-    
-    if ( self.value == "OnlyMine" ) then 
+
+    if ( self.value == "OnlyMine" ) then
         if ( false == self.checked ) then
             NeedToKnowRMB.BarMenu_UncheckAndDisable(level, "bDetectExtends", false);
         else
@@ -1121,7 +1120,7 @@ end
 
 function NeedToKnowRMB.BarMenu_UpdateSettings(barSettings)
     local type = barSettings.BuffOrDebuff;
-    
+
     -- Set up the options submenu to the corrent name and contents
     local Opt = NeedToKnowRMB.BarMenu_SubMenus["Opt_"..type];
     if ( not Opt ) then Opt = {} end
@@ -1149,7 +1148,7 @@ function NeedToKnowRMB.BarMenu_UpdateSettings(barSettings)
         if ( button ) then
             button.oldvalue = button.value
         else
-            button = NeedToKnowRMB.BarMenu_GetItem(1, "PowerTypeList") 
+            button = NeedToKnowRMB.BarMenu_GetItem(1, "PowerTypeList")
         end
         if ( button ) then
             local arrow = _G[button:GetName().."ExpandArrow"]
@@ -1164,7 +1163,7 @@ function NeedToKnowRMB.BarMenu_UpdateSettings(barSettings)
         if ( button ) then
           button.oldvalue = button.value
         else
-            button = NeedToKnowRMB.BarMenu_GetItem(1, "EquipmentSlotList") 
+            button = NeedToKnowRMB.BarMenu_GetItem(1, "EquipmentSlotList")
         end
         if ( button ) then
             local arrow = _G[button:GetName().."ExpandArrow"]
@@ -1194,7 +1193,7 @@ function NeedToKnowRMB.BarMenu_ChooseSetting(self, a1, a2, checked)
     local v = NeedToKnowRMB.VariableRedirects[UIDROPDOWNMENU_MENU_VALUE] or UIDROPDOWNMENU_MENU_VALUE
     barSettings[v] = self.value;
     NeedToKnow.Bar_Update(groupID, barID);
-    
+
     if ( v == "BuffOrDebuff" ) then
         NeedToKnowRMB.BarMenu_UpdateSettings(barSettings)
     end
@@ -1215,7 +1214,7 @@ function NeedToKnowRMB.EditBox_Numeric_OnTextChanged(self, isUserInput)
             self:SetText(culled);
         end
     end
-    
+
     if ( NeedToKnowRMB.EditBox_Original_OnTextChanged ) then
         NeedToKnowRMB.EditBox_Original_OnTextChanged(self, isUserInput);
     end
@@ -1249,7 +1248,7 @@ function NeedToKnowIE.TableToString(v)
         end
         local k
         if index ~= i then
-            k = NEEDTOKNOW.SHORTENINGS[index] or index 
+            k = NEEDTOKNOW.SHORTENINGS[index] or index
         end
         if  type(value) == "table" then
             value = NeedToKnowIE.TableToString(value)
@@ -1348,15 +1347,15 @@ function NeedToKnowIE.StringToTable(text, ofs)
         cur = cur + 1 -- advance past the { or ,
         local hasKey, eq, delim
         -- If it's not a quote or a {, it should be a key+equals or value+delimeter
-        if text:byte(cur) ~= 34 and text:byte(cur) ~= 123 then 
+        if text:byte(cur) ~= 34 and text:byte(cur) ~= 123 then
             eq = text:find("=", cur)
-            local comma = text:find(",", cur) 
+            local comma = text:find(",", cur)
             delim = text:find("}", cur) or comma
             if comma and delim > comma then
-                delim = comma 
+                delim = comma
             end
 
-            if not delim then 
+            if not delim then
                 print("Unexpected end of string")
                 return nil, nil
             end
@@ -1376,7 +1375,7 @@ function NeedToKnowIE.StringToTable(text, ofs)
             cur = eq+1
         end
 
-        if not text:byte(cur) then 
+        if not text:byte(cur) then
             print("Unexpected end of string")
             return nil,nil
         elseif text:byte(cur) == 123 then -- '{'
@@ -1469,7 +1468,7 @@ function NeedToKnowRMB.BarMenu_ShowNameDialog(self, a1, a2, checked)
     else
         edit:SetScript("OnTextChanged", NeedToKnowRMB.EditBox_Original_OnTextChanged);
     end
-    
+
     edit:SetFocus();
     if ( dialog.variable ~= "ImportExport" ) then
         edit:SetText( barSettings[dialog.variable] );
@@ -1493,19 +1492,19 @@ function NeedToKnowRMB.BarMenu_ChooseName(text, variable)
 end
 
 function MemberDump(v, bIndex, filter, indent, recurse)
-    if v == nil then 
+    if v == nil then
         print("nil")
         return
     elseif type(v) == "table" then
-		if not indent then 
-			indent = " " 
+		if not indent then
+			indent = " "
 			print("members")
 		end
 		for index, value in pairs(v) do
 			if (not filter) or (type(index) == "string" and index:find(filter)) then
 				print(indent, index, value);
-				if (recurse and type(value) == "table") then 
-				    MemberDump(value, nil, nil, indent.." | ",true) 
+				if (recurse and type(value) == "table") then
+				    MemberDump(value, nil, nil, indent.." | ",true)
 				end
 			end
 		end
@@ -1513,7 +1512,7 @@ function MemberDump(v, bIndex, filter, indent, recurse)
         if not indent then indent = "" end
         print(indent,v)
     end
-	
+
 	if type(v) == "table" or not recurse then
 		local mt = getmetatable(v)
 		if ( mt ) then
@@ -1601,7 +1600,7 @@ function NeedToKnow.Sizing_OnUpdate(self)
     -- calculate & set new scale
     local newYScale = group.oldScale * (cursorY/uiScale - group.oldY*group.oldScale) / (self.oldCursorY/uiScale - group.oldY*group.oldScale) ;
     local newScale = max(0.25, newYScale);
-    
+
     -- clamp the scale so the group is a whole number of pixels tall
     local bar1 = _G[group:GetName().."Bar1"]
     local barHeight = bar1:GetHeight()
@@ -1618,10 +1617,10 @@ function NeedToKnow.Sizing_OnUpdate(self)
     -- calculate & set new bar width
     local newWidth = max(50, ((cursorX - self.oldCursorX)/uiScale + self.oldWidth * group.oldScale)/newScale);
     NeedToKnow.SetWidth(groupID, newWidth);
-    
+
 end
 
-function NeedToKnow.SetWidth(groupID, width)    
+function NeedToKnow.SetWidth(groupID, width)
     for barID = 1, NeedToKnow.ProfileSettings.Groups[groupID]["NumberBars"] do
         local bar = _G["NeedToKnow_Group"..groupID.."Bar"..barID];
         local background = _G[bar:GetName().."Background"];

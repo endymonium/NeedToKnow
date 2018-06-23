@@ -1,8 +1,8 @@
-﻿--[[ 
+﻿--[[
 
-If you want to be super helpful, you can translate this stuff into whatever non-enUS language you happen to know and we'll credit you.  Please post the translations as a ticket on CurseForge.com (http://wow.curseforge.com/addons/need-to-know/tickets/) or email them to us (lieandswell@yahoo.com). 
+If you want to be super helpful, you can translate this stuff into whatever non-enUS language you happen to know and we'll credit you.  Please post the translations as a ticket on CurseForge.com (http://wow.curseforge.com/addons/need-to-know/tickets/) or email them to us (lieandswell@yahoo.com).
 
-Thanks a bunch!  
+Thanks a bunch!
 
 --]]
 
@@ -15,7 +15,7 @@ NEEDTOKNOW.SPELL_POWER_PRIMARY = -1002
 
 -- Seems like this should already exist somewhere
 -- Strings come from the chart on http://www.wowwiki.com/WoW_constants
-NEEDTOKNOW.ITEM_NAMES = 
+NEEDTOKNOW.ITEM_NAMES =
 {
     HEADSLOT,
     NECKSLOT,
@@ -139,7 +139,7 @@ NEEDTOKNOW.ITEM_NAMES =
     NEEDTOKNOW.CMD_HIDE = "hide";
     NEEDTOKNOW.CMD_PROFILE = "profile";
     NEEDTOKNOW.CMD_SHOW = "show";
-    NEEDTOKNOW.BARMENU_TIMEFORMAT = "Time Format"; 
+    NEEDTOKNOW.BARMENU_TIMEFORMAT = "Time Format";
     NEEDTOKNOW.FMT_SINGLEUNIT = "Single unit (2 m)";
     NEEDTOKNOW.FMT_TWOUNITS = "Minutes and seconds (01:10)";
     NEEDTOKNOW.FMT_FLOAT = "Fractional Seconds (70.1)";
@@ -154,12 +154,12 @@ NEEDTOKNOW.ITEM_NAMES =
     NEEDTOKNOW.BUFFCD_DURATION_DIALOG = "Enter the cooldown duration triggered by the buffs watched by this bar.";
     NEEDTOKNOW.BUFFCD_RESET_DIALOG = "Enter the buff (or buffs) to watch for which reset the cooldown to 0.";
     NEEDTOKNOW.USABLE_DURATION_DIALOG = "Enter the cooldown duration triggered by the abilities watched by this bar.";
-    
+
 
 -- replace with translations, if available
 if ( GetLocale() == "deDE" ) then
     -- by sp00n and Fxfighter EU-Echsenkessel
-    NEEDTOKNOW.BAR_TOOLTIP1 = "NeedToKnow"; 
+    NEEDTOKNOW.BAR_TOOLTIP1 = "NeedToKnow";
     NEEDTOKNOW.BAR_TOOLTIP2 = "Rechtsklick auf einen Balken für Einstellungen. Mehr Optionen sind im Blizzard Interface vorhanden. Zum Festsetzen und Aktivieren /needtoknow oder /ntk eingeben.";
     NEEDTOKNOW.RESIZE_TOOLTIP = "Klicken und ziehen, um die Größe zu ändern";
     NEEDTOKNOW.BARMENU_ENABLE = "Leiste aktivieren";
@@ -193,7 +193,7 @@ if ( GetLocale() == "deDE" ) then
     NEEDTOKNOW.UIPANEL_TOOLTIP_FIXEDDURATION = "Set the maximum length of bars for this group (in seconds).  Leave empty to set dynamically per bar.";
     NEEDTOKNOW.UIPANEL_TOOLTIP_BARTEXTURE = "Die Textur für die Balken auswählen";
     NEEDTOKNOW.CMD_RESET = "reset";
- 
+
 elseif ( GetLocale() == "koKR" ) then
     -- by metalchoir
     NEEDTOKNOW.BAR_TOOLTIP1 = "NeedToKnow";
@@ -231,7 +231,7 @@ elseif ( GetLocale() == "koKR" ) then
     NEEDTOKNOW.UIPANEL_TOOLTIP_FIXEDDURATION = "Set the maximum length of bars for this group (in seconds).  Leave empty to set dynamically per bar.";
     NEEDTOKNOW.UIPANEL_TOOLTIP_BARTEXTURE = "바 ?�스처를 선?�하세요";
     NEEDTOKNOW.CMD_RESET = "초기화";
- 
+
 elseif ( GetLocale() == "ruRU" ) then
     -- by Vlakarados
     NEEDTOKNOW.BAR_TOOLTIP1 = "NeedToKnow";
@@ -363,19 +363,20 @@ function NTK_LocLoader.IsSpellPower(intVarName)
 end
 
 function NTK_LocLoader.FindPowerTypes()
+    -- BFA: globals changed, see https://wow.gamepedia.com/PowerType
     NEEDTOKNOW.POWER_TYPES = {};
-    NEEDTOKNOW.POWER_TYPES[SPELL_POWER_MANA] = MANA
+    NEEDTOKNOW.POWER_TYPES[Enum.PowerType.Mana] = MANA
     NEEDTOKNOW.POWER_TYPES[NEEDTOKNOW.SPELL_POWER_PRIMARY] = NEEDTOKNOW.BARMENU_POWER_PRIMARY
     NEEDTOKNOW.POWER_TYPES[NEEDTOKNOW.SPELL_POWER_STAGGER] = NEEDTOKNOW.BARMENU_POWER_STAGGER
-    NEEDTOKNOW.POWER_TYPES[SPELL_POWER_ALTERNATE_POWER] = NEEDTOKNOW.ALTERNATE_POWER
-    
+    NEEDTOKNOW.POWER_TYPES[Enum.PowerType.Alternate] = NEEDTOKNOW.ALTERNATE_POWER
+
     -- I had found CombatLog_String_PowerType sitting in _G, apparantly added by a blizzard adddon.
     -- However a user had trouble with it not adding Focus, and since it wasn't very public-looking
     -- anyway, I opted to write my own.  I had been hoping to avoid walking all of _G.
     for gkey, gval in pairs(_G) do
         if type(gkey) == "string" and type(gval) == "number" then
     	    local ok, localized = NTK_LocLoader.IsSpellPower(gkey)
-    		if ok then 
+    		if ok then
     		    NEEDTOKNOW.POWER_TYPES[gval] = localized
     		end
     	end
