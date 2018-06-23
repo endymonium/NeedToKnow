@@ -1,11 +1,14 @@
 
+BFA Update
+
+
 --------------------
 NeedToKnow
 by Kitjan
 --------------------
 
 
-NeedToKnow allows you to monitor specific buffs and debuffs of your choosing as timer bars that always appear in a consistent place on your screen in a consistent color.  It's especially useful for monitoring frequently used short-duration buffs and debuffs.  For example, a rogue could configure NeedToKnow to show timer bars for Slice and Dice, Rupture, and their own stack of Deadly Poison VII.  A death knight could use it to track their own diseases on a mob.  NeedToKnow also works with procs and on-use trinkets.  The number, size, position, and appearance of timer bars are all customizable.  
+NeedToKnow allows you to monitor specific buffs and debuffs of your choosing as timer bars that always appear in a consistent place on your screen in a consistent color.  It's especially useful for monitoring frequently used short-duration buffs and debuffs.  For example, a rogue could configure NeedToKnow to show timer bars for Slice and Dice, Rupture, and their own stack of Deadly Poison VII.  A death knight could use it to track their own diseases on a mob.  NeedToKnow also works with procs and on-use trinkets.  The number, size, position, and appearance of timer bars are all customizable.
 
 
 ------------
@@ -14,7 +17,7 @@ Instructions
 
 General options are available in the Blizzard interface options menu.  You can type "/needtoknow" or "/ntk" to lock/unlock the addon.  To configure individual bars, right click them while unlocked.  Bars work while locked.  (The bars should be unlocked the first time you log in with NTK.)
 
-When entering your settings, be careful with your spelling and capitalization.  Also remember that buffs and debuffs sometimes have different names than the items and abilities that apply them.  The Death Knight ability Icy Touch, for example, applies a DoT called Frost Fever.   
+When entering your settings, be careful with your spelling and capitalization.  Also remember that buffs and debuffs sometimes have different names than the items and abilities that apply them.  The Death Knight ability Icy Touch, for example, applies a DoT called Frost Fever.
 
 
 ----------
@@ -27,7 +30,7 @@ Change log
 4.0.02
  - Fixed: Cancelling out of the interface options could cause values set to false to reset to true the next time the profile was loaded
  - Tweaked "boss only" blink bars so that if the target is friendly, NTK will track if anyone in the raid is in combat with a boss
- - Improved the look of the per-bar configuration menu, getting rid of radio button backgrounds 
+ - Improved the look of the per-bar configuration menu, getting rid of radio button backgrounds
  - Improved the usability of the equipment slot feature, changing the buff/debuff name into a submenu when equipment slot is chosen
  - New feature: Import/Export bar settings. This allows settings to be copy and pasted between bars, or shared between users, or with me as tech support. This replaces the old "clear settings" menu option. To clear the settings now, just blank out the import/export string.
 
@@ -38,7 +41,7 @@ Change log
  -Major update to support profiles
  - Greatly improved the UI for selecting fonts and bar textures
  - New bar type: Equipment slot
- - Increased the maximum bars per group 
+ - Increased the maximum bars per group
  - Reduced the minimum bar scale to 25%, allowing for very thin bars
  - Updated toc for 4.3
 
@@ -54,7 +57,7 @@ Change log
 - Added some sanity checks around weapon imbues. Should prevent the lua errors, though the corresponding bars won't work. It'll complain (a lot) in your chat window.
 - Listening to ACTIVE_TALENT_GROUP_CHANGED as well as PLAYER_TALENT_UPDATE
 - Listening to SPELL_UPDATE_COOLDOWN as well as ACTIONBAR_UPDATE_COOLDOWN
-- Fixed: The code that was supposed to stop cooldown bars from disappearing was actually preventing it from detecting cooldown resets sometimes. 
+- Fixed: The code that was supposed to stop cooldown bars from disappearing was actually preventing it from detecting cooldown resets sometimes.
 
 3.2.04
 - Fixed refactoring bug in auto shot bars causing a lua error
@@ -105,7 +108,7 @@ Change log
 - Fixed a LUA error caused by 3.3.5 edit box changes when entering the name of the spell to watch
 
 3.1.2
-- Added zhCN & zhTW localization. Thanks, wowui.cn! 
+- Added zhCN & zhTW localization. Thanks, wowui.cn!
 - Change tooltip anchor to above group
 - Added new options panel: Appearance. Moved texture, font, bar spacing, bar padding, and background color options to it
 - Changed lock/unlock button to config mode / play mode buttons
@@ -114,7 +117,7 @@ Change log
 - Fixed a bug with the double-bar feature when resizing the group. This was done automatically for the main texture before, but not for the second. Now it's done for both, yay.
 - Small memory optimization
 - The second texture gets image and color updated the same time the primary one does, meaning it will update without a /reload
-- Updating the bar appearance was being shortcut if the bar was currently blinking, so had to set the color twice. 
+- Updating the bar appearance was being shortcut if the bar was currently blinking, so had to set the color twice.
 
 3.1.1
 - Fixed: Auto Shot CD reset on every spell cast, not just Auto Shot
@@ -123,8 +126,8 @@ Change log
 - Fixed: All the numeric dialogs in the config menus were using the same help text.
 - New option for buffs/debuffs: Show all stacks. Can be used to watch a category of spells (like HoTs), or to watch procs from Berserker
 - Auto Shot now works as a spell cooldown
-- Fixed bar texturing tiling instead of stretching in 3.3.3 
-- Fixed "infinite" duration buffs not correctly displaying 
+- Fixed bar texturing tiling instead of stretching in 3.3.3
+- Fixed "infinite" duration buffs not correctly displaying
 - Add new bar type: Usable. Designed with Victory Rush in mind.
 
 3.0.3
@@ -135,7 +138,7 @@ Change log
 - Fixed a bug with blink. It defaults to 0.5 alpha and disabled, by the legacy loading code saw the 0.5 and figured it should enable blink. Worked great if you still had old settings, but starting from scratch was a bit of disaster. Sorry new users!
 
 3.0.1
-- Fixed a bug with the "Unit" setting from a buff or debuff bar causing other bar types (like spell cooldown) 
+- Fixed a bug with the "Unit" setting from a buff or debuff bar causing other bar types (like spell cooldown)
 - Removed the display of charges from buff cooldown bars. Easy enough to put back if people miss it, but it surprised me.
 - Fixed a small pef bug: every bar was doing one extra loop checking for the presence of the buff ""
 - If the internal buff cooldown was shorter than the duration of the buff, the bar wouldn't disappear (and the spark would go negative)
@@ -145,7 +148,7 @@ Change log
 - Added new bar type: "internal cooldown" for proc cooldown timers
 - Added new bar type: "spell cooldown" for tracking spell and item cooldown timers
 - Fixed: Temporary weapon enchants now use a substring search. "Poison" will pick up all rogue poisons. This also fixed a lua error that could occur when watching weapon buffs
-- Added: Can show an asterisk when the bar is tracking a spell cast by the player 
+- Added: Can show an asterisk when the bar is tracking a spell cast by the player
 - Improved: Added a blink enable besides just setting the alpha to 0. The alpha thing confused too many people
 - Added more blink options: only in combat, only if boss, and a label for blinking bars
 
@@ -216,7 +219,7 @@ Change log
 -Fixed a small bug with resize button showing
 -Optimized performance slightly
 
-2.4.1 
+2.4.1
 
 -Fixed character restriction on buff names, no accepts up to 255 characters.
 -Added Russian localization
@@ -230,11 +233,11 @@ Change log
 Version 2.2
 -  Added option to show bars with a fixed maximum duration
 -  Fixed an issue with targetoftarget
--  Added koKR localization.  Thanks, metalchoir! 
--  Added deDE localization.  Thanks, sp00n & Fxfighter! 
+-  Added koKR localization.  Thanks, metalchoir!
+-  Added deDE localization.  Thanks, sp00n & Fxfighter!
 
 Version 2.1
--  Updated for WoW 3.1 
+-  Updated for WoW 3.1
 -  Can now track spells cast by player's pet or vehicle
 -  Can now track buffs/debuffs on player's vehicle
 -  Added options for background color, bar spacing, bar padding, bar opacity
@@ -253,7 +256,7 @@ Version 2.0
 -  Bars are now click-through while locked
 -  Reminder icons have been been greatly expanded in functionality and split off into their own addon: TellMeWhen
 -  Cleaner bar graphics
--  Users of older versions will need to re-enter settings 
+-  Users of older versions will need to re-enter settings
 
 Version 1.2
 -  Updated for WoW 2.4 API changes
@@ -263,11 +266,11 @@ Version 1.1.1
 -  Reset button should now work properly when you first use the AddOn.
 
 Version 1.1
--  Icons will now show when reactive abilities (Riposte, Execute, etc.) are available.  
--  Added options for bar color and texture.  
--  Added graphical user interface.  Most slash commands gone.  
--  Added localization support.  Translations would be much appreciated.  
--  Users of older version will need to re-enter settings.  
+-  Icons will now show when reactive abilities (Riposte, Execute, etc.) are available.
+-  Added options for bar color and texture.
+-  Added graphical user interface.  Most slash commands gone.
+-  Added localization support.  Translations would be much appreciated.
+-  Users of older version will need to re-enter settings.
 
 Version 1.0
 -  Hello world!
