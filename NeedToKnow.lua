@@ -1459,7 +1459,7 @@ function NeedToKnow.Bar_Update(groupID, barID)
             bar.spells = {}
             bar.cd_functions = {}
             local iSpell = 0
-            for barSpell in bar.auraName:gmatch("([^,]+)") do
+            for barSpell in bar.auraName:gmatch("([^;]+)") do
                 iSpell = iSpell+1
                 barSpell = strtrim(barSpell)
                 local _, nDigits = barSpell:find("^-?%d+")
@@ -1472,7 +1472,7 @@ function NeedToKnow.Bar_Update(groupID, barID)
 
             -- split the user name overrides
             bar.spell_names = {}
-            for un in barSettings.show_text_user:gmatch("([^,]+)") do
+            for un in barSettings.show_text_user:gmatch("([^;]+)") do
                 un = strtrim(un)
                 table.insert(bar.spell_names, un)
             end
@@ -1482,7 +1482,7 @@ function NeedToKnow.Bar_Update(groupID, barID)
                 bar.reset_spells = {}
                 bar.reset_start = {}
                 iSpell = 0
-                for resetSpell in barSettings.buffcd_reset_spells:gmatch("([^,]+)") do
+                for resetSpell in barSettings.buffcd_reset_spells:gmatch("([^;]+)") do
                     iSpell = iSpell+1
                     resetSpell = strtrim(resetSpell)
                     local _, nDigits = resetSpell:find("^%d+")
@@ -1519,6 +1519,7 @@ function NeedToKnow.Bar_Update(groupID, barID)
             elseif "CASTCD" == barSettings.BuffOrDebuff then
                 bar.fnCheck = mfn_AuraCheck_CASTCD
                 for idx, entry in ipairs(bar.spells) do
+                    print("bla", entry.name)
                     table.insert(bar.cd_functions, mfn_GetSpellCooldown)
                     NeedToKnow.SetupSpellCooldown(bar, entry)
                 end
@@ -1628,13 +1629,6 @@ function NeedToKnow.SetScripts(bar)
         bar:RegisterEvent("SPELL_UPDATE_COOLDOWN")
     elseif ( "EQUIPSLOT" == bar.settings.BuffOrDebuff ) then
         bar:RegisterEvent("ACTIONBAR_UPDATE_COOLDOWN")
-    -- elseif ( "POWER" == bar.settings.BuffOrDebuff ) then
-    --     if bar.settings.AuraName == tostring(NEEDTOKNOW.SPELL_POWER_STAGGER) then
-    --       bar:RegisterEvent("UNIT_HEALTH")
-    --     else
-    --       bar:RegisterEvent("UNIT_POWER_UPDATE")
-    --       bar:RegisterEvent("UNIT_DISPLAYPOWER")
-    --     end
     elseif ( "USABLE" == bar.settings.BuffOrDebuff ) then
         bar:RegisterEvent("SPELL_UPDATE_USABLE")
     elseif ( bar.settings.Unit == "targettarget" ) then
