@@ -1519,7 +1519,6 @@ function NeedToKnow.Bar_Update(groupID, barID)
             elseif "CASTCD" == barSettings.BuffOrDebuff then
                 bar.fnCheck = mfn_AuraCheck_CASTCD
                 for idx, entry in ipairs(bar.spells) do
-                    print("bla", entry.name)
                     table.insert(bar.cd_functions, mfn_GetSpellCooldown)
                     NeedToKnow.SetupSpellCooldown(bar, entry)
                 end
