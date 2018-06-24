@@ -509,8 +509,6 @@ function NeedToKnow.ExecutiveFrame_PLAYER_LOGIN()
         NeedToKnow.is_Druid = 1
     end
 
-    NeedToKnowLoader.SetPowerTypeList(player_CLASS)
-
     NeedToKnow_ExecutiveFrame:RegisterEvent("PLAYER_TALENT_UPDATE")
     NeedToKnow_ExecutiveFrame:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
     NeedToKnow_ExecutiveFrame:RegisterEvent("UNIT_TARGET")
@@ -1138,68 +1136,6 @@ function NeedToKnowLoader.SafeUpgrade()
      -- TODO: check the required members for existence and delete any corrupted profiles
 end
 
-
-function NeedToKnowLoader.AddSpellCost(sid, powerTypesUsed)
-    local costInfo = g_GetSpellPowerCost(sid)
-	local iCost
-	for iCost =1,table.getn(costInfo) do
-	    local pt = costInfo[iCost].type
-		-- -2 is used as HEALTH for certain self-harming spells
-		if ( pt >= 0 ) then
-		    local n = g_GetSpellInfo(sid)
-			-- print(sid, n, pt)
-			powerTypesUsed[pt] = costInfo[iCost].name;
-		end
-	end
-end
-
-
-function NeedToKnowLoader.SetPowerTypeList(player_CLASS)
-    if player_CLASS == "DRUID" or
-        player_CLASS == "MONK"
-    then
-        table.insert(NeedToKnowRMB.BarMenu_SubMenus.PowerTypeList,
-            { Setting = tostring(NEEDTOKNOW.SPELL_POWER_PRIMARY), MenuText = NeedToKnow.GetPowerName(NEEDTOKNOW.SPELL_POWER_PRIMARY) } )
-    end
-    if player_CLASS == "MONK"
-    then
-        table.insert(NeedToKnowRMB.BarMenu_SubMenus.PowerTypeList,
-            { Setting = tostring(NEEDTOKNOW.SPELL_POWER_STAGGER), MenuText = NeedToKnow.GetPowerName(NEEDTOKNOW.SPELL_POWER_STAGGER) } )
-    end
-
-	local powerTypesUsed = {}
-
-    local numTabs = g_GetNumSpellTabs()
-	for iTab=1,numTabs do
-	    local _,_,offset,numSpells = g_GetSpellTabInfo(iTab)
-	    for iSpell=1,numSpells do
-		    local stype,sid = g_GetSpellBookItemInfo(iSpell+offset, "book")
-			-- print(iTab, iSpell, stype, sid)
-			if (stype=="SPELL" or stype=="FUTURESPELL") then
-			    NeedToKnowLoader.AddSpellCost(sid, powerTypesUsed);
-			end
-		end
-	end
-
-	local nSpecs = g_GetNumSpecializations()
-	for iSpec=1,nSpecs do
-	    local spells = {g_GetSpecializationSpells(iSpec)}
-		local numSpells = table.getn(spells)
-		for iSpell=1,numSpells,2 do
-		    local sid = spells[iSpell]
-			NeedToKnowLoader.AddSpellCost(sid, powerTypesUsed);
-		end
-	end
-
-	for pt,ptn in pairs(powerTypesUsed) do
-        table.insert(NeedToKnowRMB.BarMenu_SubMenus.PowerTypeList,
-            { Setting = tostring(pt), MenuText = NeedToKnow.GetPowerName(pt) } )
-	end
-end
-
-
-
-
 function NeedToKnow.DeepCopy(object)
     if type(object) ~= "table" then
         return object
@@ -1692,13 +1628,13 @@ function NeedToKnow.SetScripts(bar)
         bar:RegisterEvent("SPELL_UPDATE_COOLDOWN")
     elseif ( "EQUIPSLOT" == bar.settings.BuffOrDebuff ) then
         bar:RegisterEvent("ACTIONBAR_UPDATE_COOLDOWN")
-    elseif ( "POWER" == bar.settings.BuffOrDebuff ) then
-        if bar.settings.AuraName == tostring(NEEDTOKNOW.SPELL_POWER_STAGGER) then
-          bar:RegisterEvent("UNIT_HEALTH")
-        else
-          bar:RegisterEvent("UNIT_POWER")
-          bar:RegisterEvent("UNIT_DISPLAYPOWER")
-        end
+    -- elseif ( "POWER" == bar.settings.BuffOrDebuff ) then
+    --     if bar.settings.AuraName == tostring(NEEDTOKNOW.SPELL_POWER_STAGGER) then
+    --       bar:RegisterEvent("UNIT_HEALTH")
+    --     else
+    --       bar:RegisterEvent("UNIT_POWER_UPDATE")
+    --       bar:RegisterEvent("UNIT_DISPLAYPOWER")
+    --     end
     elseif ( "USABLE" == bar.settings.BuffOrDebuff ) then
         bar:RegisterEvent("SPELL_UPDATE_USABLE")
     elseif ( bar.settings.Unit == "targettarget" ) then
@@ -3064,7 +3000,7 @@ EDT["ACTIONBAR_UPDATE_COOLDOWN"] = mfn_Bar_AuraCheck
 EDT["SPELL_UPDATE_COOLDOWN"] = mfn_Bar_AuraCheck
 EDT["SPELL_UPDATE_USABLE"] = mfn_Bar_AuraCheck
 EDT["UNIT_AURA"] = fnAuraCheckIfUnitMatches
-EDT["UNIT_POWER"] = fnAuraCheckIfUnitMatches
+-- EDT["UNIT_POWER_UPDATE"] = fnAuraCheckIfUnitMatches
 EDT["UNIT_DISPLAYPOWER"] = fnAuraCheckIfUnitMatches
 EDT["UNIT_HEALTH"] = mfn_Bar_AuraCheck
 EDT["PLAYER_TARGET_CHANGED"] = function(self, unit)
@@ -3116,11 +3052,10 @@ function NeedToKnow.Bar_OnEvent(self, event, unit, ...)
     end
 end
 
-function NeedToKnow.GetPowerName(pt)
-    local name = NEEDTOKNOW.POWER_TYPES[pt]
-	if not name then
-	    print("NeedToKnow: Could not find power", pt)
-	    return tostring(pt)
-	end
-	return name
+function NeedToKnow.GetPowerName(idx)
+    for k,v in pairs(Enum.PowerType) do
+        if v == idx then
+            return k
+        end
+    end
 end

@@ -741,7 +741,7 @@ NeedToKnowRMB.BarMenu_SubMenus = {
 -- The code that drives it remains so that any existing users' bars won't break.
 --          { Setting = "USABLE", MenuText = NEEDTOKNOW.BARMENU_USABLE },
           { Setting = "EQUIPSLOT", MenuText = NEEDTOKNOW.BARMENU_EQUIPSLOT },
-          { Setting = "POWER", MenuText = NEEDTOKNOW.BARMENU_POWER }
+        --   { Setting = "POWER", MenuText = NEEDTOKNOW.BARMENU_POWER }
     },
     TimeFormat = {
           { Setting = "Fmt_SingleUnit", MenuText = NEEDTOKNOW.FMT_SINGLEUNIT },
@@ -787,11 +787,11 @@ NeedToKnowRMB.BarMenu_SubMenus = {
     {
         { VariableName = "append_cd", MenuText = "Append \"CD\"" }, -- LOCME
     },
-    Opt_POWER =
-    {
-      { VariableName = "Unit", MenuText = NEEDTOKNOW.BARMENU_CHOOSEUNIT, Type = "Submenu" },
-      { VariableName = "power_sole", MenuText = "Only Show When Primary" }, -- LOCME
-    },
+    -- Opt_POWER =
+    -- {
+    --   { VariableName = "Unit", MenuText = NEEDTOKNOW.BARMENU_CHOOSEUNIT, Type = "Submenu" },
+    --   { VariableName = "power_sole", MenuText = "Only Show When Primary" }, -- LOCME
+    -- },
     Opt_BUFFCD =
     {
         { VariableName = "buffcd_duration", MenuText = "Cooldown duration...", Type = "Dialog", DialogText = "BUFFCD_DURATION_DIALOG", Numeric=true },
@@ -825,9 +825,6 @@ NeedToKnowRMB.BarMenu_SubMenus = {
         { Setting = "18", MenuText = NEEDTOKNOW.ITEM_NAMES[18] },
         { Setting = "19", MenuText = NEEDTOKNOW.ITEM_NAMES[19] },
     },
-    PowerTypeList =
-    {
-    },
     VisualCastTime = {
         { VariableName = "vct_enabled", MenuText = NEEDTOKNOW.BARMENU_VCT_ENABLE },
         { VariableName = "vct_color", MenuText = NEEDTOKNOW.BARMENU_VCT_COLOR, Type = "Color" },
@@ -859,7 +856,6 @@ NeedToKnowRMB.VariableRedirects =
 {
   DebuffUnit = "Unit",
   EquipmentSlotList = "AuraName",
-  PowerTypeList = "AuraName",
 }
 
 function NeedToKnowRMB.ShowMenu(bar)
@@ -1147,8 +1143,6 @@ function NeedToKnowRMB.BarMenu_UpdateSettings(barSettings)
         button = NeedToKnowRMB.BarMenu_GetItem(1, "AuraName");
         if ( button ) then
             button.oldvalue = button.value
-        else
-            button = NeedToKnowRMB.BarMenu_GetItem(1, "PowerTypeList")
         end
         if ( button ) then
             local arrow = _G[button:GetName().."ExpandArrow"]
@@ -1158,24 +1152,9 @@ function NeedToKnowRMB.BarMenu_UpdateSettings(barSettings)
             button:SetText(NEEDTOKNOW.BARMENU_CHOOSESLOT)
             -- TODO: really should disable the button press verb somehow
         end
-    elseif ( type == "POWER" ) then
-        button = NeedToKnowRMB.BarMenu_GetItem(1, "AuraName");
-        if ( button ) then
-          button.oldvalue = button.value
-        else
-            button = NeedToKnowRMB.BarMenu_GetItem(1, "EquipmentSlotList")
-        end
-        if ( button ) then
-            local arrow = _G[button:GetName().."ExpandArrow"]
-            arrow:Show();
-            button.hasArrow = true
-            button.value = "PowerTypeList"
-            button:SetText(NEEDTOKNOW.BARMENU_CHOOSEPOWER)
-            -- TODO: really should disable the button press verb somehow
-        end
     else
         button = NeedToKnowRMB.BarMenu_GetItem(1, "EquipmentSlotList");
-        if not button then button = NeedToKnowRMB.BarMenu_GetItem(1, "PowerTypeList") end
+        -- if not button then button = NeedToKnowRMB.BarMenu_GetItem(1, "PowerTypeList") end
         if ( button ) then
             local arrow = _G[button:GetName().."ExpandArrow"]
             arrow:Hide();
