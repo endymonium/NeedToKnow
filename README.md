@@ -6,7 +6,10 @@ For original readme see [readme.txt](https://github.com/endymonium/NeedToKnow/bl
 
 ## Notable changes
 
-BFA API changes: [official forum](https://us.battle.net/forums/en/wow/topic/20762318007?page=1).
+BFA API changes:
+
+* [official forum](https://us.battle.net/forums/en/wow/topic/20762318007?page=1)
+* [wow.gamepedia.com](https://wow.gamepedia.com/Patch_8.0.1/API_changes)
 
 ### Fixed
 
