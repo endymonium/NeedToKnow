@@ -359,7 +359,8 @@ function NeedToKnow.ExecutiveFrame_OnEvent(self, event, ...)
 end
 
 function NeedToKnow.ExecutiveFrame_UNIT_SPELLCAST_SENT(unit, spell, rank_str, tgt, serialno)
-    if unit == "player" then
+    -- spell is nil when you mount up as death knight, but not as any other class ... ??
+    if unit == "player" and spell then
         -- TODO: I hate to pay this memory cost for every "spell" ever cast.
         --       Would be nice to at least garbage collect this data at some point, but that
         --       may add more overhead than just keeping track of 100 spells.
