@@ -8,22 +8,22 @@ local GetActiveTalentGroup = _G.GetActiveSpecGroup
 local LSM = LibStub("LibSharedMedia-3.0", true);
 local textureList = LSM:List("statusbar");
 local fontList = LSM:List("font");
-local NeedToKnow_OldProfile = nil;
-local NeedToKnow_OldSettings = nil;
+local TimerBars_OldProfile = nil;
+local TimerBars_OldSettings = nil;
 
-NeedToKnowOptions = {}
-NeedToKnowRMB = {}
+TimerBarsOptions = {}
+TimerBarsRMB = {}
 
-function NeedToKnow.FindProfileByName(profName)
+function TimerBars.FindProfileByName(profName)
     local key
-    for k,t in pairs(NeedToKnow_Profiles) do
+    for k,t in pairs(TimerBars_Profiles) do
         if t.name == profName then
             return k
         end
     end
 end
 
-function NeedToKnow.SlashCommand(cmd)
+function TimerBars.SlashCommand(cmd)
     local args = {}
     for arg in cmd:gmatch("(%S+)") do
         table.insert(args, arg)
@@ -33,48 +33,48 @@ function NeedToKnow.SlashCommand(cmd)
     table.remove(args,1)
 
     if not cmd then
-        NeedToKnow.LockToggle();
+        TimerBars.LockToggle();
     elseif ( cmd == NEEDTOKNOW.CMD_RESET ) then
-        NeedToKnow.Reset();
+        TimerBars.Reset();
     elseif ( cmd == NEEDTOKNOW.CMD_SHOW ) then
-        NeedToKnow.Show(true);
+        TimerBars.Show(true);
     elseif ( cmd == NEEDTOKNOW.CMD_HIDE ) then
-        NeedToKnow.Show(false);
+        TimerBars.Show(false);
     elseif ( cmd == NEEDTOKNOW.CMD_PROFILE ) then
         if args[1] then
             local profileName = table.concat(args, " ")
-            local key = NeedToKnow.FindProfileByName( profileName )
+            local key = TimerBars.FindProfileByName( profileName )
             if key then
-                NeedToKnow.ChangeProfile(key)
-                NeedToKnowOptions.UIPanel_Profile_Update()
+                TimerBars.ChangeProfile(key)
+                TimerBarsOptions.UIPanel_Profile_Update()
             else
                 print("Could not find a profile named '",profileName,"'");
             end
         else
             local spec = GetActiveTalentGroup()
-            local profile = NeedToKnow.CharSettings.Specs[spec]
-            print("Current NeedToKnow profile is \""..profile.."\"") -- LOCME!
+            local profile = TimerBars.CharSettings.Specs[spec]
+            print("Current TimerBars profile is \""..profile.."\"") -- LOCME!
         end
     else
-        print("Unknown NeedToKnow command",cmd)
+        print("Unknown TimerBars command",cmd)
     end
 end
 
-function NeedToKnow.LockToggle(bLock)
+function TimerBars.LockToggle(bLock)
     if nil == bLock then
-        if NeedToKnow.CharSettings["Locked"] then
+        if TimerBars.CharSettings["Locked"] then
             bLock = false;
         else
             bLock = true;
         end
     end
 
-    NeedToKnow.Show(true);
+    TimerBars.Show(true);
 
-    if NeedToKnow.CharSettings["Locked"] ~= bLock then
-        NeedToKnow.CharSettings["Locked"] = bLock;
-        NeedToKnow.last_cast = {};
-        NeedToKnow.Update();
+    if TimerBars.CharSettings["Locked"] ~= bLock then
+        TimerBars.CharSettings["Locked"] = bLock;
+        TimerBars.last_cast = {};
+        TimerBars.Update();
     end
 end
 
@@ -83,7 +83,7 @@ end
 -- INTERFACE OPTIONS PANEL: MAIN
 -- -----------------------------
 
-function NeedToKnowOptions.UIPanel_OnLoad(self)
+function TimerBarsOptions.UIPanel_OnLoad(self)
     local panelName = self:GetName();
     local numberbarsLabel = _G[panelName.."NumberbarsLabel"];
     local fixedDurationLabel = _G[panelName.."FixedDurationLabel"];
@@ -95,49 +95,49 @@ function NeedToKnowOptions.UIPanel_OnLoad(self)
     fixedDurationLabel:SetWidth(50);
 end
 
-function NeedToKnowOptions.UIPanel_OnShow()
-    NeedToKnow_OldProfile =NeedToKnow.ProfileSettings;
-    NeedToKnow_OldSettings = CopyTable(NeedToKnow.ProfileSettings);
-    NeedToKnowOptions.UIPanel_Update();
+function TimerBarsOptions.UIPanel_OnShow()
+    TimerBars_OldProfile =TimerBars.ProfileSettings;
+    TimerBars_OldSettings = CopyTable(TimerBars.ProfileSettings);
+    TimerBarsOptions.UIPanel_Update();
 end
 
-function NeedToKnowOptions.UIPanel_Update()
-    local panelName = "InterfaceOptionsNeedToKnowPanel";
+function TimerBarsOptions.UIPanel_Update()
+    local panelName = "InterfaceOptionsTimerBarsPanel";
     if not _G[panelName]:IsVisible() then return end
 
-    local settings = NeedToKnow.ProfileSettings;
+    local settings = TimerBars.ProfileSettings;
 
     for groupID = 1, settings.nGroups do
-        NeedToKnowOptions.GroupEnableButton_Update(groupID);
-        NeedToKnowOptions.NumberbarsWidget_Update(groupID);
+        TimerBarsOptions.GroupEnableButton_Update(groupID);
+        TimerBarsOptions.NumberbarsWidget_Update(groupID);
         _G[panelName.."Group"..groupID.."FixedDurationBox"]:SetText(settings.Groups[groupID]["FixedDuration"] or "");
     end
 end
 
-function NeedToKnowOptions.GroupEnableButton_Update(groupID)
-    local button = _G["InterfaceOptionsNeedToKnowPanelGroup"..groupID.."EnableButton"];
-    button:SetChecked(NeedToKnow.ProfileSettings.Groups[groupID]["Enabled"]);
+function TimerBarsOptions.GroupEnableButton_Update(groupID)
+    local button = _G["InterfaceOptionsTimerBarsPanelGroup"..groupID.."EnableButton"];
+    button:SetChecked(TimerBars.ProfileSettings.Groups[groupID]["Enabled"]);
 end
 
-function NeedToKnowOptions.GroupEnableButton_OnClick(self)
+function TimerBarsOptions.GroupEnableButton_OnClick(self)
     local groupID = self:GetParent():GetID();
     if ( self:GetChecked() ) then
-        if groupID > NeedToKnow.ProfileSettings.nGroups then
-            NeedToKnow.ProfileSettings.nGroups = groupID
+        if groupID > TimerBars.ProfileSettings.nGroups then
+            TimerBars.ProfileSettings.nGroups = groupID
         end
-        NeedToKnow.ProfileSettings.Groups[groupID]["Enabled"] = true;
+        TimerBars.ProfileSettings.Groups[groupID]["Enabled"] = true;
     else
-        NeedToKnow.ProfileSettings.Groups[groupID]["Enabled"] = false;
+        TimerBars.ProfileSettings.Groups[groupID]["Enabled"] = false;
     end
-    NeedToKnow.Update();
+    TimerBars.Update();
 end
 
-function NeedToKnowOptions.NumberbarsWidget_Update(groupID)
-    local widgetName = "InterfaceOptionsNeedToKnowPanelGroup"..groupID.."NumberbarsWidget";
+function TimerBarsOptions.NumberbarsWidget_Update(groupID)
+    local widgetName = "InterfaceOptionsTimerBarsPanelGroup"..groupID.."NumberbarsWidget";
     local text = _G[widgetName.."Text"];
     local leftButton = _G[widgetName.."LeftButton"];
     local rightButton = _G[widgetName.."RightButton"];
-    local numberBars = NeedToKnow.ProfileSettings.Groups[groupID]["NumberBars"];
+    local numberBars = TimerBars.ProfileSettings.Groups[groupID]["NumberBars"];
     text:SetText(numberBars);
     leftButton:Enable();
     rightButton:Enable();
@@ -148,50 +148,50 @@ function NeedToKnowOptions.NumberbarsWidget_Update(groupID)
     end
 end
 
-function NeedToKnowOptions.NumberbarsButton_OnClick(self, increment)
+function TimerBarsOptions.NumberbarsButton_OnClick(self, increment)
     local groupID = self:GetParent():GetParent():GetID();
-    local oldNumber = NeedToKnow.ProfileSettings.Groups[groupID]["NumberBars"];
+    local oldNumber = TimerBars.ProfileSettings.Groups[groupID]["NumberBars"];
     if ( oldNumber == 1 ) and ( increment < 0 ) then
         return;
     elseif ( oldNumber == NEEDTOKNOW.MAXBARS ) and ( increment > 0 ) then
         return;
     end
-    NeedToKnow.ProfileSettings.Groups[groupID]["NumberBars"] = oldNumber + increment;
-    NeedToKnow.Group_Update(groupID);
-    NeedToKnowOptions.NumberbarsWidget_Update(groupID);
+    TimerBars.ProfileSettings.Groups[groupID]["NumberBars"] = oldNumber + increment;
+    TimerBars.Group_Update(groupID);
+    TimerBarsOptions.NumberbarsWidget_Update(groupID);
 end
 
-function NeedToKnowOptions.FixedDurationEditBox_OnTextChanged(self)
+function TimerBarsOptions.FixedDurationEditBox_OnTextChanged(self)
     local enteredText = self:GetText();
     if enteredText == "" then
-        NeedToKnow.ProfileSettings.Groups[self:GetParent():GetID()]["FixedDuration"] = nil;
+        TimerBars.ProfileSettings.Groups[self:GetParent():GetID()]["FixedDuration"] = nil;
     else
-        NeedToKnow.ProfileSettings.Groups[self:GetParent():GetID()]["FixedDuration"] = enteredText;
+        TimerBars.ProfileSettings.Groups[self:GetParent():GetID()]["FixedDuration"] = enteredText;
     end
-    NeedToKnow.Update();
+    TimerBars.Update();
 end
 
-function NeedToKnowOptions.Cancel()
+function TimerBarsOptions.Cancel()
     -- Can't copy the table here since ProfileSettings needs to point to the right place in
-    -- NeedToKnow_Globals.Profiles or in NeedToKnow_CharSettings.Profiles
+    -- TimerBars_Globals.Profiles or in TimerBars_CharSettings.Profiles
 	-- FIXME: This is only restoring a small fraction of the total settings.
-    NeedToKnow.RestoreTableFromCopy(NeedToKnow_OldProfile, NeedToKnow_OldSettings);
+    TimerBars.RestoreTableFromCopy(TimerBars_OldProfile, TimerBars_OldSettings);
     -- FIXME: Close context menu if it's open; it may be referring to bar that doesn't exist
-    NeedToKnow.Update();
+    TimerBars.Update();
 end
 
 
 -- -----------------------------------
 -- INTERFACE OPTIONS PANEL: APPEARANCE
 -- -----------------------------------
-NeedToKnowOptions.DefaultSelectedColor =   { 0.1, 0.6, 0.8, 1 }
-NeedToKnowOptions.DefaultNormalColor = { 0.7, 0.7, 0.7, 0 }
+TimerBarsOptions.DefaultSelectedColor =   { 0.1, 0.6, 0.8, 1 }
+TimerBarsOptions.DefaultNormalColor = { 0.7, 0.7, 0.7, 0 }
 
-function NeedToKnowOptions.UIPanel_Appearance_OnLoad(self)
+function TimerBarsOptions.UIPanel_Appearance_OnLoad(self)
     self.name = NEEDTOKNOW.UIPANEL_APPEARANCE;
-    self.parent = "NeedToKnow"
-    self.default = NeedToKnow.ResetCharacter
-    self.cancel = NeedToKnowOptions.Cancel
+    self.parent = "TimerBars"
+    self.default = TimerBars.ResetCharacter
+    self.cancel = TimerBarsOptions.Cancel
     -- need different way to handle cancel?  users might open appearance panel without opening main panel
     InterfaceOptions_AddCategory(self)
 
@@ -199,32 +199,32 @@ function NeedToKnowOptions.UIPanel_Appearance_OnLoad(self)
     _G[panelName.."Version"]:SetText(NEEDTOKNOW.VERSION)
     _G[panelName.."SubText1"]:SetText(NEEDTOKNOW.UIPANEL_APPEARANCE_SUBTEXT1)
 
-    self.Textures.fnClick = NeedToKnowOptions.OnClickTextureItem
+    self.Textures.fnClick = TimerBarsOptions.OnClickTextureItem
     self.Textures.configure = function(i, btn, label)
-        btn.Bg:SetTexture(NeedToKnow.LSM:Fetch("statusbar",label))
+        btn.Bg:SetTexture(TimerBars.LSM:Fetch("statusbar",label))
     end
-    self.Textures.List.update = NeedToKnowOptions.UpdateBarTextureDropDown
+    self.Textures.List.update = TimerBarsOptions.UpdateBarTextureDropDown
     self.Textures.normal_color =  { 0.7, 0.7, 0.7, 1 }
 
-    self.Fonts.fnClick = NeedToKnowOptions.OnClickFontItem
+    self.Fonts.fnClick = TimerBarsOptions.OnClickFontItem
     self.Fonts.configure = function(i, btn, label)
-        local fontPath = NeedToKnow.LSM:Fetch("font",label)
+        local fontPath = TimerBars.LSM:Fetch("font",label)
         btn.text:SetFont(fontPath, 12)
-        btn.Bg:SetTexture(NeedToKnow.LSM:Fetch("statusbar","Minimalist"))
+        btn.Bg:SetTexture(TimerBars.LSM:Fetch("statusbar","Minimalist"))
     end
-    self.Fonts.List.update = NeedToKnowOptions.UpdateBarFontDropDown
+    self.Fonts.List.update = TimerBarsOptions.UpdateBarFontDropDown
 
     _G[panelName.."TexturesTitle"]:SetText("Texture:") -- LOCME
     _G[panelName.."FontsTitle"]:SetText("Font:") -- LOCME
 end
 
-function NeedToKnowOptions.UIPanel_Appearance_OnShow(self)
-    NeedToKnowOptions.UIPanel_Appearance_Update();
+function TimerBarsOptions.UIPanel_Appearance_OnShow(self)
+    TimerBarsOptions.UIPanel_Appearance_Update();
 
     -- todo: Cache this? Update needs it to
     local idxCurrent = 1
     for i = 1, #textureList do
-        if NeedToKnow.ProfileSettings["BarTexture"] == textureList[i] then
+        if TimerBars.ProfileSettings["BarTexture"] == textureList[i] then
             idxCurrent = i
             break;
         end
@@ -237,7 +237,7 @@ function NeedToKnowOptions.UIPanel_Appearance_OnShow(self)
     HybridScrollFrame_OnMouseWheel(self.Textures.List, 1, 0.1);
 
     for i = 1, #fontList do
-        if NeedToKnow.ProfileSettings["BarFont"] == fontList[i] then
+        if TimerBars.ProfileSettings["BarFont"] == fontList[i] then
             idxCurrent = i
             break;
         end
@@ -250,12 +250,12 @@ function NeedToKnowOptions.UIPanel_Appearance_OnShow(self)
     HybridScrollFrame_OnMouseWheel(self.Fonts.List, 1, 0.1);
 end
 
-function NeedToKnowOptions.UIPanel_Appearance_Update()
-    local panelName = "InterfaceOptionsNeedToKnowAppearancePanel";
+function TimerBarsOptions.UIPanel_Appearance_Update()
+    local panelName = "InterfaceOptionsTimerBarsAppearancePanel";
     local panel = _G[panelName]
     if not panel or not panel:IsVisible() then return end
 
-    local settings = NeedToKnow.ProfileSettings;
+    local settings = TimerBars.ProfileSettings;
     local barSpacingSlider = _G[panelName.."BarSpacingSlider"];
     local barPaddingSlider = _G[panelName.."BarPaddingSlider"];
     local fontSizeSlider = _G[panelName.."FontSizeSlider"];
@@ -278,19 +278,19 @@ function NeedToKnowOptions.UIPanel_Appearance_Update()
     fontOutlineSlider:SetValue(settings.FontOutline);
     fontOutlineSlider:SetValueStep(1);
 
-    NeedToKnowOptions.UpdateBarTextureDropDown(_G[panelName.."Textures"]);
-    NeedToKnowOptions.UpdateBarFontDropDown(_G[panelName.."Fonts"]);
+    TimerBarsOptions.UpdateBarTextureDropDown(_G[panelName.."Textures"]);
+    TimerBarsOptions.UpdateBarFontDropDown(_G[panelName.."Fonts"]);
 end
 
 -- -----------------------------------
 -- INTERFACE OPTIONS PANEL: PROFILE
 -- -----------------------------------
 
-function NeedToKnowOptions.UIPanel_Profile_OnLoad(self)
+function TimerBarsOptions.UIPanel_Profile_OnLoad(self)
     self.name = NEEDTOKNOW.UIPANEL_PROFILE;
-    self.parent = "NeedToKnow";
-    self.default = NeedToKnow.ResetCharacter;
-    ---- self.cancel = NeedToKnow.Cancel;
+    self.parent = "TimerBars";
+    self.default = TimerBars.ResetCharacter;
+    ---- self.cancel = TimerBars.Cancel;
     ---- need different way to handle cancel?  users might open appearance panel without opening main panel
     InterfaceOptions_AddCategory(self);
 
@@ -299,32 +299,32 @@ function NeedToKnowOptions.UIPanel_Profile_OnLoad(self)
     _G[panelName.."SubText1"]:SetText(NEEDTOKNOW.UIPANEL_PROFILES_SUBTEXT1);
 
     self.Profiles.configure = function(i, btn, label)
-        btn.Bg:SetTexture(NeedToKnow.LSM:Fetch("statusbar","Minimalist"))
+        btn.Bg:SetTexture(TimerBars.LSM:Fetch("statusbar","Minimalist"))
     end
-    self.Profiles.List.update = NeedToKnowOptions.UpdateProfileList
+    self.Profiles.List.update = TimerBarsOptions.UpdateProfileList
     self.Profiles.fnClick = function(self)
         local scrollPanel = self:GetParent():GetParent():GetParent()
         scrollPanel.curSel = self.text:GetText()
-        NeedToKnowOptions.UpdateProfileList()
+        TimerBarsOptions.UpdateProfileList()
     end
 end
 
-function NeedToKnowOptions.UIPanel_Profile_OnShow(self)
-    NeedToKnowOptions.RebuildProfileList(self)
-    NeedToKnowOptions.UIPanel_Profile_Update();
+function TimerBarsOptions.UIPanel_Profile_OnShow(self)
+    TimerBarsOptions.RebuildProfileList(self)
+    TimerBarsOptions.UIPanel_Profile_Update();
 end
 
-function NeedToKnowOptions.UIPanel_Profile_Update()
-    local panelName = "InterfaceOptionsNeedToKnowProfilePanel";
+function TimerBarsOptions.UIPanel_Profile_Update()
+    local panelName = "InterfaceOptionsTimerBarsProfilePanel";
     local title
 	-- FIXME: Use GetSpecializationInfoForClassID(UnitClass("player"), GetSpecialization()) instead of primary
     _G[panelName.."ProfilesTitle"]:SetText(NEEDTOKNOW.UIPANEL_CURRENTPRIMARY)
     local self = _G[panelName]
     if not self:IsVisible() then return end
-    NeedToKnowOptions.UpdateProfileList()
+    TimerBarsOptions.UpdateProfileList()
 end
 
-function NeedToKnowOptions.RebuildProfileList(profilePanel)
+function TimerBarsOptions.RebuildProfileList(profilePanel)
     local scrollPanel = profilePanel.Profiles
     local oldKey
     if ( scrollPanel.curSel and scrollPanel.profileMap ) then
@@ -340,12 +340,12 @@ function NeedToKnowOptions.RebuildProfileList(profilePanel)
     local allRefs = scrollPanel.profileMap
 
     local n = 0
-    local subList = NeedToKnow_Profiles
+    local subList = TimerBars_Profiles
     if subList then
         for profKey, rProfile in pairs(subList) do
             n = n + 1
             local profName
-            if NeedToKnow_Globals.Profiles[profKey] == rProfile then
+            if TimerBars_Globals.Profiles[profKey] == rProfile then
                 profName = 'Account: '..rProfile.name -- FIXME Localization
             else
                 profName = 'Character: '..rProfile.name -- Fixme: Character-Server:
@@ -362,15 +362,15 @@ function NeedToKnowOptions.RebuildProfileList(profilePanel)
     end
 
     table.sort(allNames, function(lhs,rhs) return string.upper(lhs)<string.upper(rhs) end )
-    NeedToKnowOptions.UpdateProfileList()
+    TimerBarsOptions.UpdateProfileList()
 end
 
-function NeedToKnowOptions.IsProfileNameAvailable(newName)
+function TimerBarsOptions.IsProfileNameAvailable(newName)
     if not newName or newName == "" then
         return false;
     end
 
-    for k, profile in pairs(NeedToKnow_Profiles) do
+    for k, profile in pairs(TimerBars_Profiles) do
         if profile.name == newName then
             return false;
         end
@@ -378,13 +378,13 @@ function NeedToKnowOptions.IsProfileNameAvailable(newName)
     return true;
 end
 
-function NeedToKnowOptions.UpdateProfileList()
-    local panel = _G["InterfaceOptionsNeedToKnowProfilePanel"]
+function TimerBarsOptions.UpdateProfileList()
+    local panel = _G["InterfaceOptionsTimerBarsProfilePanel"]
     local scrollPanel = panel.Profiles
     if scrollPanel.profileNames then
         local curProfile
         for n,r in pairs(scrollPanel.profileMap) do
-            if r.ref == NeedToKnow.ProfileSettings then
+            if r.ref == TimerBars.ProfileSettings then
                 curProfile = n
                 break;
             end
@@ -395,7 +395,7 @@ function NeedToKnowOptions.UpdateProfileList()
         end
         local curSel = scrollPanel.curSel
 
-        NeedToKnowOptions.UpdateScrollPanel(scrollPanel, scrollPanel.profileNames, curSel, curProfile)
+        TimerBarsOptions.UpdateScrollPanel(scrollPanel, scrollPanel.profileNames, curSel, curProfile)
 
         local optionsPanel = scrollPanel:GetParent()
         if curSel == curProfile then
@@ -411,7 +411,7 @@ function NeedToKnowOptions.UpdateProfileList()
         end
 
         local curEntry = optionsPanel.NewName:GetText()
-        if NeedToKnowOptions.IsProfileNameAvailable(curEntry) then
+        if TimerBarsOptions.IsProfileNameAvailable(curEntry) then
             optionsPanel.RenameBtn:Enable()
             optionsPanel.CopyBtn:Enable()
         else
@@ -421,7 +421,7 @@ function NeedToKnowOptions.UpdateProfileList()
 
         local rSelectedProfile = scrollPanel.profileMap[curSel].ref;
         local rSelectedKey = scrollPanel.profileMap[curSel].key;
-        if ( rSelectedProfile and rSelectedKey and NeedToKnow_Globals.Profiles[rSelectedKey] == rSelectedProfile ) then
+        if ( rSelectedProfile and rSelectedKey and TimerBars_Globals.Profiles[rSelectedKey] == rSelectedProfile ) then
             optionsPanel.PrivateBtn:Show();
             optionsPanel.PublicBtn:Hide();
         else
@@ -431,12 +431,12 @@ function NeedToKnowOptions.UpdateProfileList()
     end
 end
 
-function NeedToKnowOptions.UIPanel_Profile_SwitchToSelected(panel)
+function TimerBarsOptions.UIPanel_Profile_SwitchToSelected(panel)
     local scrollPanel = panel.Profiles
     local curSel = scrollPanel.curSel
     if curSel then
-        NeedToKnow.ChangeProfile( scrollPanel.profileMap[curSel].key )
-        NeedToKnowOptions.UpdateProfileList()
+        TimerBars.ChangeProfile( scrollPanel.profileMap[curSel].key )
+        TimerBarsOptions.UpdateProfileList()
     end
 end
 
@@ -455,7 +455,7 @@ StaticPopupDialogs["NEEDTOKNOW.CONFIRMDLG"] = {
         end
     end
 };
-function NeedToKnowOptions.UIPanel_Profile_DeleteSelected(panel)
+function TimerBarsOptions.UIPanel_Profile_DeleteSelected(panel)
     local scrollPanel = panel.Profiles
     local curSel = scrollPanel.curSel
     if curSel then
@@ -463,101 +463,101 @@ function NeedToKnowOptions.UIPanel_Profile_DeleteSelected(panel)
         local dlgInfo = StaticPopupDialogs["NEEDTOKNOW.CONFIRMDLG"]
         dlgInfo.text = "Are you sure you want to delete the profile: ".. curSel .."?"
         dlgInfo.OnAccept = function(self, data)
-            if NeedToKnow_Profiles[k] == NeedToKnow.ProfileSettings then
-                print("NeedToKnow: Won't delete the active profile!")
+            if TimerBars_Profiles[k] == TimerBars.ProfileSettings then
+                print("TimerBars: Won't delete the active profile!")
             else
-                NeedToKnow_Profiles[k] = nil;
-                if NeedToKnow_Globals.Profiles[k] then
-                    print("NeedToKnow: deleted account-wide profile", NeedToKnow_Globals.Profiles[k].name) -- LOCME
-                    NeedToKnow_Globals.Profiles[k] = nil;
-                elseif NeedToKnow_CharSettings.Profiles[k] then
-                    print("NeedToKnow: deleted character profile", NeedToKnow_CharSettings.Profiles[k].name) -- LOCME
-                    NeedToKnow_CharSettings.Profiles[k] = nil;
+                TimerBars_Profiles[k] = nil;
+                if TimerBars_Globals.Profiles[k] then
+                    print("TimerBars: deleted account-wide profile", TimerBars_Globals.Profiles[k].name) -- LOCME
+                    TimerBars_Globals.Profiles[k] = nil;
+                elseif TimerBars_CharSettings.Profiles[k] then
+                    print("TimerBars: deleted character profile", TimerBars_CharSettings.Profiles[k].name) -- LOCME
+                    TimerBars_CharSettings.Profiles[k] = nil;
                 end
-                NeedToKnowOptions.RebuildProfileList(panel)
+                TimerBarsOptions.RebuildProfileList(panel)
             end
         end
         StaticPopup_Show("NEEDTOKNOW.CONFIRMDLG");
     end
 end
 
-function NeedToKnowOptions.UIPanel_Profile_CopySelected(panel)
+function TimerBarsOptions.UIPanel_Profile_CopySelected(panel)
     local scrollPanel = panel.Profiles
     local curSel = scrollPanel.curSel
     local edit = panel.NewName
     local newName = edit:GetText()
     edit:ClearFocus()
-    if scrollPanel.curSel and NeedToKnowOptions.IsProfileNameAvailable(newName) then
-        local keyNew = NeedToKnow.CreateProfile(CopyTable(scrollPanel.profileMap[curSel].ref), nil, newName)
-        NeedToKnow.ChangeProfile(keyNew)
-        NeedToKnowOptions.RebuildProfileList(panel)
+    if scrollPanel.curSel and TimerBarsOptions.IsProfileNameAvailable(newName) then
+        local keyNew = TimerBars.CreateProfile(CopyTable(scrollPanel.profileMap[curSel].ref), nil, newName)
+        TimerBars.ChangeProfile(keyNew)
+        TimerBarsOptions.RebuildProfileList(panel)
         edit:SetText("");
-        print("NeedToKnow: Copied",curSel,"to",newName,"and made it the active profile")
+        print("TimerBars: Copied",curSel,"to",newName,"and made it the active profile")
     end
 end
 
 
-function NeedToKnowOptions.UIPanel_Profile_RenameSelected(panel)
+function TimerBarsOptions.UIPanel_Profile_RenameSelected(panel)
     local scrollPanel = panel.Profiles
     local edit = panel.NewName
     local newName = edit:GetText()
     edit:ClearFocus()
-    if scrollPanel.curSel and NeedToKnowOptions.IsProfileNameAvailable(newName) then
+    if scrollPanel.curSel and TimerBarsOptions.IsProfileNameAvailable(newName) then
         local key = scrollPanel.profileMap[scrollPanel.curSel].key
-        print("NeedToKnow: Renaming profile",NeedToKnow_Profiles[key].name,"to",newName)
-        NeedToKnow_Profiles[key].name = newName;
+        print("TimerBars: Renaming profile",TimerBars_Profiles[key].name,"to",newName)
+        TimerBars_Profiles[key].name = newName;
         edit:SetText("");
-        NeedToKnowOptions.RebuildProfileList(panel)
+        TimerBarsOptions.RebuildProfileList(panel)
     end
 end
 
-function NeedToKnowOptions.UIPanel_Profile_PublicizeSelected(panel)
+function TimerBarsOptions.UIPanel_Profile_PublicizeSelected(panel)
     local scrollPanel = panel.Profiles
     if scrollPanel.curSel then
         local ref = scrollPanel.profileMap[scrollPanel.curSel].ref
         local key = scrollPanel.profileMap[scrollPanel.curSel].key
-        NeedToKnow_Globals.Profiles[key] = ref
-        NeedToKnow_CharSettings.Profiles[key] = nil
-        NeedToKnowOptions.RebuildProfileList(panel)
+        TimerBars_Globals.Profiles[key] = ref
+        TimerBars_CharSettings.Profiles[key] = nil
+        TimerBarsOptions.RebuildProfileList(panel)
     end
 end
 
-function NeedToKnowOptions.UIPanel_Profile_PrivatizeSelected(panel)
+function TimerBarsOptions.UIPanel_Profile_PrivatizeSelected(panel)
     local scrollPanel = panel.Profiles
     if scrollPanel.curSel then
         local ref = scrollPanel.profileMap[scrollPanel.curSel].ref
         local key = scrollPanel.profileMap[scrollPanel.curSel].key
-        NeedToKnow_Globals.Profiles[key] = nil
-        NeedToKnow_CharSettings.Profiles[key] = ref
-        NeedToKnowOptions.RebuildProfileList(panel)
+        TimerBars_Globals.Profiles[key] = nil
+        TimerBars_CharSettings.Profiles[key] = ref
+        TimerBarsOptions.RebuildProfileList(panel)
     end
 end
 
 -----
 
-function NeedToKnowOptions.OnClickTextureItem(self)
-    NeedToKnow.ProfileSettings["BarTexture"] = self.text:GetText()
-    NeedToKnow.Update()
-    NeedToKnowOptions.UIPanel_Appearance_Update()
+function TimerBarsOptions.OnClickTextureItem(self)
+    TimerBars.ProfileSettings["BarTexture"] = self.text:GetText()
+    TimerBars.Update()
+    TimerBarsOptions.UIPanel_Appearance_Update()
 end
 
 
-function NeedToKnowOptions.OnClickFontItem(self)
-    NeedToKnow.ProfileSettings["BarFont"] = self.text:GetText()
-    NeedToKnow.Update()
-    NeedToKnowOptions.UIPanel_Appearance_Update()
+function TimerBarsOptions.OnClickFontItem(self)
+    TimerBars.ProfileSettings["BarFont"] = self.text:GetText()
+    TimerBars.Update()
+    TimerBarsOptions.UIPanel_Appearance_Update()
 end
 
 
 
-function NeedToKnowOptions.ChooseColor(variable)
+function TimerBarsOptions.ChooseColor(variable)
     info = UIDropDownMenu_CreateInfo();
-    info.r, info.g, info.b, info.opacity = unpack(NeedToKnow.ProfileSettings[variable]);
+    info.r, info.g, info.b, info.opacity = unpack(TimerBars.ProfileSettings[variable]);
     info.opacity = 1 - info.opacity;
     info.hasOpacity = true;
-    info.opacityFunc = NeedToKnowOptions.SetOpacity;
-    info.swatchFunc = NeedToKnowOptions.SetColor;
-    info.cancelFunc = NeedToKnowOptions.CancelColor;
+    info.opacityFunc = TimerBarsOptions.SetOpacity;
+    info.swatchFunc = TimerBarsOptions.SetColor;
+    info.cancelFunc = TimerBarsOptions.CancelColor;
     info.extraInfo = variable;
     -- Not sure if I should leave this state around or not.  It seems like the
     -- correct strata to have it at anyway, so I'm going to leave it there for now
@@ -565,33 +565,33 @@ function NeedToKnowOptions.ChooseColor(variable)
     OpenColorPicker(info);
 end
 
-function NeedToKnowOptions.SetColor()
+function TimerBarsOptions.SetColor()
     local variable = ColorPickerFrame.extraInfo;
     local r,g,b = ColorPickerFrame:GetColorRGB();
-    NeedToKnow.ProfileSettings[variable][1] = r;
-    NeedToKnow.ProfileSettings[variable][2] = g;
-    NeedToKnow.ProfileSettings[variable][3] = b;
-    NeedToKnow.Update();
-    NeedToKnowOptions.UIPanel_Appearance_Update();
+    TimerBars.ProfileSettings[variable][1] = r;
+    TimerBars.ProfileSettings[variable][2] = g;
+    TimerBars.ProfileSettings[variable][3] = b;
+    TimerBars.Update();
+    TimerBarsOptions.UIPanel_Appearance_Update();
 end
 
-function NeedToKnowOptions.SetOpacity()
+function TimerBarsOptions.SetOpacity()
     local variable = ColorPickerFrame.extraInfo;
-    NeedToKnow.ProfileSettings[variable][4] = 1 - OpacitySliderFrame:GetValue();
-    NeedToKnow.Update();
-    NeedToKnowOptions.UIPanel_Appearance_Update();
+    TimerBars.ProfileSettings[variable][4] = 1 - OpacitySliderFrame:GetValue();
+    TimerBars.Update();
+    TimerBarsOptions.UIPanel_Appearance_Update();
 end
 
-function NeedToKnowOptions.CancelColor(previousValues)
+function TimerBarsOptions.CancelColor(previousValues)
     if ( previousValues ) then
         local variable = ColorPickerFrame.extraInfo;
-        NeedToKnow.ProfileSettings[variable] = {previousValues.r, previousValues.g, previousValues.b, previousValues.opacity};
-        NeedToKnow.Update();
-        NeedToKnowOptions.UIPanel_Appearance_Update();
+        TimerBars.ProfileSettings[variable] = {previousValues.r, previousValues.g, previousValues.b, previousValues.opacity};
+        TimerBars.Update();
+        TimerBarsOptions.UIPanel_Appearance_Update();
     end
 end
 
-function NeedToKnowOptions.UIPanel_Appearance_OnSizeChanged(self)
+function TimerBarsOptions.UIPanel_Appearance_OnSizeChanged(self)
     -- Despite my best efforts, the scroll bars insist on being outside the width of their
     local mid = self:GetWidth()/2 --+ _G[self:GetName().."TexturesListScrollBar"]:GetWidth()
     local textures = self.Textures
@@ -603,11 +603,11 @@ function NeedToKnowOptions.UIPanel_Appearance_OnSizeChanged(self)
 end
 
 
-function NeedToKnowOptions.OnScrollFrameSized(self)
+function TimerBarsOptions.OnScrollFrameSized(self)
     local old_value = self.scrollBar:GetValue();
     local scrollFrame = self:GetParent();
 
-    HybridScrollFrame_CreateButtons(self, "NeedToKnowScrollItemTemplate")
+    HybridScrollFrame_CreateButtons(self, "TimerBarsScrollItemTemplate")
     --scrollFrame.Update(scrollFrame)
 
     local max_value = self.range or self:GetHeight()
@@ -617,7 +617,7 @@ function NeedToKnowOptions.OnScrollFrameSized(self)
 end
 
 
-function NeedToKnowOptions.UpdateScrollPanel(panel, list, selected, checked)
+function TimerBarsOptions.UpdateScrollPanel(panel, list, selected, checked)
     local Value = _G[panel:GetName().."Value"]
     Value:SetText(checked)
 
@@ -642,11 +642,11 @@ function NeedToKnowOptions.UpdateScrollPanel(panel, list, selected, checked)
             end
             if ( label == selected ) then
                 local color = panel.selected_color
-                if not color then color = NeedToKnowOptions.DefaultSelectedColor end
+                if not color then color = TimerBarsOptions.DefaultSelectedColor end
                 buttons[i].Bg:SetVertexColor(unpack(color));
             else
                 local color = panel.normal_color
-                if not color then color = NeedToKnowOptions.DefaultNormalColor end
+                if not color then color = TimerBarsOptions.DefaultNormalColor end
                 buttons[i].Bg:SetVertexColor(unpack(color));
             end
 
@@ -657,27 +657,27 @@ function NeedToKnowOptions.UpdateScrollPanel(panel, list, selected, checked)
     end
 end
 
---function NeedToKnowOptions.OnScrollFrameScrolled(self)
+--function TimerBarsOptions.OnScrollFrameScrolled(self)
     --local scrollPanel = self:GetParent()
     --local fn = scrollPanel.Update
     --if fn then fn(scrollPanel) end
 --end
 --
-function NeedToKnowOptions.UpdateBarTextureDropDown()
-    local scrollPanel = _G["InterfaceOptionsNeedToKnowAppearancePanelTextures"]
-    NeedToKnowOptions.UpdateScrollPanel(scrollPanel, textureList, NeedToKnow.ProfileSettings.BarTexture, NeedToKnow.ProfileSettings.BarTexture)
+function TimerBarsOptions.UpdateBarTextureDropDown()
+    local scrollPanel = _G["InterfaceOptionsTimerBarsAppearancePanelTextures"]
+    TimerBarsOptions.UpdateScrollPanel(scrollPanel, textureList, TimerBars.ProfileSettings.BarTexture, TimerBars.ProfileSettings.BarTexture)
 end
 
-function NeedToKnowOptions.UpdateBarFontDropDown()
-    local scrollPanel = _G["InterfaceOptionsNeedToKnowAppearancePanelFonts"]
-    NeedToKnowOptions.UpdateScrollPanel(scrollPanel, fontList, nil, NeedToKnow.ProfileSettings.BarFont)
+function TimerBarsOptions.UpdateBarFontDropDown()
+    local scrollPanel = _G["InterfaceOptionsTimerBarsAppearancePanelFonts"]
+    TimerBarsOptions.UpdateScrollPanel(scrollPanel, fontList, nil, TimerBars.ProfileSettings.BarFont)
 end
 
 -- --------
 -- BAR GUI
 -- --------
 
-NeedToKnowRMB.CurrentBar = { groupID = 1, barID = 1 };        -- a dirty hack, i know.
+TimerBarsRMB.CurrentBar = { groupID = 1, barID = 1 };        -- a dirty hack, i know.
 
 StaticPopupDialogs["NEEDTOKNOW.CHOOSENAME_DIALOG"] = {
     text = NEEDTOKNOW.CHOOSENAME_DIALOG,
@@ -690,7 +690,7 @@ StaticPopupDialogs["NEEDTOKNOW.CHOOSENAME_DIALOG"] = {
         local text = self.editBox:GetText();
         local variable = self.variable;
         if ( nil ~= variable ) then
-            NeedToKnowRMB.BarMenu_ChooseName(text, variable);
+            TimerBarsRMB.BarMenu_ChooseName(text, variable);
         end
     end,
     EditBoxOnEnterPressed = function(self)
@@ -714,7 +714,7 @@ StaticPopupDialogs["NEEDTOKNOW.CHOOSENAME_DIALOG"] = {
     hideOnEscape = 1,
 };
 
-NeedToKnowRMB.BarMenu_MoreOptions = {
+TimerBarsRMB.BarMenu_MoreOptions = {
     { VariableName = "Enabled", MenuText = NEEDTOKNOW.BARMENU_ENABLE },
     { VariableName = "AuraName", MenuText = NEEDTOKNOW.BARMENU_CHOOSENAME, Type = "Dialog", DialogText = "CHOOSENAME_DIALOG" },
     { VariableName = "BuffOrDebuff", MenuText = NEEDTOKNOW.BARMENU_BUFFORDEBUFF, Type = "Submenu" },
@@ -729,7 +729,7 @@ NeedToKnowRMB.BarMenu_MoreOptions = {
     { VariableName = "ImportExport", MenuText = "Import/Export Bar Settings", Type = "Dialog", DialogText = "IMPORTEXPORT_DIALOG" },
 }
 
-NeedToKnowRMB.BarMenu_SubMenus = {
+TimerBarsRMB.BarMenu_SubMenus = {
     -- the keys on this table need to match the settings variable names
     BuffOrDebuff = {
           { Setting = "HELPFUL", MenuText = NEEDTOKNOW.BARMENU_HELPFUL },
@@ -852,35 +852,35 @@ NeedToKnowRMB.BarMenu_SubMenus = {
     },
 };
 
-NeedToKnowRMB.VariableRedirects =
+TimerBarsRMB.VariableRedirects =
 {
   DebuffUnit = "Unit",
   EquipmentSlotList = "AuraName",
 }
 
-function NeedToKnowRMB.ShowMenu(bar)
-    NeedToKnowRMB.CurrentBar["barID"] = bar:GetID();
-    NeedToKnowRMB.CurrentBar["groupID"] = bar:GetParent():GetID();
-    if not NeedToKnowRMB.DropDown then
-        NeedToKnowRMB.DropDown = CreateFrame("Frame", "NeedToKnowDropDown", nil, "NeedToKnow_DropDownTemplate")
+function TimerBarsRMB.ShowMenu(bar)
+    TimerBarsRMB.CurrentBar["barID"] = bar:GetID();
+    TimerBarsRMB.CurrentBar["groupID"] = bar:GetParent():GetID();
+    if not TimerBarsRMB.DropDown then
+        TimerBarsRMB.DropDown = CreateFrame("Frame", "TimerBarsDropDown", nil, "TimerBars_DropDownTemplate")
     end
 
     -- There's no OpenDropDownMenu that forces it to show in the new place,
     -- so we have to check if the first Toggle opened or closed it
-    ToggleDropDownMenu(1, nil, NeedToKnowRMB.DropDown, "cursor", 0, 0);
+    ToggleDropDownMenu(1, nil, TimerBarsRMB.DropDown, "cursor", 0, 0);
     if not DropDownList1:IsShown() then
-        ToggleDropDownMenu(1, nil, NeedToKnowRMB.DropDown, "cursor", 0, 0);
+        ToggleDropDownMenu(1, nil, TimerBarsRMB.DropDown, "cursor", 0, 0);
     end
 end
 
-function NeedToKnowRMB.BarMenu_AddButton(barSettings, i_desc, i_parent)
+function TimerBarsRMB.BarMenu_AddButton(barSettings, i_desc, i_parent)
     info = UIDropDownMenu_CreateInfo();
     local item_type = i_desc["Type"];
     info.text = i_desc["MenuText"];
     local varSettings
     if ( nil ~= i_desc["Setting"]) then
         item_type = "SetVar"
-        local v = NeedToKnowRMB.VariableRedirects[i_parent] or i_parent
+        local v = TimerBarsRMB.VariableRedirects[i_parent] or i_parent
         varSettings = barSettings[v]
     else
         info.value = i_desc["VariableName"];
@@ -907,15 +907,15 @@ function NeedToKnowRMB.BarMenu_AddButton(barSettings, i_desc, i_parent)
     info.hideUnCheck = true; -- but hide the empty checkbox/radio
 
     if ( not item_type and not text and not info.value ) then
-        info.func = NeedToKnowRMB.BarMenu_IgnoreToggle;
+        info.func = TimerBarsRMB.BarMenu_IgnoreToggle;
         info.disabled = true;
     elseif ( nil == item_type or item_type == "Check" ) then
-        info.func = NeedToKnowRMB.BarMenu_ToggleSetting;
+        info.func = TimerBarsRMB.BarMenu_ToggleSetting;
         info.checked = (nil ~= varSettings and varSettings);
         info.hideUnCheck = nil;
         info.isNotRadio = true;
     elseif ( item_type == "SetVar" ) then
-        info.func = NeedToKnowRMB.BarMenu_ChooseSetting;
+        info.func = TimerBarsRMB.BarMenu_ChooseSetting;
         info.value = i_desc["Setting"];
         info.checked = (varSettings == info.value);
         info.hideUnCheck = nil;
@@ -923,9 +923,9 @@ function NeedToKnowRMB.BarMenu_AddButton(barSettings, i_desc, i_parent)
     elseif ( item_type == "Submenu" ) then
         info.hasArrow = true;
         info.isNotRadio = true;
-        info.func = NeedToKnowRMB.BarMenu_IgnoreToggle;
+        info.func = TimerBarsRMB.BarMenu_IgnoreToggle;
     elseif ( item_type == "Dialog" ) then
-        info.func = NeedToKnowRMB.BarMenu_ShowNameDialog;
+        info.func = TimerBarsRMB.BarMenu_ShowNameDialog;
         info.keepShownOnClick = false;
         info.value = {variable = i_desc.VariableName, text = i_desc.DialogText, numeric = i_desc.Numeric };
     elseif ( item_type == "Color" ) then
@@ -935,9 +935,9 @@ function NeedToKnowRMB.BarMenu_AddButton(barSettings, i_desc, i_parent)
         info.g = varSettings.g;
         info.b = varSettings.b;
         info.opacity = 1 - varSettings.a;
-        info.swatchFunc = NeedToKnowRMB.BarMenu_SetColor;
-        info.opacityFunc = NeedToKnowRMB.BarMenu_SetOpacity;
-        info.cancelFunc = NeedToKnowRMB.BarMenu_CancelColor;
+        info.swatchFunc = TimerBarsRMB.BarMenu_SetColor;
+        info.opacityFunc = TimerBarsRMB.BarMenu_SetOpacity;
+        info.cancelFunc = TimerBarsRMB.BarMenu_CancelColor;
 
         info.func = UIDropDownMenuButton_OpenColorPicker;
         info.keepShownOnClick = false;
@@ -962,15 +962,15 @@ function NeedToKnowRMB.BarMenu_AddButton(barSettings, i_desc, i_parent)
     end
 end
 
-function NeedToKnowRMB.BarMenu_Initialize()
-    local groupID = NeedToKnowRMB.CurrentBar["groupID"];
-    local barID = NeedToKnowRMB.CurrentBar["barID"];
-    local barSettings = NeedToKnow.ProfileSettings.Groups[groupID]["Bars"][barID];
+function TimerBarsRMB.BarMenu_Initialize()
+    local groupID = TimerBarsRMB.CurrentBar["groupID"];
+    local barID = TimerBarsRMB.CurrentBar["barID"];
+    local barSettings = TimerBars.ProfileSettings.Groups[groupID]["Bars"][barID];
 
     if ( barSettings.MissingBlink.a == 0 ) then
         barSettings.blink_enabled = false;
     end
-    NeedToKnowRMB.BarMenu_SubMenus.Options = NeedToKnowRMB.BarMenu_SubMenus["Opt_"..barSettings.BuffOrDebuff];
+    TimerBarsRMB.BarMenu_SubMenus.Options = TimerBarsRMB.BarMenu_SubMenus["Opt_"..barSettings.BuffOrDebuff];
 
     if ( UIDROPDOWNMENU_MENU_LEVEL > 1 ) then
         if ( UIDROPDOWNMENU_MENU_VALUE == "VisualCastTime" ) then
@@ -995,13 +995,13 @@ function NeedToKnowRMB.BarMenu_Initialize()
             end
         end
 
-        local subMenus = NeedToKnowRMB.BarMenu_SubMenus;
+        local subMenus = TimerBarsRMB.BarMenu_SubMenus;
         for index, value in ipairs(subMenus[UIDROPDOWNMENU_MENU_VALUE]) do
-            NeedToKnowRMB.BarMenu_AddButton(barSettings, value, UIDROPDOWNMENU_MENU_VALUE);
+            TimerBarsRMB.BarMenu_AddButton(barSettings, value, UIDROPDOWNMENU_MENU_VALUE);
         end
 
         if ( false == barSettings.OnlyMine and UIDROPDOWNMENU_MENU_LEVEL == 2 ) then
-            NeedToKnowRMB.BarMenu_UncheckAndDisable(2, "bDetectExtends", false);
+            TimerBarsRMB.BarMenu_UncheckAndDisable(2, "bDetectExtends", false);
         end
         return;
     end
@@ -1009,22 +1009,22 @@ function NeedToKnowRMB.BarMenu_Initialize()
     -- show name
     if ( barSettings.AuraName ) and ( barSettings.AuraName ~= "" ) then
         local info = UIDropDownMenu_CreateInfo();
-        info.text = NeedToKnow.PrettyName(barSettings);
+        info.text = TimerBars.PrettyName(barSettings);
         info.isTitle = true;
         info.notCheckable = true; --unindent
         UIDropDownMenu_AddButton(info);
     end
 
-    local moreOptions = NeedToKnowRMB.BarMenu_MoreOptions;
+    local moreOptions = TimerBarsRMB.BarMenu_MoreOptions;
     for index, value in ipairs(moreOptions) do
-        NeedToKnowRMB.BarMenu_AddButton(barSettings, moreOptions[index]);
+        TimerBarsRMB.BarMenu_AddButton(barSettings, moreOptions[index]);
     end
 
-    NeedToKnowRMB.BarMenu_UpdateSettings(barSettings);
+    TimerBarsRMB.BarMenu_UpdateSettings(barSettings);
 end
 
-function NeedToKnowRMB.BarMenu_IgnoreToggle(self, a1, a2, checked)
-    local button = NeedToKnowRMB.BarMenu_GetItem(NeedToKnowRMB.BarMenu_GetItemLevel(self), self.value);
+function TimerBarsRMB.BarMenu_IgnoreToggle(self, a1, a2, checked)
+    local button = TimerBarsRMB.BarMenu_GetItem(TimerBarsRMB.BarMenu_GetItemLevel(self), self.value);
     if ( button ) then
         local checkName = button:GetName() .. "Check";
         _G[checkName]:Hide();
@@ -1032,19 +1032,19 @@ function NeedToKnowRMB.BarMenu_IgnoreToggle(self, a1, a2, checked)
     end
 end
 
-function NeedToKnowRMB.BarMenu_ToggleSetting(self, a1, a2, checked)
-    local groupID = NeedToKnowRMB.CurrentBar["groupID"];
-    local barID = NeedToKnowRMB.CurrentBar["barID"];
-    local barSettings = NeedToKnow.ProfileSettings.Groups[groupID]["Bars"][barID];
+function TimerBarsRMB.BarMenu_ToggleSetting(self, a1, a2, checked)
+    local groupID = TimerBarsRMB.CurrentBar["groupID"];
+    local barID = TimerBarsRMB.CurrentBar["barID"];
+    local barSettings = TimerBars.ProfileSettings.Groups[groupID]["Bars"][barID];
     barSettings[self.value] = self.checked;
-    local level = NeedToKnowRMB.BarMenu_GetItemLevel(self);
+    local level = TimerBarsRMB.BarMenu_GetItemLevel(self);
 
     if ( self.value == "OnlyMine" ) then
         if ( false == self.checked ) then
-            NeedToKnowRMB.BarMenu_UncheckAndDisable(level, "bDetectExtends", false);
+            TimerBarsRMB.BarMenu_UncheckAndDisable(level, "bDetectExtends", false);
         else
-            NeedToKnowRMB.BarMenu_EnableItem(level, "bDetectExtends");
-            NeedToKnowRMB.BarMenu_CheckItem(level, "show_all_stacks", false);
+            TimerBarsRMB.BarMenu_EnableItem(level, "bDetectExtends");
+            TimerBarsRMB.BarMenu_CheckItem(level, "show_all_stacks", false);
         end
     elseif ( self.value == "blink_enabled" ) then
         if ( true == self.checked and barSettings.MissingBlink.a == 0 ) then
@@ -1052,19 +1052,19 @@ function NeedToKnowRMB.BarMenu_ToggleSetting(self, a1, a2, checked)
         end
     elseif ( self.value == "show_all_stacks" ) then
         if ( true == self.checked ) then
-            NeedToKnowRMB.BarMenu_CheckItem(level, "OnlyMine", false);
+            TimerBarsRMB.BarMenu_CheckItem(level, "OnlyMine", false);
         end
     end
-    NeedToKnow.Bar_Update(groupID, barID);
+    TimerBars.Bar_Update(groupID, barID);
 end
 
-function NeedToKnowRMB.BarMenu_GetItemLevel(i_button)
+function TimerBarsRMB.BarMenu_GetItemLevel(i_button)
     local path = i_button:GetName();
     local levelStr = path:match("%d+");
     return tonumber(levelStr);
 end
 
-function NeedToKnowRMB.BarMenu_GetItem(i_level, i_valueName)
+function TimerBarsRMB.BarMenu_GetItem(i_level, i_valueName)
     local listFrame = _G["DropDownList"..i_level];
     local listFrameName = listFrame:GetName();
     local n = listFrame.numButtons;
@@ -1083,8 +1083,8 @@ function NeedToKnowRMB.BarMenu_GetItem(i_level, i_valueName)
     return nil;
 end
 
-function NeedToKnowRMB.BarMenu_CheckItem(i_level, i_valueName, i_bCheck)
-    local button = NeedToKnowRMB.BarMenu_GetItem(i_level, i_valueName);
+function TimerBarsRMB.BarMenu_CheckItem(i_level, i_valueName, i_bCheck)
+    local button = TimerBarsRMB.BarMenu_GetItem(i_level, i_valueName);
     if ( button ) then
         local checkName = button:GetName() .. "Check";
         local check = _G[checkName];
@@ -1095,33 +1095,33 @@ function NeedToKnowRMB.BarMenu_CheckItem(i_level, i_valueName, i_bCheck)
             check:Hide();
             button.checked = false;
         end
-        NeedToKnowRMB.BarMenu_ToggleSetting(button);
+        TimerBarsRMB.BarMenu_ToggleSetting(button);
     end
 end
 
-function NeedToKnowRMB.BarMenu_EnableItem(i_level, i_valueName)
-    local button = NeedToKnowRMB.BarMenu_GetItem(i_level, i_valueName)
+function TimerBarsRMB.BarMenu_EnableItem(i_level, i_valueName)
+    local button = TimerBarsRMB.BarMenu_GetItem(i_level, i_valueName)
     if ( button ) then
         button:Enable();
     end
 end
 
-function NeedToKnowRMB.BarMenu_UncheckAndDisable(i_level, i_valueName)
-    local button = NeedToKnowRMB.BarMenu_GetItem(i_level, i_valueName);
+function TimerBarsRMB.BarMenu_UncheckAndDisable(i_level, i_valueName)
+    local button = TimerBarsRMB.BarMenu_GetItem(i_level, i_valueName);
     if ( button ) then
-        NeedToKnowRMB.BarMenu_CheckItem(i_level, i_valueName, false);
+        TimerBarsRMB.BarMenu_CheckItem(i_level, i_valueName, false);
         button:Disable();
     end
 end
 
-function NeedToKnowRMB.BarMenu_UpdateSettings(barSettings)
+function TimerBarsRMB.BarMenu_UpdateSettings(barSettings)
     local type = barSettings.BuffOrDebuff;
 
     -- Set up the options submenu to the corrent name and contents
-    local Opt = NeedToKnowRMB.BarMenu_SubMenus["Opt_"..type];
+    local Opt = TimerBarsRMB.BarMenu_SubMenus["Opt_"..type];
     if ( not Opt ) then Opt = {} end
-    NeedToKnowRMB.BarMenu_SubMenus.Options = Opt;
-    local button = NeedToKnowRMB.BarMenu_GetItem(1, "Options");
+    TimerBarsRMB.BarMenu_SubMenus.Options = Opt;
+    local button = TimerBarsRMB.BarMenu_GetItem(1, "Options");
     if button then
         local arrow = _G[button:GetName().."ExpandArrow"]
         local lbl = ""
@@ -1140,7 +1140,7 @@ function NeedToKnowRMB.BarMenu_UpdateSettings(barSettings)
 
     -- Set up the aura name menu option to behave the right way
     if ( type == "EQUIPSLOT" ) then
-        button = NeedToKnowRMB.BarMenu_GetItem(1, "AuraName");
+        button = TimerBarsRMB.BarMenu_GetItem(1, "AuraName");
         if ( button ) then
             button.oldvalue = button.value
         end
@@ -1153,8 +1153,8 @@ function NeedToKnowRMB.BarMenu_UpdateSettings(barSettings)
             -- TODO: really should disable the button press verb somehow
         end
     else
-        button = NeedToKnowRMB.BarMenu_GetItem(1, "EquipmentSlotList");
-        -- if not button then button = NeedToKnowRMB.BarMenu_GetItem(1, "PowerTypeList") end
+        button = TimerBarsRMB.BarMenu_GetItem(1, "EquipmentSlotList");
+        -- if not button then button = TimerBarsRMB.BarMenu_GetItem(1, "PowerTypeList") end
         if ( button ) then
             local arrow = _G[button:GetName().."ExpandArrow"]
             arrow:Hide();
@@ -1165,21 +1165,21 @@ function NeedToKnowRMB.BarMenu_UpdateSettings(barSettings)
     end
 end
 
-function NeedToKnowRMB.BarMenu_ChooseSetting(self, a1, a2, checked)
-    local groupID = NeedToKnowRMB.CurrentBar["groupID"];
-    local barID = NeedToKnowRMB.CurrentBar["barID"];
-    local barSettings = NeedToKnow.ProfileSettings.Groups[groupID]["Bars"][barID]
-    local v = NeedToKnowRMB.VariableRedirects[UIDROPDOWNMENU_MENU_VALUE] or UIDROPDOWNMENU_MENU_VALUE
+function TimerBarsRMB.BarMenu_ChooseSetting(self, a1, a2, checked)
+    local groupID = TimerBarsRMB.CurrentBar["groupID"];
+    local barID = TimerBarsRMB.CurrentBar["barID"];
+    local barSettings = TimerBars.ProfileSettings.Groups[groupID]["Bars"][barID]
+    local v = TimerBarsRMB.VariableRedirects[UIDROPDOWNMENU_MENU_VALUE] or UIDROPDOWNMENU_MENU_VALUE
     barSettings[v] = self.value;
-    NeedToKnow.Bar_Update(groupID, barID);
+    TimerBars.Bar_Update(groupID, barID);
 
     if ( v == "BuffOrDebuff" ) then
-        NeedToKnowRMB.BarMenu_UpdateSettings(barSettings)
+        TimerBarsRMB.BarMenu_UpdateSettings(barSettings)
     end
 end
 
 -- TODO: There has to be a better way to do this, this has pretty bad user feel
-function NeedToKnowRMB.EditBox_Numeric_OnTextChanged(self, isUserInput)
+function TimerBarsRMB.EditBox_Numeric_OnTextChanged(self, isUserInput)
     if ( isUserInput ) then
         local txt = self:GetText();
         local culled = txt:gsub("[^0-9.]",""); -- Remove non-digits
@@ -1194,13 +1194,13 @@ function NeedToKnowRMB.EditBox_Numeric_OnTextChanged(self, isUserInput)
         end
     end
 
-    if ( NeedToKnowRMB.EditBox_Original_OnTextChanged ) then
-        NeedToKnowRMB.EditBox_Original_OnTextChanged(self, isUserInput);
+    if ( TimerBarsRMB.EditBox_Original_OnTextChanged ) then
+        TimerBarsRMB.EditBox_Original_OnTextChanged(self, isUserInput);
     end
 end
 
-NeedToKnowIE = {}
-function NeedToKnowIE.CombineKeyValue(key,value)
+TimerBarsIE = {}
+function TimerBarsIE.CombineKeyValue(key,value)
     local vClean = value
     if type(vClean) == "string" and value:byte(1) ~= 123 then
         if (tostring(tonumber(vClean)) == vClean) or vClean == "true" or vClean == "false" then
@@ -1218,7 +1218,7 @@ function NeedToKnowIE.CombineKeyValue(key,value)
     end
 end
 
-function NeedToKnowIE.TableToString(v)
+function TimerBarsIE.TableToString(v)
     local i = 1
     local ret= "{"
     for index, value in pairs(v) do
@@ -1230,29 +1230,29 @@ function NeedToKnowIE.TableToString(v)
             k = NEEDTOKNOW.SHORTENINGS[index] or index
         end
         if  type(value) == "table" then
-            value = NeedToKnowIE.TableToString(value)
+            value = TimerBarsIE.TableToString(value)
         end
-        ret = ret .. NeedToKnowIE.CombineKeyValue(k, value)
+        ret = ret .. TimerBarsIE.CombineKeyValue(k, value)
         i = i+1;
     end
     ret = ret .. "}"
     return ret
 end
 
-function NeedToKnowIE.ExportBarSettingsToString(barSettings)
+function TimerBarsIE.ExportBarSettingsToString(barSettings)
     local pruned = CopyTable(barSettings)
-    NeedToKnow.RemoveDefaultValues(pruned, NEEDTOKNOW.BAR_DEFAULTS)
-    return 'bv1:' .. NeedToKnowIE.TableToString(pruned);
+    TimerBars.RemoveDefaultValues(pruned, NEEDTOKNOW.BAR_DEFAULTS)
+    return 'bv1:' .. TimerBarsIE.TableToString(pruned);
 end
 
 --[[ Test Cases
-/script MemberDump( NeedToKnowIE.StringToTable( '{a,b,c}' ) )
+/script MemberDump( TimerBarsIE.StringToTable( '{a,b,c}' ) )
     members
       1 a
       2 b
       3 c
 
-/script MemberDump( NeedToKnowIE.StringToTable( '{Aura=Frost Fever,Unit=target,Clr={g=0.4471,r=0.2784},Typ=HARMFUL}' ) )
+/script MemberDump( TimerBarsIE.StringToTable( '{Aura=Frost Fever,Unit=target,Clr={g=0.4471,r=0.2784},Typ=HARMFUL}' ) )
     members
       BuffOrDebuff HARMFUL
       BarColor table: 216B04C0
@@ -1261,37 +1261,37 @@ end
       AuraName Frost Fever
       Unit target
 
-/script MemberDump( NeedToKnowIE.StringToTable( '{"a","b","c"}' ) )
+/script MemberDump( TimerBarsIE.StringToTable( '{"a","b","c"}' ) )
     members
       1 a
       2 b
       3 c
 
-/script MemberDump( NeedToKnowIE.StringToTable( '{"a,b","b=c","{c={d}}"}' ) )
+/script MemberDump( TimerBarsIE.StringToTable( '{"a,b","b=c","{c={d}}"}' ) )
     members
       1 a,b
       2 b=c
       3 {c={d}}
 
-/script local t = {'\\",\'','}'} local p = NeedToKnowIE.TableToString(t) print (p) MemberDump( NeedToKnowIE.StringToTable( p ) )
+/script local t = {'\\",\'','}'} local p = TimerBarsIE.TableToString(t) print (p) MemberDump( TimerBarsIE.StringToTable( p ) )
     {"\\",'","}"}
     members
       1 \",'
       2 }
 
-/script local p = NeedToKnowIE.TableToString( {} ) print (p) MemberDump( NeedToKnowIE.StringToTable( p ) )
+/script local p = TimerBarsIE.TableToString( {} ) print (p) MemberDump( TimerBarsIE.StringToTable( p ) )
     {}
     members
 
     I don't think this can come up, but might as well be robust
-/script local p = NeedToKnowIE.TableToString( {{{}}} ) print (p) MemberDump( NeedToKnowIE.StringToTable( p ) )
+/script local p = TimerBarsIE.TableToString( {{{}}} ) print (p) MemberDump( TimerBarsIE.StringToTable( p ) )
     {{{}}}
     members
       1 table: 216A2428
       |  1 table: 216A0510
 
     I don't think this can come up, but might as well be robust
-/script local p = NeedToKnowIE.TableToString( {{{"a"}}} ) print (p) MemberDump( NeedToKnowIE.StringToTable( p ) )
+/script local p = TimerBarsIE.TableToString( {{{"a"}}} ) print (p) MemberDump( TimerBarsIE.StringToTable( p ) )
     {{{a}}}
     members
       1 table: 27D68048
@@ -1299,16 +1299,16 @@ end
       |  |  1 a
 
     User Error                                   1234567890123456789012
-/script MemberDump( NeedToKnowIE.StringToTable( '{"a,b","b=c","{c={d}}",{' ) )
+/script MemberDump( TimerBarsIE.StringToTable( '{"a,b","b=c","{c={d}}",{' ) )
     Unexpected end of string
     nil
 
     User Error                                   1234567890123456789012
-/script MemberDump( NeedToKnowIE.StringToTable( '{"a,b","b=c""{c={d}}"' ) )
+/script MemberDump( TimerBarsIE.StringToTable( '{"a,b","b=c""{c={d}}"' ) )
     Illegal quote at 12
     nil
 ]]--
-function NeedToKnowIE.StringToTable(text, ofs)
+function TimerBarsIE.StringToTable(text, ofs)
     local cur = ofs or 1
 
     if text:byte(cur+1) == 125 then
@@ -1358,7 +1358,7 @@ function NeedToKnowIE.StringToTable(text, ofs)
             print("Unexpected end of string")
             return nil,nil
         elseif text:byte(cur) == 123 then -- '{'
-            v, cur = NeedToKnowIE.StringToTable(text, cur)
+            v, cur = TimerBarsIE.StringToTable(text, cur)
             if not v then return nil,nil end
             cur = cur+1
         else
@@ -1405,7 +1405,7 @@ function NeedToKnowIE.StringToTable(text, ofs)
     return ret,cur
 end
 
-function NeedToKnowIE.ImportBarSettingsFromString(text, bars, barID)
+function TimerBarsIE.ImportBarSettingsFromString(text, bars, barID)
     local pruned
     if text and text ~= "" then
         local ver, packed = text:match("bv(%d+):(.*)")
@@ -1414,18 +1414,18 @@ function NeedToKnowIE.ImportBarSettingsFromString(text, bars, barID)
         elseif not packed then
             print("Could not find bar settings")
         end
-        pruned = NeedToKnowIE.StringToTable(packed)
+        pruned = TimerBarsIE.StringToTable(packed)
     else
         pruned = {}
     end
 
     if pruned then
-        NeedToKnow.AddDefaultsToTable(pruned, NEEDTOKNOW.BAR_DEFAULTS)
+        TimerBars.AddDefaultsToTable(pruned, NEEDTOKNOW.BAR_DEFAULTS)
         bars[barID] = pruned
     end
 end
 
-function NeedToKnowRMB.BarMenu_ShowNameDialog(self, a1, a2, checked)
+function TimerBarsRMB.BarMenu_ShowNameDialog(self, a1, a2, checked)
     if not self.value.text or not NEEDTOKNOW[self.value.text] then return end
 
     StaticPopupDialogs["NEEDTOKNOW.CHOOSENAME_DIALOG"].text = NEEDTOKNOW[self.value.text];
@@ -1433,41 +1433,41 @@ function NeedToKnowRMB.BarMenu_ShowNameDialog(self, a1, a2, checked)
     dialog.variable = self.value.variable;
 
     local edit = _G[dialog:GetName().."EditBox"];
-    local groupID = NeedToKnowRMB.CurrentBar["groupID"];
-    local barID = NeedToKnowRMB.CurrentBar["barID"];
-    local barSettings = NeedToKnow.ProfileSettings.Groups[groupID]["Bars"][barID];
+    local groupID = TimerBarsRMB.CurrentBar["groupID"];
+    local barID = TimerBarsRMB.CurrentBar["barID"];
+    local barSettings = TimerBars.ProfileSettings.Groups[groupID]["Bars"][barID];
 
     local numeric = self.value.numeric or false;
     -- TODO: There has to be a better way to do this, this has pretty bad user  feel
-    if ( nil == NeedToKnowRMB.EditBox_Original_OnTextChanged ) then
-        NeedToKnowRMB.EditBox_Original_OnTextChanged = edit:GetScript("OnTextChanged");
+    if ( nil == TimerBarsRMB.EditBox_Original_OnTextChanged ) then
+        TimerBarsRMB.EditBox_Original_OnTextChanged = edit:GetScript("OnTextChanged");
     end
     if ( numeric ) then
-        edit:SetScript("OnTextChanged", NeedToKnowRMB.EditBox_Numeric_OnTextChanged);
+        edit:SetScript("OnTextChanged", TimerBarsRMB.EditBox_Numeric_OnTextChanged);
     else
-        edit:SetScript("OnTextChanged", NeedToKnowRMB.EditBox_Original_OnTextChanged);
+        edit:SetScript("OnTextChanged", TimerBarsRMB.EditBox_Original_OnTextChanged);
     end
 
     edit:SetFocus();
     if ( dialog.variable ~= "ImportExport" ) then
         edit:SetText( barSettings[dialog.variable] );
     else
-        edit:SetText( NeedToKnowIE.ExportBarSettingsToString(barSettings) );
+        edit:SetText( TimerBarsIE.ExportBarSettingsToString(barSettings) );
         edit:HighlightText();
     end
 end
 
-function NeedToKnowRMB.BarMenu_ChooseName(text, variable)
-    local groupID = NeedToKnowRMB.CurrentBar["groupID"];
-    local barID = NeedToKnowRMB.CurrentBar["barID"];
-    local barSettings = NeedToKnow.ProfileSettings.Groups[groupID]["Bars"][barID];
+function TimerBarsRMB.BarMenu_ChooseName(text, variable)
+    local groupID = TimerBarsRMB.CurrentBar["groupID"];
+    local barID = TimerBarsRMB.CurrentBar["barID"];
+    local barSettings = TimerBars.ProfileSettings.Groups[groupID]["Bars"][barID];
     if ( variable ~= "ImportExport" ) then
         barSettings[variable] = text;
     else
-        NeedToKnowIE.ImportBarSettingsFromString(text, NeedToKnow.ProfileSettings.Groups[groupID]["Bars"], barID);
+        TimerBarsIE.ImportBarSettingsFromString(text, TimerBars.ProfileSettings.Groups[groupID]["Bars"], barID);
     end
 
-    NeedToKnow.Bar_Update(groupID, barID);
+    TimerBars.Bar_Update(groupID, barID);
 end
 
 function MemberDump(v, bIndex, filter, indent, recurse)
@@ -1513,35 +1513,35 @@ function MemberDump(v, bIndex, filter, indent, recurse)
     end
 end
 
-function NeedToKnowRMB.BarMenu_SetColor()
-    local groupID = NeedToKnowRMB.CurrentBar["groupID"];
-    local barID = NeedToKnowRMB.CurrentBar["barID"];
-    local varSettings = NeedToKnow.ProfileSettings.Groups[groupID]["Bars"][barID][ColorPickerFrame.extraInfo];
+function TimerBarsRMB.BarMenu_SetColor()
+    local groupID = TimerBarsRMB.CurrentBar["groupID"];
+    local barID = TimerBarsRMB.CurrentBar["barID"];
+    local varSettings = TimerBars.ProfileSettings.Groups[groupID]["Bars"][barID][ColorPickerFrame.extraInfo];
 
     varSettings.r,varSettings.g,varSettings.b = ColorPickerFrame:GetColorRGB();
-    NeedToKnow.Bar_Update(groupID, barID);
+    TimerBars.Bar_Update(groupID, barID);
 end
 
-function NeedToKnowRMB.BarMenu_SetOpacity()
-    local groupID = NeedToKnowRMB.CurrentBar["groupID"];
-    local barID = NeedToKnowRMB.CurrentBar["barID"];
-    local varSettings = NeedToKnow.ProfileSettings.Groups[groupID]["Bars"][barID][ColorPickerFrame.extraInfo];
+function TimerBarsRMB.BarMenu_SetOpacity()
+    local groupID = TimerBarsRMB.CurrentBar["groupID"];
+    local barID = TimerBarsRMB.CurrentBar["barID"];
+    local varSettings = TimerBars.ProfileSettings.Groups[groupID]["Bars"][barID][ColorPickerFrame.extraInfo];
 
     varSettings.a = 1 - OpacitySliderFrame:GetValue();
-    NeedToKnow.Bar_Update(groupID, barID);
+    TimerBars.Bar_Update(groupID, barID);
 end
 
-function NeedToKnowRMB.BarMenu_CancelColor(previousValues)
+function TimerBarsRMB.BarMenu_CancelColor(previousValues)
     if ( previousValues.r ) then
-        local groupID = NeedToKnowRMB.CurrentBar["groupID"];
-        local barID = NeedToKnowRMB.CurrentBar["barID"];
-        local varSettings = NeedToKnow.ProfileSettings.Groups[groupID]["Bars"][barID][ColorPickerFrame.extraInfo];
+        local groupID = TimerBarsRMB.CurrentBar["groupID"];
+        local barID = TimerBarsRMB.CurrentBar["barID"];
+        local varSettings = TimerBars.ProfileSettings.Groups[groupID]["Bars"][barID][ColorPickerFrame.extraInfo];
 
         varSettings.r = previousValues.r;
         varSettings.g = previousValues.g;
         varSettings.b = previousValues.b;
         varSettings.a = 1 - previousValues.opacity;
-        NeedToKnow.Bar_Update(groupID, barID);
+        TimerBars.Bar_Update(groupID, barID);
     end
 end
 
@@ -1550,14 +1550,14 @@ end
 -- RESIZE BUTTON
 -- -------------
 
-function NeedToKnow.Resizebutton_OnEnter(self)
+function TimerBars.Resizebutton_OnEnter(self)
     local tooltip = _G["GameTooltip"];
     GameTooltip_SetDefaultAnchor(tooltip, self);
     tooltip:AddLine(NEEDTOKNOW.RESIZE_TOOLTIP, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b, 1);
     tooltip:Show();
 end
 
-function NeedToKnow.StartSizing(self, button)
+function TimerBars.StartSizing(self, button)
     local group = self:GetParent();
     local groupID = self:GetParent():GetID();
     group.oldScale = group:GetScale();
@@ -1567,10 +1567,10 @@ function NeedToKnow.StartSizing(self, button)
     --    group:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", group.oldX, group.oldY);
     self.oldCursorX, self.oldCursorY = GetCursorPosition(UIParent);
     self.oldWidth = _G[group:GetName().."Bar1"]:GetWidth();
-    self:SetScript("OnUpdate", NeedToKnow.Sizing_OnUpdate);
+    self:SetScript("OnUpdate", TimerBars.Sizing_OnUpdate);
 end
 
-function NeedToKnow.Sizing_OnUpdate(self)
+function TimerBars.Sizing_OnUpdate(self)
     local uiScale = UIParent:GetScale();
     local cursorX, cursorY = GetCursorPosition(UIParent);
     local group = self:GetParent();
@@ -1595,31 +1595,31 @@ function NeedToKnow.Sizing_OnUpdate(self)
 
     -- calculate & set new bar width
     local newWidth = max(50, ((cursorX - self.oldCursorX)/uiScale + self.oldWidth * group.oldScale)/newScale);
-    NeedToKnow.SetWidth(groupID, newWidth);
+    TimerBars.SetWidth(groupID, newWidth);
 
 end
 
-function NeedToKnow.SetWidth(groupID, width)
-    for barID = 1, NeedToKnow.ProfileSettings.Groups[groupID]["NumberBars"] do
-        local bar = _G["NeedToKnow_Group"..groupID.."Bar"..barID];
+function TimerBars.SetWidth(groupID, width)
+    for barID = 1, TimerBars.ProfileSettings.Groups[groupID]["NumberBars"] do
+        local bar = _G["TimerBars_Group"..groupID.."Bar"..barID];
         local background = _G[bar:GetName().."Background"];
         local text = _G[bar:GetName().."Text"];
         bar:SetWidth(width);
         text:SetWidth(width-60);
-        NeedToKnow.SizeBackground(bar, bar.settings.show_icon);
+        TimerBars.SizeBackground(bar, bar.settings.show_icon);
     end
-    NeedToKnow.ProfileSettings.Groups[groupID]["Width"] = width;        -- move this to StopSizing?
+    TimerBars.ProfileSettings.Groups[groupID]["Width"] = width;        -- move this to StopSizing?
 end
 
-function NeedToKnow.StopSizing(self, button)
+function TimerBars.StopSizing(self, button)
     self:SetScript("OnUpdate", nil)
     local groupID = self:GetParent():GetID();
-    NeedToKnow.ProfileSettings.Groups[groupID]["Scale"] = self:GetParent():GetScale();
-    NeedToKnow.SavePosition(self:GetParent(), groupID);
+    TimerBars.ProfileSettings.Groups[groupID]["Scale"] = self:GetParent():GetScale();
+    TimerBars.SavePosition(self:GetParent(), groupID);
 end
 
-function NeedToKnow.SavePosition(group, groupID)
+function TimerBars.SavePosition(group, groupID)
     groupID = groupID or group:GetID();
     local point, _, relativePoint, xOfs, yOfs = group:GetPoint();
-    NeedToKnow.ProfileSettings.Groups[groupID]["Position"] = {point, relativePoint, xOfs, yOfs};
+    TimerBars.ProfileSettings.Groups[groupID]["Position"] = {point, relativePoint, xOfs, yOfs};
 end

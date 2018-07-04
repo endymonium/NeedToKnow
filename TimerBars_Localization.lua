@@ -35,7 +35,7 @@ NEEDTOKNOW.ITEM_NAMES =
 
 
 -- Define defaults in enUS
-    NEEDTOKNOW.BAR_TOOLTIP1 = "NeedToKnow";
+    NEEDTOKNOW.BAR_TOOLTIP1 = "TimerBars";
     NEEDTOKNOW.BAR_TOOLTIP2 = "Right click bars to configure. More options in the Blizzard interface options menu. Type /needtoknow to lock and enable.";
 
     NEEDTOKNOW.RESIZE_TOOLTIP = "Click and drag to change size";
@@ -74,7 +74,7 @@ NEEDTOKNOW.ITEM_NAMES =
     NEEDTOKNOW.BARMENU_SHOW_TTN3 = "Third Tooltip Number";
 
 
-    NEEDTOKNOW.UIPANEL_SUBTEXT1 = "These options allow you to customize NeedToKnow's timer bar groups.";
+    NEEDTOKNOW.UIPANEL_SUBTEXT1 = "These options allow you to customize TimerBars's timer bar groups.";
 --    NEEDTOKNOW.UIPANEL_SUBTEXT2 = "Bars work when locked. When unlocked, you can move/size bar groups and right click individual bars for more settings. You can also type '/needtoknow' or '/ntk' to lock/unlock.";
     NEEDTOKNOW.UIPANEL_BARGROUP = "Group ";
     NEEDTOKNOW.UIPANEL_NUMBERBARS = "Number of bars";
@@ -91,7 +91,7 @@ NEEDTOKNOW.ITEM_NAMES =
     NEEDTOKNOW.UIPANEL_PLAYMODE = "Play mode";
     NEEDTOKNOW.UIPANEL_PLAYMODE_TOOLTIP = "Lock and enable timer bars, making them click-through";
 
-    NEEDTOKNOW.UIPANEL_APPEARANCE_SUBTEXT1 = "These options allow you to customize NeedToKnow's timer bars.";
+    NEEDTOKNOW.UIPANEL_APPEARANCE_SUBTEXT1 = "These options allow you to customize TimerBars's timer bars.";
     NEEDTOKNOW.UIPANEL_APPEARANCE = "Appearance";
     NEEDTOKNOW.UIPANEL_BACKGROUNDCOLOR = "Background color";
     NEEDTOKNOW.UIPANEL_BARSPACING = "Bar spacing";
@@ -102,7 +102,7 @@ NEEDTOKNOW.ITEM_NAMES =
     NEEDTOKNOW.UIPANEL_FONT_OUTLINE = "Font Outline";
 
 
-    NEEDTOKNOW.UIPANEL_PROFILES_SUBTEXT1 = "These options allow you to manage profiles.  Each profile is a complete NeedToKnow configuration for one talent spec.\nBy default, profiles are per-character (and have character: in front of their name.) Per-character profiles are only available to this character.  Profiles can be switched between per-character and per-account so that the same profile can be used by multiple characters on the same account.";
+    NEEDTOKNOW.UIPANEL_PROFILES_SUBTEXT1 = "These options allow you to manage profiles.  Each profile is a complete TimerBars configuration for one talent spec.\nBy default, profiles are per-character (and have character: in front of their name.) Per-character profiles are only available to this character.  Profiles can be switched between per-character and per-account so that the same profile can be used by multiple characters on the same account.";
     NEEDTOKNOW.UIPANEL_CURRENTPRIMARY = "Current Primary Profile:";
     NEEDTOKNOW.UIPANEL_CURRENTSECONDARY = "Current Secondary Profile:";
     NEEDTOKNOW.UIPANEL_PROFILE = "Profile";
@@ -148,7 +148,7 @@ NEEDTOKNOW.ITEM_NAMES =
 -- replace with translations, if available
 if ( GetLocale() == "deDE" ) then
     -- by sp00n and Fxfighter EU-Echsenkessel
-    NEEDTOKNOW.BAR_TOOLTIP1 = "NeedToKnow";
+    NEEDTOKNOW.BAR_TOOLTIP1 = "TimerBars";
     NEEDTOKNOW.BAR_TOOLTIP2 = "Rechtsklick auf einen Balken für Einstellungen. Mehr Optionen sind im Blizzard Interface vorhanden. Zum Festsetzen und Aktivieren /needtoknow oder /ntk eingeben.";
     NEEDTOKNOW.RESIZE_TOOLTIP = "Klicken und ziehen, um die Größe zu ändern";
     NEEDTOKNOW.BARMENU_ENABLE = "Leiste aktivieren";
@@ -185,7 +185,7 @@ if ( GetLocale() == "deDE" ) then
 
 elseif ( GetLocale() == "koKR" ) then
     -- by metalchoir
-    NEEDTOKNOW.BAR_TOOLTIP1 = "NeedToKnow";
+    NEEDTOKNOW.BAR_TOOLTIP1 = "TimerBars";
     NEEDTOKNOW.BAR_TOOLTIP2 = "우?�릭: 메뉴 불러오기\n세부옵션? �기본 ?�터페?�스 설정?�서 가능\n/ntk 명령어로 잠근 후? �애드온 사용가능";
     NEEDTOKNOW.RESIZE_TOOLTIP = "드래그: ?�기 변경";
     NEEDTOKNOW.BARMENU_ENABLE = "바 사용";
@@ -223,8 +223,8 @@ elseif ( GetLocale() == "koKR" ) then
 
 elseif ( GetLocale() == "ruRU" ) then
     -- by Vlakarados
-    NEEDTOKNOW.BAR_TOOLTIP1 = "NeedToKnow";
-    NEEDTOKNOW.BAR_TOOLTIP2 = "Клик правой кнопкой мыши по полосе для настройки. Больше настроек в Интерфейс / Модификации / NeedToKnow меню. Ввести /needtoknow или /ntk для блокировки и включения.";
+    NEEDTOKNOW.BAR_TOOLTIP1 = "TimerBars";
+    NEEDTOKNOW.BAR_TOOLTIP2 = "Клик правой кнопкой мыши по полосе для настройки. Больше настроек в Интерфейс / Модификации / TimerBars меню. Ввести /needtoknow или /ntk для блокировки и включения.";
     NEEDTOKNOW.RESIZE_TOOLTIP = "Кликнуть и тащить для изменения размера";
     NEEDTOKNOW.BARMENU_ENABLE = "Включить полосу";
     NEEDTOKNOW.BARMENU_CHOOSENAME = "Выбрать бафф/дебафф для слежения";
@@ -261,7 +261,7 @@ elseif ( GetLocale() == "ruRU" ) then
 
 elseif ( GetLocale() == "zhCN" ) then
 	-- by wowui.cn
-    NEEDTOKNOW.BAR_TOOLTIP1 = "NeedToKnow";
+    NEEDTOKNOW.BAR_TOOLTIP1 = "TimerBars";
     NEEDTOKNOW.BAR_TOOLTIP2 = "右键点击计时条配置. 更多的选项在暴雪界面选项菜单里. 输入 /needtoknow 来锁定并启用.";
     NEEDTOKNOW.RESIZE_TOOLTIP = "点击和拖动来修改计时条尺寸";
     NEEDTOKNOW.BARMENU_ENABLE = "启用计时条";
@@ -298,7 +298,7 @@ elseif ( GetLocale() == "zhCN" ) then
 
 elseif ( GetLocale() == "zhTW" ) then
 	-- by wowui.cn
-    NEEDTOKNOW.BAR_TOOLTIP1 = "NeedToKnow";
+    NEEDTOKNOW.BAR_TOOLTIP1 = "TimerBars";
     NEEDTOKNOW.BAR_TOOLTIP2 = "右鍵點擊計時條配置. 更多的選項在暴雪介面選項菜單裏. 輸入 /needtoknow 來鎖定並啟用.";
     NEEDTOKNOW.RESIZE_TOOLTIP = "點擊和拖動來修改計時條尺寸";
     NEEDTOKNOW.BARMENU_ENABLE = "啟用計時條";

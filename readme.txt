@@ -3,12 +3,12 @@ BFA Update
 
 
 --------------------
-NeedToKnow
+TimerBars
 by Kitjan
 --------------------
 
 
-NeedToKnow allows you to monitor specific buffs and debuffs of your choosing as timer bars that always appear in a consistent place on your screen in a consistent color.  It's especially useful for monitoring frequently used short-duration buffs and debuffs.  For example, a rogue could configure NeedToKnow to show timer bars for Slice and Dice, Rupture, and their own stack of Deadly Poison VII.  A death knight could use it to track their own diseases on a mob.  NeedToKnow also works with procs and on-use trinkets.  The number, size, position, and appearance of timer bars are all customizable.
+TimerBars allows you to monitor specific buffs and debuffs of your choosing as timer bars that always appear in a consistent place on your screen in a consistent color.  It's especially useful for monitoring frequently used short-duration buffs and debuffs.  For example, a rogue could configure TimerBars to show timer bars for Slice and Dice, Rupture, and their own stack of Deadly Poison VII.  A death knight could use it to track their own diseases on a mob.  TimerBars also works with procs and on-use trinkets.  The number, size, position, and appearance of timer bars are all customizable.
 
 
 ------------
@@ -158,7 +158,7 @@ Change log
 
 2.8.5
 - Added: Option to show a spell icon to the left of active bars
-- Added: Option to change the font used on NeedToKnow bars (in the interface options dialog)
+- Added: Option to change the font used on TimerBars bars (in the interface options dialog)
 
 2.8.4
 - Added: Option to show certain bar elements: aura name, time remaining, and the "spark" (ticket 8)
@@ -167,7 +167,7 @@ Change log
 - Fixed: Spark incorrectly visible on weapon imbues (ticket 6)
 
 2.8.3
-- Fixed some problems upgrading from older versions of NeedToKnow (ticket 5)
+- Fixed some problems upgrading from older versions of TimerBars (ticket 5)
 
 2.8.2
 - Beta Support for temporary weapon enchants. Only tested with elemental and restoration shaman (not enhancement or rogues.)

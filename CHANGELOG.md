@@ -15,3 +15,7 @@
 ## 4.1
 
 * first release
+* lua errors because of missing imports or unknown registered event
+* `UnitAura` return values do not seem to contain "rank" anymore
+* `UnitAura` does not support `spellName` as 2nd parameter anymore
+* removed references to `PlaySound`, which does not exist anymore

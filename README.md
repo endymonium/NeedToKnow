@@ -1,27 +1,23 @@
-# NeedToKnow with support for BFA
+# Timer Bars
 
-BFA update for [NeedToKnow](https://www.curseforge.com/wow/addons/need-to-know)
+TimerBars is a BFA read fork of [TimerBars](https://www.curseforge.com/wow/addons/need-to-know).
 
-For original readme see [readme.txt](https://github.com/endymonium/NeedToKnow/blob/master/readme.txt)
+As long as the original author isn't around, I'll try to keep this addon updated and working. Bug fixes only.
+
+If you find a bug report it at:
+
+* [https://wow.curseforge.com/projects/timer-bars/issues](https://wow.curseforge.com/projects/timer-bars/issues)
+* [https://github.com/endymonium/TimerBars/issues](https://github.com/endymonium/TimerBars/issues)
 
 ## Notable changes
 
-BFA API changes:
+* Removed bars of type "Power": the original implementation was marked as exprimental and to many things changed.
 
-* [official forum](https://us.battle.net/forums/en/wow/topic/20762318007?page=1)
+## BFA API changes
+
+* [BFA API Changes official forum](https://us.battle.net/forums/en/wow/topic/20762318007?page=1)
 * [wow.gamepedia.com](https://wow.gamepedia.com/Patch_8.0.1/API_changes)
 
-### Fixed
+## [CHANGELOG](https://github.com/endymonium/TimerBars/blob/master/CHANGELOG.md)
 
-* lua errors because of missing imports or unknown registered event
-* `UnitAura` return values do not seem to contain "rank" anymore
-* `UnitAura` does not support `spellName` as 2nd parameter anymore
-* removed references to `PlaySound`, which does not exist anymore
-
-### Removed
-
-* removed all functionality around creating bars for player power types ... the system changed to much, which would mean to much rework. Additionaly I think the core functionality of this addon is bars for buffs/ debuffs, there are a lot of other addons (eg WeakAuras) to get bars for player power.
-
-See also [CHANGELOG](https://github.com/endymonium/NeedToKnow/blob/master/CHANGELOG.md).
-
-Let me know of any more bugs you find, I'll try to fix it.
+## [Repository](https://github.com/endymonium/TimerBars)

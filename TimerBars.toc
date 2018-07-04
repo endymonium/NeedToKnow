@@ -1,5 +1,5 @@
 ## Interface: 80000
-## Title: NeedToKnow
+## Title: TimerBars
 ## Author: Kitjan, lieandswell, endymonium
 ## Version: 4.3
 ## Notes: Timer bars for buffs, debuffs, cooldowns, etc.
@@ -10,9 +10,10 @@
 ## LoadOnDemand: 0
 ## SavedVariablesPerCharacter: NeedToKnow_Settings, NeedToKnow_CharSettings
 ## SavedVariables: NeedToKnow_Globals
-## X-Curse-Project-ID: 296636
+## X-Curse-Project-ID: 297425
+
 libs\LibStub\LibStub.lua
 libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
 libs\LibSharedMedia-3.0\lib.xml
-NeedToKnow.xml
+TimerBars.xml
 NeedToKnow_Options.xml

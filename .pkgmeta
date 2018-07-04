@@ -4,4 +4,4 @@ manual-changelog:
     filename: CHANGELOG.md
     markup-type: markdown
 
-package-as: NeedToKnow
+package-as: TimerBars

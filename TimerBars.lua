@@ -1,5 +1,5 @@
 -- ----------------------
--- NeedToKnow
+-- TimerBars
 -- by Kitjan, lieandswell
 -- ----------------------
 
@@ -30,8 +30,8 @@ local trace = print
 -- ADDON GLOBALS
 -- -------------
 
-NeedToKnow = {}
-NeedToKnowLoader = {}
+TimerBars = {}
+TimerBarsLoader = {}
 
 -- -------------
 -- ADDON MEMBERS
@@ -116,7 +116,7 @@ m_scratch.bar_entry =
     }
 -- NEEDTOKNOW = {} is defined in the localization file, which must be loaded before this file
 
-NEEDTOKNOW.VERSION = GetAddOnMetadata("NeedToKnow", "Version")
+NEEDTOKNOW.VERSION = GetAddOnMetadata("TimerBars", "Version")
 
 local c_UPDATE_INTERVAL = 0.05
 local c_MAXBARS = 20
@@ -329,36 +329,36 @@ NEEDTOKNOW.LENGTHENINGS= {
 -- SharedMedia Support
 -- -------------------
 
-    NeedToKnow.LSM = LibStub("LibSharedMedia-3.0", true)
+    TimerBars.LSM = LibStub("LibSharedMedia-3.0", true)
 
-    if not NeedToKnow.LSM:Fetch("statusbar", "Aluminum", true) then NeedToKnow.LSM:Register("statusbar", "Aluminum",           [[Interface\Addons\NeedToKnow\Textures\Aluminum.tga]]) end
-    if not NeedToKnow.LSM:Fetch("statusbar", "Armory", true) then NeedToKnow.LSM:Register("statusbar", "Armory",             [[Interface\Addons\NeedToKnow\Textures\Armory.tga]]) end
-    if not NeedToKnow.LSM:Fetch("statusbar", "BantoBar", true) then NeedToKnow.LSM:Register("statusbar", "BantoBar",           [[Interface\Addons\NeedToKnow\Textures\BantoBar.tga]]) end
-    if not NeedToKnow.LSM:Fetch("statusbar", "DarkBottom", true) then NeedToKnow.LSM:Register("statusbar", "DarkBottom",         [[Interface\Addons\NeedToKnow\Textures\Darkbottom.tga]]) end
-    if not NeedToKnow.LSM:Fetch("statusbar", "Default", true) then NeedToKnow.LSM:Register("statusbar", "Default",            [[Interface\Addons\NeedToKnow\Textures\Default.tga]]) end
-    if not NeedToKnow.LSM:Fetch("statusbar", "Flat", true) then NeedToKnow.LSM:Register("statusbar", "Flat",               [[Interface\Addons\NeedToKnow\Textures\Flat.tga]]) end
-    if not NeedToKnow.LSM:Fetch("statusbar", "Glaze", true) then NeedToKnow.LSM:Register("statusbar", "Glaze",              [[Interface\Addons\NeedToKnow\Textures\Glaze.tga]]) end
-    if not NeedToKnow.LSM:Fetch("statusbar", "Gloss", true) then NeedToKnow.LSM:Register("statusbar", "Gloss",              [[Interface\Addons\NeedToKnow\Textures\Gloss.tga]]) end
-    if not NeedToKnow.LSM:Fetch("statusbar", "Graphite", true) then NeedToKnow.LSM:Register("statusbar", "Graphite",           [[Interface\Addons\NeedToKnow\Textures\Graphite.tga]]) end
-    if not NeedToKnow.LSM:Fetch("statusbar", "Minimalist", true) then NeedToKnow.LSM:Register("statusbar", "Minimalist",         [[Interface\Addons\NeedToKnow\Textures\Minimalist.tga]]) end
-    if not NeedToKnow.LSM:Fetch("statusbar", "Otravi", true) then NeedToKnow.LSM:Register("statusbar", "Otravi",             [[Interface\Addons\NeedToKnow\Textures\Otravi.tga]]) end
-    if not NeedToKnow.LSM:Fetch("statusbar", "Smooth", true) then NeedToKnow.LSM:Register("statusbar", "Smooth",             [[Interface\Addons\NeedToKnow\Textures\Smooth.tga]]) end
-    if not NeedToKnow.LSM:Fetch("statusbar", "Smooth v2", true) then NeedToKnow.LSM:Register("statusbar", "Smooth v2",          [[Interface\Addons\NeedToKnow\Textures\Smoothv2.tga]]) end
-    if not NeedToKnow.LSM:Fetch("statusbar", "Striped", true) then NeedToKnow.LSM:Register("statusbar", "Striped",            [[Interface\Addons\NeedToKnow\Textures\Striped.tga]]) end
+    if not TimerBars.LSM:Fetch("statusbar", "Aluminum", true) then TimerBars.LSM:Register("statusbar", "Aluminum",           [[Interface\Addons\TimerBars\Textures\Aluminum.tga]]) end
+    if not TimerBars.LSM:Fetch("statusbar", "Armory", true) then TimerBars.LSM:Register("statusbar", "Armory",             [[Interface\Addons\TimerBars\Textures\Armory.tga]]) end
+    if not TimerBars.LSM:Fetch("statusbar", "BantoBar", true) then TimerBars.LSM:Register("statusbar", "BantoBar",           [[Interface\Addons\TimerBars\Textures\BantoBar.tga]]) end
+    if not TimerBars.LSM:Fetch("statusbar", "DarkBottom", true) then TimerBars.LSM:Register("statusbar", "DarkBottom",         [[Interface\Addons\TimerBars\Textures\Darkbottom.tga]]) end
+    if not TimerBars.LSM:Fetch("statusbar", "Default", true) then TimerBars.LSM:Register("statusbar", "Default",            [[Interface\Addons\TimerBars\Textures\Default.tga]]) end
+    if not TimerBars.LSM:Fetch("statusbar", "Flat", true) then TimerBars.LSM:Register("statusbar", "Flat",               [[Interface\Addons\TimerBars\Textures\Flat.tga]]) end
+    if not TimerBars.LSM:Fetch("statusbar", "Glaze", true) then TimerBars.LSM:Register("statusbar", "Glaze",              [[Interface\Addons\TimerBars\Textures\Glaze.tga]]) end
+    if not TimerBars.LSM:Fetch("statusbar", "Gloss", true) then TimerBars.LSM:Register("statusbar", "Gloss",              [[Interface\Addons\TimerBars\Textures\Gloss.tga]]) end
+    if not TimerBars.LSM:Fetch("statusbar", "Graphite", true) then TimerBars.LSM:Register("statusbar", "Graphite",           [[Interface\Addons\TimerBars\Textures\Graphite.tga]]) end
+    if not TimerBars.LSM:Fetch("statusbar", "Minimalist", true) then TimerBars.LSM:Register("statusbar", "Minimalist",         [[Interface\Addons\TimerBars\Textures\Minimalist.tga]]) end
+    if not TimerBars.LSM:Fetch("statusbar", "Otravi", true) then TimerBars.LSM:Register("statusbar", "Otravi",             [[Interface\Addons\TimerBars\Textures\Otravi.tga]]) end
+    if not TimerBars.LSM:Fetch("statusbar", "Smooth", true) then TimerBars.LSM:Register("statusbar", "Smooth",             [[Interface\Addons\TimerBars\Textures\Smooth.tga]]) end
+    if not TimerBars.LSM:Fetch("statusbar", "Smooth v2", true) then TimerBars.LSM:Register("statusbar", "Smooth v2",          [[Interface\Addons\TimerBars\Textures\Smoothv2.tga]]) end
+    if not TimerBars.LSM:Fetch("statusbar", "Striped", true) then TimerBars.LSM:Register("statusbar", "Striped",            [[Interface\Addons\TimerBars\Textures\Striped.tga]]) end
 
 -- ---------------
 -- EXECUTIVE FRAME
 -- ---------------
 
-function NeedToKnow.ExecutiveFrame_OnEvent(self, event, ...)
+function TimerBars.ExecutiveFrame_OnEvent(self, event, ...)
     local fnName = "ExecutiveFrame_"..event
-    local fn = NeedToKnow[fnName]
+    local fn = TimerBars[fnName]
     if ( fn ) then
         fn(...)
     end
 end
 
-function NeedToKnow.ExecutiveFrame_UNIT_SPELLCAST_SENT(unit, spell, rank_str, tgt, serialno)
+function TimerBars.ExecutiveFrame_UNIT_SPELLCAST_SENT(unit, spell, rank_str, tgt, serialno)
     -- spell is nil when you mount up as death knight, but not as any other class ... ??
     if unit == "player" and spell then
         -- TODO: I hate to pay this memory cost for every "spell" ever cast.
@@ -370,7 +370,7 @@ function NeedToKnow.ExecutiveFrame_UNIT_SPELLCAST_SENT(unit, spell, rank_str, tg
         m_last_sent[spell] = g_GetTime()
 
         -- How expensive a second check do we need?
-        if ( m_last_guid[spell] or NeedToKnow.BarsForPSS ) then
+        if ( m_last_guid[spell] or TimerBars.BarsForPSS ) then
             local r = m_last_cast[m_last_cast_tail]
             if not r then
                 r = { spell=spell, target=tgt, serial=serialno }
@@ -384,10 +384,10 @@ function NeedToKnow.ExecutiveFrame_UNIT_SPELLCAST_SENT(unit, spell, rank_str, tg
             if ( m_last_cast_tail == 2 ) then
                 m_last_cast_head = 1
                 if ( m_last_guid[spell] ) then
-                    NeedToKnow_ExecutiveFrame:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
-                    NeedToKnow_ExecutiveFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+                    TimerBars_ExecutiveFrame:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
+                    TimerBars_ExecutiveFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
                 else
-                    NeedToKnow_ExecutiveFrame:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
+                    TimerBars_ExecutiveFrame:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
                 end
             end
         end
@@ -395,7 +395,7 @@ function NeedToKnow.ExecutiveFrame_UNIT_SPELLCAST_SENT(unit, spell, rank_str, tg
 end
 
 
-function NeedToKnow.ExecutiveFrame_UNIT_SPELLCAST_SUCCEEDED(unit, spell, rank_str, serialno, spellid)
+function TimerBars.ExecutiveFrame_UNIT_SPELLCAST_SUCCEEDED(unit, spell, rank_str, serialno, spellid)
     if unit == "player" then
         local found
         local t = m_last_cast
@@ -409,18 +409,18 @@ function NeedToKnow.ExecutiveFrame_UNIT_SPELLCAST_SUCCEEDED(unit, spell, rank_st
         end
 
         if found then
-            if ( NeedToKnow.BarsForPSS ) then
+            if ( TimerBars.BarsForPSS ) then
                 local bar,one
-                for bar,one in pairs(NeedToKnow.BarsForPSS) do
-                    local unitTarget = NeedToKnow.raid_members[t[found].target or ""]
-                    NeedToKnow.Bar_OnEvent(bar, "PLAYER_SPELLCAST_SUCCEEDED", "player", spell, spellid, unitTarget);
+                for bar,one in pairs(TimerBars.BarsForPSS) do
+                    local unitTarget = TimerBars.raid_members[t[found].target or ""]
+                    TimerBars.Bar_OnEvent(bar, "PLAYER_SPELLCAST_SUCCEEDED", "player", spell, spellid, unitTarget);
                 end
             end
 
             if ( found == last ) then
                 m_last_cast_tail = 1
                 m_last_cast_head = 1
-                NeedToKnow_ExecutiveFrame:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
+                TimerBars_ExecutiveFrame:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
             else
                 m_last_cast_head = found+1
             end
@@ -428,11 +428,11 @@ function NeedToKnow.ExecutiveFrame_UNIT_SPELLCAST_SUCCEEDED(unit, spell, rank_st
     end
 end
 
-function NeedToKnow.ExecutiveFrame_COMBAT_LOG_EVENT_UNFILTERED(tod, event, hideCaster, guidCaster, ...)
+function TimerBars.ExecutiveFrame_COMBAT_LOG_EVENT_UNFILTERED(tod, event, hideCaster, guidCaster, ...)
     -- the time that's passed in appears to be time of day, not game time like everything else.
     local time = g_GetTime()
     -- TODO: Is checking r.state sufficient or must event be checked instead?
-    if ( guidCaster == NeedToKnow.guidPlayer and event=="SPELL_CAST_SUCCESS") then
+    if ( guidCaster == TimerBars.guidPlayer and event=="SPELL_CAST_SUCCESS") then
         local guidTarget, nameTarget, _, _, spellid, spell = select(4, ...) -- source_name, source_flags, source_flags2,
 
         local found
@@ -446,11 +446,11 @@ function NeedToKnow.ExecutiveFrame_COMBAT_LOG_EVENT_UNFILTERED(tod, event, hideC
             end
         end
         if found then
-            if ( NeedToKnow.BarsForPSS ) then
+            if ( TimerBars.BarsForPSS ) then
                 local bar,one
-                for bar,one in pairs(NeedToKnow.BarsForPSS) do
-                    local unitTarget = NeedToKnow.raid_members[t[found].target or ""]
-                    NeedToKnow.Bar_OnEvent(bar, "PLAYER_SPELLCAST_SUCCEEDED", "player", spell, spellid, unitTarget);
+                for bar,one in pairs(TimerBars.BarsForPSS) do
+                    local unitTarget = TimerBars.raid_members[t[found].target or ""]
+                    TimerBars.Bar_OnEvent(bar, "PLAYER_SPELLCAST_SUCCEEDED", "player", spell, spellid, unitTarget);
                 end
             end
 
@@ -470,7 +470,7 @@ function NeedToKnow.ExecutiveFrame_COMBAT_LOG_EVENT_UNFILTERED(tod, event, hideC
             if ( found == last ) then
                 m_last_cast_tail = 1
                 m_last_cast_head = 1
-                NeedToKnow_ExecutiveFrame:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+                TimerBars_ExecutiveFrame:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
             else
                 m_last_cast_head = found+1
             end
@@ -479,110 +479,110 @@ function NeedToKnow.ExecutiveFrame_COMBAT_LOG_EVENT_UNFILTERED(tod, event, hideC
 end
 
 
-function NeedToKnow.ExecutiveFrame_ADDON_LOADED(addon)
-    if ( addon == "NeedToKnow") then
-        if ( not NeedToKnow_Visible ) then
-            NeedToKnow_Visible = true
+function TimerBars.ExecutiveFrame_ADDON_LOADED(addon)
+    if ( addon == "TimerBars") then
+        if ( not TimerBars_Visible ) then
+            TimerBars_Visible = true
         end
 
         m_last_cast = {} -- [n] = { spell, target, serial }
         m_last_cast_head = 1
         m_last_cast_tail = 1
         m_last_guid = {} -- [spell][guidTarget] = { time, dur, expiry }
-        NeedToKnow.totem_drops = {} -- array 1-4 of precise times the totems appeared
+        TimerBars.totem_drops = {} -- array 1-4 of precise times the totems appeared
 
-        SlashCmdList["NEEDTOKNOW"] = NeedToKnow.SlashCommand
+        SlashCmdList["NEEDTOKNOW"] = TimerBars.SlashCommand
         SLASH_NEEDTOKNOW1 = "/needtoknow"
         SLASH_NEEDTOKNOW2 = "/ntk"
     end
 end
 
 
-function NeedToKnow.ExecutiveFrame_PLAYER_LOGIN()
-    NeedToKnowLoader.SafeUpgrade()
-    NeedToKnow.ExecutiveFrame_PLAYER_TALENT_UPDATE()
-    NeedToKnow.guidPlayer = UnitGUID("player")
+function TimerBars.ExecutiveFrame_PLAYER_LOGIN()
+    TimerBarsLoader.SafeUpgrade()
+    TimerBars.ExecutiveFrame_PLAYER_TALENT_UPDATE()
+    TimerBars.guidPlayer = UnitGUID("player")
 
     local _, player_CLASS = UnitClass("player")
     if player_CLASS == "DEATHKNIGHT" then
-        NeedToKnow.is_DK = 1
+        TimerBars.is_DK = 1
     elseif player_CLASS == "DRUID" then
-        NeedToKnow.is_Druid = 1
+        TimerBars.is_Druid = 1
     end
 
-    NeedToKnow_ExecutiveFrame:RegisterEvent("PLAYER_TALENT_UPDATE")
-    NeedToKnow_ExecutiveFrame:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
-    NeedToKnow_ExecutiveFrame:RegisterEvent("UNIT_TARGET")
-    NeedToKnow_ExecutiveFrame:RegisterEvent("PLAYER_REGEN_DISABLED")
-    NeedToKnow_ExecutiveFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
-    NeedToKnow_ExecutiveFrame:RegisterEvent("GROUP_ROSTER_UPDATE")
+    TimerBars_ExecutiveFrame:RegisterEvent("PLAYER_TALENT_UPDATE")
+    TimerBars_ExecutiveFrame:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
+    TimerBars_ExecutiveFrame:RegisterEvent("UNIT_TARGET")
+    TimerBars_ExecutiveFrame:RegisterEvent("PLAYER_REGEN_DISABLED")
+    TimerBars_ExecutiveFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
+    TimerBars_ExecutiveFrame:RegisterEvent("GROUP_ROSTER_UPDATE")
 
-    if ( NeedToKnow.is_DK ) then
-        NeedToKnow.RegisterSpellcastSent();
+    if ( TimerBars.is_DK ) then
+        TimerBars.RegisterSpellcastSent();
     end
-    NeedToKnow.Update()
+    TimerBars.Update()
 
-    NeedToKnow_ExecutiveFrame:UnregisterEvent("PLAYER_LOGIN")
-    NeedToKnow_ExecutiveFrame:UnregisterEvent("ADDON_LOADED")
-    NeedToKnow.ExecutiveFrame_ADDON_LOADED = nil
-    NeedToKnow.ExecutiveFrame_PLAYER_LOGIN = nil
-    NeedToKnowLoader = nil
+    TimerBars_ExecutiveFrame:UnregisterEvent("PLAYER_LOGIN")
+    TimerBars_ExecutiveFrame:UnregisterEvent("ADDON_LOADED")
+    TimerBars.ExecutiveFrame_ADDON_LOADED = nil
+    TimerBars.ExecutiveFrame_PLAYER_LOGIN = nil
+    TimerBarsLoader = nil
 
-    NeedToKnow.RefreshRaidMemberNames()
+    TimerBars.RefreshRaidMemberNames()
 end
 
-function NeedToKnow.RegisterSpellcastSent()
-    if ( NeedToKnow.nRegisteredSent ) then
-        NeedToKnow.nRegisteredSent = NeedToKnow.nRegisteredSent + 1
+function TimerBars.RegisterSpellcastSent()
+    if ( TimerBars.nRegisteredSent ) then
+        TimerBars.nRegisteredSent = TimerBars.nRegisteredSent + 1
     else
-        NeedToKnow.nRegisteredSent = 1
-        NeedToKnow_ExecutiveFrame:RegisterEvent("UNIT_SPELLCAST_SENT")
+        TimerBars.nRegisteredSent = 1
+        TimerBars_ExecutiveFrame:RegisterEvent("UNIT_SPELLCAST_SENT")
     end
 end
 
-function NeedToKnow.UnregisterSpellcastSent()
-    if ( NeedToKnow.nRegisteredSent ) then
-        NeedToKnow.nRegisteredSent = NeedToKnow.nRegisteredSent - 1
-        if ( 0 == NeedToKnow.nRegisteredSent ) then
-            NeedToKnow.nRegisteredSent = nil
-            NeedToKnow_ExecutiveFrame:UnregisterEvent("UNIT_SPELLCAST_SENT")
-            NeedToKnow_ExecutiveFrame:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
-            NeedToKnow_ExecutiveFrame:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+function TimerBars.UnregisterSpellcastSent()
+    if ( TimerBars.nRegisteredSent ) then
+        TimerBars.nRegisteredSent = TimerBars.nRegisteredSent - 1
+        if ( 0 == TimerBars.nRegisteredSent ) then
+            TimerBars.nRegisteredSent = nil
+            TimerBars_ExecutiveFrame:UnregisterEvent("UNIT_SPELLCAST_SENT")
+            TimerBars_ExecutiveFrame:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
+            TimerBars_ExecutiveFrame:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
         end
     end
 end
 
-function NeedToKnow.ExecutiveFrame_ACTIVE_TALENT_GROUP_CHANGED()
+function TimerBars.ExecutiveFrame_ACTIVE_TALENT_GROUP_CHANGED()
     -- This is the only event we're guaranteed to get on a talent switch,
     -- so we have to listen for it.  However, the client may not yet have
     -- the spellbook updates, so trying to evaluate the cooldows may fail.
     -- This is one of the reasons the cooldown logic has to fail silently
     -- and try again later
-    NeedToKnow.ExecutiveFrame_PLAYER_TALENT_UPDATE()
+    TimerBars.ExecutiveFrame_PLAYER_TALENT_UPDATE()
 end
 
 
-function NeedToKnow.ExecutiveFrame_PLAYER_TALENT_UPDATE()
-    if NeedToKnow.CharSettings then
+function TimerBars.ExecutiveFrame_PLAYER_TALENT_UPDATE()
+    if TimerBars.CharSettings then
         local spec = g_GetActiveTalentGroup()
 
-        local profile_key = NeedToKnow.CharSettings.Specs[spec]
+        local profile_key = TimerBars.CharSettings.Specs[spec]
         if not profile_key then
-            print("NeedToKnow: Switching to spec",spec,"for the first time")
-            profile_key = NeedToKnow.CreateProfile(CopyTable(NEEDTOKNOW.PROFILE_DEFAULTS), spec)
+            print("TimerBars: Switching to spec",spec,"for the first time")
+            profile_key = TimerBars.CreateProfile(CopyTable(NEEDTOKNOW.PROFILE_DEFAULTS), spec)
         end
 
-        NeedToKnow.ChangeProfile(profile_key);
+        TimerBars.ChangeProfile(profile_key);
     end
 end
 
 
-function NeedToKnow.ExecutiveFrame_UNIT_TARGET(unitTargeting)
+function TimerBars.ExecutiveFrame_UNIT_TARGET(unitTargeting)
     if m_bInCombat and not m_bCombatWithBoss then
         if UnitLevel(unitTargeting .. 'target') == -1 then
             m_bCombatWithBoss = true
-            if NeedToKnow.BossStateBars then
-                for bar, unused in pairs(NeedToKnow.BossStateBars) do
+            if TimerBars.BossStateBars then
+                for bar, unused in pairs(TimerBars.BossStateBars) do
                     mfn_Bar_AuraCheck(bar)
                 end
             end
@@ -590,7 +590,7 @@ function NeedToKnow.ExecutiveFrame_UNIT_TARGET(unitTargeting)
     end
 end
 
-function NeedToKnow.GetNameAndServer(unit)
+function TimerBars.GetNameAndServer(unit)
   local name, server = UnitName(unit)
   if name and server then
     return name .. '-' .. server
@@ -598,22 +598,22 @@ function NeedToKnow.GetNameAndServer(unit)
   return name
 end
 
-function NeedToKnow.RefreshRaidMemberNames()
-    NeedToKnow.raid_members = {}
+function TimerBars.RefreshRaidMemberNames()
+    TimerBars.raid_members = {}
 
     -- Note, if I did want to handle raid pets as well, they do not get the
     -- server name decoration in the combat log as of 5.0.4
     if IsInRaid() then
         for i = 1, 40 do
             local unit = "raid"..i
-            local name = NeedToKnow.GetNameAndServer(unit)
-            if ( name ) then NeedToKnow.raid_members[name] = unit end
+            local name = TimerBars.GetNameAndServer(unit)
+            if ( name ) then TimerBars.raid_members[name] = unit end
         end
     elseif IsInGroup() then
         for i = 1, 5 do
             local unit = "party"..i
-            local name = NeedToKnow.GetNameAndServer(unit)
-            if ( name ) then NeedToKnow.raid_members[name] = unit end
+            local name = TimerBars.GetNameAndServer(unit)
+            if ( name ) then TimerBars.raid_members[name] = unit end
         end
     end
 
@@ -621,22 +621,22 @@ function NeedToKnow.RefreshRaidMemberNames()
     -- (don't need NameAndServer since the player will always have a nil server.)
     local unit = "player"
     local name = UnitName(unit)
-    NeedToKnow.raid_members[name] = unit
+    TimerBars.raid_members[name] = unit
 
     unit = "pet"
     name = UnitName(unit)
     if ( name ) then
-        NeedToKnow.raid_members[name] = unit
+        TimerBars.raid_members[name] = unit
     end
 end
 
 
-function NeedToKnow.ExecutiveFrame_GROUP_ROSTER_UPDATE()
-    NeedToKnow.RefreshRaidMemberNames();
+function TimerBars.ExecutiveFrame_GROUP_ROSTER_UPDATE()
+    TimerBars.RefreshRaidMemberNames();
 end
 
 
-function NeedToKnow.ExecutiveFrame_PLAYER_REGEN_DISABLED(unitTargeting)
+function TimerBars.ExecutiveFrame_PLAYER_REGEN_DISABLED(unitTargeting)
     m_bInCombat = true
     m_bCombatWithBoss = false
     if IsInRaid() then
@@ -656,26 +656,26 @@ function NeedToKnow.ExecutiveFrame_PLAYER_REGEN_DISABLED(unitTargeting)
     elseif UnitLevel("target") == -1 then
         m_bCombatWithBoss = true
     end
-    if NeedToKnow.BossStateBars then
-        for bar, unused in pairs(NeedToKnow.BossStateBars) do
+    if TimerBars.BossStateBars then
+        for bar, unused in pairs(TimerBars.BossStateBars) do
             mfn_Bar_AuraCheck(bar)
         end
     end
 end
 
 
-function NeedToKnow.ExecutiveFrame_PLAYER_REGEN_ENABLED(unitTargeting)
+function TimerBars.ExecutiveFrame_PLAYER_REGEN_ENABLED(unitTargeting)
     m_bInCombat = false
     m_bCombatWithBoss = false
-    if NeedToKnow.BossStateBars then
-        for bar, unused in pairs(NeedToKnow.BossStateBars) do
+    if TimerBars.BossStateBars then
+        for bar, unused in pairs(TimerBars.BossStateBars) do
             mfn_Bar_AuraCheck(bar)
         end
     end
 end
 
 
-function NeedToKnow.RemoveDefaultValues(t, def, k)
+function TimerBars.RemoveDefaultValues(t, def, k)
   if not k then k = "" end
   if def == nil then
     -- Some obsolete setting, or perhaps bUncompressed
@@ -694,13 +694,13 @@ function NeedToKnow.RemoveDefaultValues(t, def, k)
     for i,v in ipairs(t)do
       local rhs = def[i]
       if rhs == nil then rhs = def[1] end
-      if NeedToKnow.RemoveDefaultValues(v, rhs, k .. " " .. i) then
+      if TimerBars.RemoveDefaultValues(v, rhs, k .. " " .. i) then
         t[i] = nil
       end
     end
   else
     for kT, vT in pairs(t) do
-      if NeedToKnow.RemoveDefaultValues(t[kT], def[kT], k .. " " .. kT) then
+      if TimerBars.RemoveDefaultValues(t[kT], def[kT], k .. " " .. kT) then
         t[kT] = nil
       end
     end
@@ -709,7 +709,7 @@ function NeedToKnow.RemoveDefaultValues(t, def, k)
   return fn(t) == nil
 end
 
-function NeedToKnow.CompressProfile(profileSettings)
+function TimerBars.CompressProfile(profileSettings)
     -- Remove unused bars/groups
     for iG,vG in ipairs(profileSettings["Groups"]) do
         if iG > profileSettings.nGroups then
@@ -722,11 +722,11 @@ function NeedToKnow.CompressProfile(profileSettings)
             end
         end
     end
-    NeedToKnow.RemoveDefaultValues(profileSettings, NEEDTOKNOW.PROFILE_DEFAULTS);
+    TimerBars.RemoveDefaultValues(profileSettings, NEEDTOKNOW.PROFILE_DEFAULTS);
 end
 
 -- DEBUG: remove k, it's just for debugging
-function NeedToKnow.AddDefaultsToTable(t, def, k)
+function TimerBars.AddDefaultsToTable(t, def, k)
     if type(t) ~= "table" then return end
         if def == nil then
             return
@@ -738,27 +738,27 @@ function NeedToKnow.AddDefaultsToTable(t, def, k)
             local rhs = def[i]
             if rhs == nil then rhs = def[1] end
             if t[i] == nil then
-                t[i] = NeedToKnow.DeepCopy(rhs)
+                t[i] = TimerBars.DeepCopy(rhs)
             else
-                NeedToKnow.AddDefaultsToTable(t[i], rhs, k .. " " .. i)
+                TimerBars.AddDefaultsToTable(t[i], rhs, k .. " " .. i)
             end
         end
         else
         for kD,vD in pairs(def) do
             if t[kD] == nil then
                 if type(vD) == "table" then
-                    t[kD] = NeedToKnow.DeepCopy(vD)
+                    t[kD] = TimerBars.DeepCopy(vD)
                 else
                     t[kD] = vD
                 end
             else
-                NeedToKnow.AddDefaultsToTable(t[kD], vD, k .. " " .. kD)
+                TimerBars.AddDefaultsToTable(t[kD], vD, k .. " " .. kD)
             end
         end
     end
 end
 
-function NeedToKnow.UncompressProfile(profileSettings)
+function TimerBars.UncompressProfile(profileSettings)
     -- Make sure the arrays have the right number of elements so that
     -- AddDefaultsToTable will find them and fill them in
     if profileSettings.nGroups then
@@ -782,44 +782,44 @@ function NeedToKnow.UncompressProfile(profileSettings)
         end
     end
 
-    NeedToKnow.AddDefaultsToTable(profileSettings, NEEDTOKNOW.PROFILE_DEFAULTS)
+    TimerBars.AddDefaultsToTable(profileSettings, NEEDTOKNOW.PROFILE_DEFAULTS)
 
     profileSettings.bUncompressed = true
 end
 
 
-function NeedToKnow.ChangeProfile(profile_key)
-    if NeedToKnow_Profiles[profile_key] and
-       NeedToKnow.ProfileSettings ~= NeedToKnow_Profiles[profile_key] then
+function TimerBars.ChangeProfile(profile_key)
+    if TimerBars_Profiles[profile_key] and
+       TimerBars.ProfileSettings ~= TimerBars_Profiles[profile_key] then
         -- Compress the old profile by removing defaults
-        if NeedToKnow.ProfileSettings and NeedToKnow.ProfileSettings.bUncompressed then
-            NeedToKnow.CompressProfile(NeedToKnow.ProfileSettings)
+        if TimerBars.ProfileSettings and TimerBars.ProfileSettings.bUncompressed then
+            TimerBars.CompressProfile(TimerBars.ProfileSettings)
         end
 
         -- Switch to the new profile
-        NeedToKnow.ProfileSettings = NeedToKnow_Profiles[profile_key]
+        TimerBars.ProfileSettings = TimerBars_Profiles[profile_key]
         local spec = g_GetActiveTalentGroup()
-        NeedToKnow.CharSettings.Specs[spec] = profile_key
+        TimerBars.CharSettings.Specs[spec] = profile_key
 
         -- fill in any missing defaults
-        NeedToKnow.UncompressProfile(NeedToKnow.ProfileSettings)
+        TimerBars.UncompressProfile(TimerBars.ProfileSettings)
         -- FIXME: We currently display 4 groups in the options UI, not nGroups
         -- FIXME: We don't handle nGroups changing (showing/hiding groups based on nGroups changing)
         -- Forcing 4 groups for now
-        NeedToKnow.ProfileSettings.nGroups = 4
+        TimerBars.ProfileSettings.nGroups = 4
         for groupID = 1,4 do
-            if ( nil == NeedToKnow.ProfileSettings.Groups[groupID] ) then
-                NeedToKnow.ProfileSettings.Groups[groupID] = CopyTable( NEEDTOKNOW.GROUP_DEFAULTS )
-                local groupSettings = NeedToKnow.ProfileSettings.Groups[groupID]
+            if ( nil == TimerBars.ProfileSettings.Groups[groupID] ) then
+                TimerBars.ProfileSettings.Groups[groupID] = CopyTable( NEEDTOKNOW.GROUP_DEFAULTS )
+                local groupSettings = TimerBars.ProfileSettings.Groups[groupID]
                 groupSettings.Enabled = false;
                 groupSettings.Position[4] = -100 - (groupID-1) * 100
             end
         end
 
         -- Hide any groups not in use
-        local iGroup = NeedToKnow.ProfileSettings.nGroups + 1
+        local iGroup = TimerBars.ProfileSettings.nGroups + 1
         while true do
-            local group = _G["NeedToKnow_Group"..iGroup]
+            local group = _G["TimerBars_Group"..iGroup]
             if not group then
                 break
             end
@@ -828,10 +828,10 @@ function NeedToKnow.ChangeProfile(profile_key)
         end
 
         -- Update the bars and options panel (if it's open)
-        NeedToKnow.Update()
-        NeedToKnowOptions.UIPanel_Update()
-    elseif not NeedToKnow_Profiles[profile_key] then
-        print("NeedToKnow profile",profile_key,"does not exist!") -- LOCME!
+        TimerBars.Update()
+        TimerBarsOptions.UIPanel_Update()
+    elseif not TimerBars_Profiles[profile_key] then
+        print("TimerBars profile",profile_key,"does not exist!") -- LOCME!
     end
 end
 
@@ -863,57 +863,57 @@ mfn_SetStatusBarValue = function (bar,texture,value,value0)
 end
 
 
-function NeedToKnowLoader.Reset(bResetCharacter)
-    NeedToKnow_Globals = CopyTable( NEEDTOKNOW.DEFAULTS )
+function TimerBarsLoader.Reset(bResetCharacter)
+    TimerBars_Globals = CopyTable( NEEDTOKNOW.DEFAULTS )
 
     if bResetCharacter == nil or bResetCharacter then
-        NeedToKnow.ResetCharacter()
+        TimerBars.ResetCharacter()
     end
 end
 
 
-function NeedToKnow.ResetCharacter(bCreateSpecProfile)
+function TimerBars.ResetCharacter(bCreateSpecProfile)
     local charKey = UnitName("player") .. ' - ' .. GetRealmName();
-    NeedToKnow_CharSettings = CopyTable(NEEDTOKNOW.CHARACTER_DEFAULTS)
-    NeedToKnow.CharSettings = NeedToKnow_CharSettings
+    TimerBars_CharSettings = CopyTable(NEEDTOKNOW.CHARACTER_DEFAULTS)
+    TimerBars.CharSettings = TimerBars_CharSettings
     if bCreateSpecProfile == nil or bCreateSpecProfile then
-        NeedToKnow.ExecutiveFrame_PLAYER_TALENT_UPDATE()
+        TimerBars.ExecutiveFrame_PLAYER_TALENT_UPDATE()
     end
 end
 
 
-function NeedToKnow.AllocateProfileKey()
-    local n=NeedToKnow_Globals.NextProfile or 1
-    while NeedToKnow_Profiles["G"..n] do
+function TimerBars.AllocateProfileKey()
+    local n=TimerBars_Globals.NextProfile or 1
+    while TimerBars_Profiles["G"..n] do
         n = n+1
     end
-    if ( NeedToKnow_Globals.NextProfile==null or n >= NeedToKnow_Globals.NextProfile ) then
-        NeedToKnow_Globals.NextProfile = n+1
+    if ( TimerBars_Globals.NextProfile==null or n >= TimerBars_Globals.NextProfile ) then
+        TimerBars_Globals.NextProfile = n+1
     end
     return "G"..n;
 end
 
-function NeedToKnow.FindUnusedNumericSuffix(prefix, defPrefix)
+function TimerBars.FindUnusedNumericSuffix(prefix, defPrefix)
     local suffix = defPrefix
     if not suffix then suffix = 1 end
 
     local candidate = prefix .. suffix
-    while ( NeedToKnow.FindProfileByName(candidate) ) do
+    while ( TimerBars.FindProfileByName(candidate) ) do
         suffix = suffix + 1
         candidate = prefix .. suffix
     end
     return candidate;
 end
 
-function NeedToKnow.CreateProfile(settings, idxSpec, nameProfile)
+function TimerBars.CreateProfile(settings, idxSpec, nameProfile)
     if not nameProfile then
         local prefix = UnitName("player") .. "-"..GetRealmName() .. "."
-        nameProfile = NeedToKnow.FindUnusedNumericSuffix(prefix, idxSpec)
+        nameProfile = TimerBars.FindUnusedNumericSuffix(prefix, idxSpec)
     end
     settings.name = nameProfile
 
     local keyProfile
-    for k,t in pairs(NeedToKnow_Globals.Profiles) do
+    for k,t in pairs(TimerBars_Globals.Profiles) do
         if t.name == nameProfile then
             keyProfile = k
             break;
@@ -921,37 +921,37 @@ function NeedToKnow.CreateProfile(settings, idxSpec, nameProfile)
     end
 
     if not keyProfile then
-        keyProfile = NeedToKnow.AllocateProfileKey()
+        keyProfile = TimerBars.AllocateProfileKey()
     end
 
-    if NeedToKnow_CharSettings.Profiles[keyProfile] then
-        print("NeedToKnow: Clearing profile ",nameProfile); -- FIXME - Localization
+    if TimerBars_CharSettings.Profiles[keyProfile] then
+        print("TimerBars: Clearing profile ",nameProfile); -- FIXME - Localization
     else
-        print("NeedToKnow: Adding profile",nameProfile) -- FIXME - Localization
+        print("TimerBars: Adding profile",nameProfile) -- FIXME - Localization
     end
 
     if idxSpec then
-        NeedToKnow.CharSettings.Specs[idxSpec] = keyProfile
+        TimerBars.CharSettings.Specs[idxSpec] = keyProfile
     end
-    NeedToKnow_CharSettings.Profiles[keyProfile] = settings
-    NeedToKnow_Profiles[keyProfile] = settings
+    TimerBars_CharSettings.Profiles[keyProfile] = settings
+    TimerBars_Profiles[keyProfile] = settings
     return keyProfile
 end
 
 
-function NeedToKnowLoader.RoundSettings(t)
+function TimerBarsLoader.RoundSettings(t)
   for k,v in pairs(t) do
     local typ = type(v)
     if typ == "number" then
       t[k] = tonumber(string.format("%0.4f",v))
     elseif typ == "table" then
-      NeedToKnowLoader.RoundSettings(v)
+      TimerBarsLoader.RoundSettings(v)
     end
   end
 end
 
 
-function NeedToKnowLoader.MigrateSpec(specSettings, idxSpec)
+function TimerBarsLoader.MigrateSpec(specSettings, idxSpec)
     if not specSettings or not specSettings.Groups or not specSettings.Groups[1] or not
        specSettings.Groups[2] or not specSettings.Groups[3] or not specSettings.Groups[4] then
         return false
@@ -959,22 +959,22 @@ function NeedToKnowLoader.MigrateSpec(specSettings, idxSpec)
 
     -- Round floats to 0.00001, since old versions left really stange values of
     -- BarSpacing and BarPadding around
-    NeedToKnowLoader.RoundSettings(specSettings)
+    TimerBarsLoader.RoundSettings(specSettings)
     specSettings.Spec = nil
     specSettings.Locked = nil
     specSettings.nGroups = 4
-    specSettings.BarFont = NeedToKnowLoader.FindFontName(specSettings.BarFont)
-    NeedToKnow.CreateProfile(specSettings, idxSpec)
+    specSettings.BarFont = TimerBarsLoader.FindFontName(specSettings.BarFont)
+    TimerBars.CreateProfile(specSettings, idxSpec)
     return true
 end
 
 
-function NeedToKnowLoader.MigrateCharacterSettings()
-    print("NeedToKnow: Migrating settings from", NeedToKnow_Settings["Version"]);
-    local oldSettings = NeedToKnow_Settings
-    NeedToKnow.ResetCharacter(false)
+function TimerBarsLoader.MigrateCharacterSettings()
+    print("TimerBars: Migrating settings from", TimerBars_Settings["Version"]);
+    local oldSettings = TimerBars_Settings
+    TimerBars.ResetCharacter(false)
     if ( not oldSettings["Spec"] ) then
-        NeedToKnow_Settings = nil
+        TimerBars_Settings = nil
         return
     end
 
@@ -991,7 +991,7 @@ function NeedToKnowLoader.MigrateCharacterSettings()
       end
     end
 
-    NeedToKnow.CharSettings["Locked"] = oldSettings["Locked"]
+    TimerBars.CharSettings["Locked"] = oldSettings["Locked"]
 
     local bOK
     if ( oldSettings["Spec"] ) then -- The Spec member existed from versions 2.4 to 3.1.7
@@ -1002,34 +1002,34 @@ function NeedToKnowLoader.MigrateCharacterSettings()
                 newprofile[kD] = oldSettings[kD]
               end
             end
-            bOK = NeedToKnowLoader.MigrateSpec(newprofile, idxSpec)
+            bOK = TimerBarsLoader.MigrateSpec(newprofile, idxSpec)
         end
     -- if before dual spec support, copy old settings to both specs
     elseif oldSettings["Version"] >= "2.0" and oldSettings["Groups"] then
-        bOK = NeedToKnowLoader.MigrateSpec(oldSettings, 1) and
-              NeedToKnowLoader.MigrateSpec(CopyTable(oldSettings), 2)
+        bOK = TimerBarsLoader.MigrateSpec(oldSettings, 1) and
+              TimerBarsLoader.MigrateSpec(CopyTable(oldSettings), 2)
 
         -- save group positions if upgrading from version that used layout-local.txt
-        if ( bOK and NeedToKnow_Settings.Version < "2.1" ) then
+        if ( bOK and TimerBars_Settings.Version < "2.1" ) then
             for groupID = 1, 4 do -- Prior to 3.2, there were always 4 groups
-                NeedToKnow.SavePosition(_G["NeedToKnow_Group"..groupID], groupID)
+                TimerBars.SavePosition(_G["TimerBars_Group"..groupID], groupID)
             end
         end
     end
 
     if not bOK then
-        print("Old NeedToKnow character settings corrupted or not compatible with current version... starting from scratch")
-        NeedToKnow.ResetCharacter()
+        print("Old TimerBars character settings corrupted or not compatible with current version... starting from scratch")
+        TimerBars.ResetCharacter()
     end
-    NeedToKnow_Settings = nil
+    TimerBars_Settings = nil
 end
 
 
-function NeedToKnowLoader.FindFontName(fontPath)
-    local fontList = NeedToKnow.LSM:List("font")
+function TimerBarsLoader.FindFontName(fontPath)
+    local fontList = TimerBars.LSM:List("font")
     for i=1,#fontList do
         local fontName = fontList[i]
-        local iPath = NeedToKnow.LSM:Fetch("font", fontName)
+        local iPath = TimerBars.LSM:Fetch("font", fontName)
         if iPath == fontPath then
             return fontName
         end
@@ -1037,48 +1037,48 @@ function NeedToKnowLoader.FindFontName(fontPath)
     return NEEDTOKNOW.PROFILE_DEFAULTS.BarFont
 end
 
-function NeedToKnowLoader.SafeUpgrade()
+function TimerBarsLoader.SafeUpgrade()
     local defPath = GameFontHighlight:GetFont()
-    NEEDTOKNOW.PROFILE_DEFAULTS.BarFont = NeedToKnowLoader.FindFontName(defPath)
-    NeedToKnow_Profiles = {}
+    NEEDTOKNOW.PROFILE_DEFAULTS.BarFont = TimerBarsLoader.FindFontName(defPath)
+    TimerBars_Profiles = {}
 
-    -- If there had been an error during the previous upgrade, NeedToKnow_Settings
+    -- If there had been an error during the previous upgrade, TimerBars_Settings
     -- may be in an inconsistent, halfway state.
-    if not NeedToKnow_Globals then
-        NeedToKnowLoader.Reset(false)
+    if not TimerBars_Globals then
+        TimerBarsLoader.Reset(false)
     end
 
-    if NeedToKnow_Settings then -- prior to 4.0
-        NeedToKnowLoader.MigrateCharacterSettings()
+    if TimerBars_Settings then -- prior to 4.0
+        TimerBarsLoader.MigrateCharacterSettings()
     end
-    if not NeedToKnow_CharSettings then
+    if not TimerBars_CharSettings then
         -- we'll call talent update right after this, so we pass false now
-        NeedToKnow.ResetCharacter(false)
+        TimerBars.ResetCharacter(false)
     end
-    NeedToKnow.CharSettings = NeedToKnow_CharSettings
+    TimerBars.CharSettings = TimerBars_CharSettings
 
     -- 4.0 settings sanity check
-    if not NeedToKnow_Globals or
-       not NeedToKnow_Globals["Version"] or
-       not NeedToKnow_Globals.Profiles
+    if not TimerBars_Globals or
+       not TimerBars_Globals["Version"] or
+       not TimerBars_Globals.Profiles
     then
-        print("NeedToKnow settings corrupted, resetting")
-        NeedToKnowLoader.Reset()
+        print("TimerBars settings corrupted, resetting")
+        TimerBarsLoader.Reset()
     end
 
     local maxKey = 0
     local aByName = {}
-    for iS,vS in pairs(NeedToKnow_Globals.Profiles) do
+    for iS,vS in pairs(TimerBars_Globals.Profiles) do
         if vS.bUncompressed then
-            NeedToKnow.CompressProfile(vS)
+            TimerBars.CompressProfile(vS)
         end
         -- Although name should never be compressed, it could have been prior to 4.0.16
         if not vS.name then vS.name = "Default" end
         local cur = tonumber(iS:sub(2))
         if ( cur > maxKey ) then maxKey = cur end
-        NeedToKnow_Profiles[iS] = vS
+        TimerBars_Profiles[iS] = vS
         if aByName[ vS.name ] then
-            local renamed = NeedToKnow.FindUnusedNumericSuffix(vS.name, 2)
+            local renamed = TimerBars.FindUnusedNumericSuffix(vS.name, 2)
             print("Error! the profile name " .. vS.name .. " has been reused!  Renaming one of them to " .. renamed)
             vS.name = renamed;
         end
@@ -1086,21 +1086,21 @@ function NeedToKnowLoader.SafeUpgrade()
     end
 
     local aFixups = {}
-    if NeedToKnow_CharSettings.Profiles then
-        for iS,vS in pairs(NeedToKnow_CharSettings.Profiles) do
+    if TimerBars_CharSettings.Profiles then
+        for iS,vS in pairs(TimerBars_CharSettings.Profiles) do
             -- Check for collisions by name
             if aByName[ vS.name ] then
-                local renamed = NeedToKnow.FindUnusedNumericSuffix(vS.name, 2)
+                local renamed = TimerBars.FindUnusedNumericSuffix(vS.name, 2)
                 print("Error! the profile name " .. vS.name .. " has been reused!  Renaming one of them to " .. renamed)
                 vS.name = renamed;
             end
             aByName[vS.name] = vS
 
             -- Check for collisions by key
-            if ( NeedToKnow_Profiles[iS] ) then
-                print("NeedToKnow error encountered, both", vS.name, "and", NeedToKnow_Profiles[iS].name, "collided as " .. iS .. ".  Some specs may be mapped to one that should have been mapped to the other.");
+            if ( TimerBars_Profiles[iS] ) then
+                print("TimerBars error encountered, both", vS.name, "and", TimerBars_Profiles[iS].name, "collided as " .. iS .. ".  Some specs may be mapped to one that should have been mapped to the other.");
                 local oS = iS;
-                iS = NeedToKnow.AllocateProfileKey();
+                iS = TimerBars.AllocateProfileKey();
                 aFixups[oS] = iS
             end
 
@@ -1108,42 +1108,42 @@ function NeedToKnowLoader.SafeUpgrade()
             if not vS.name then vS.name = "Default" end
             local cur = tonumber(iS:sub(2))
             if ( cur > maxKey ) then maxKey = cur end
-            NeedToKnow_Profiles[iS] = vS
-            local k = NeedToKnow.FindProfileByName(vS.name);
+            TimerBars_Profiles[iS] = vS
+            local k = TimerBars.FindProfileByName(vS.name);
         end
     end
 
     -- fixup character profile collisions by key
     for oS,iS in pairs(aFixups) do
-      NeedToKnow_CharSettings.Profiles[iS] = NeedToKnow_CharSettings.Profiles[oS];
-      NeedToKnow_CharSettings.Profiles[oS] = nil;
+      TimerBars_CharSettings.Profiles[iS] = TimerBars_CharSettings.Profiles[oS];
+      TimerBars_CharSettings.Profiles[oS] = nil;
     end
 
-    if ( not NeedToKnow_Globals.NextProfile or maxKey > NeedToKnow_Globals.NextProfile ) then
-        print("Warning, NeedToKnow forgot how many profiles it had allocated.  New account profiles may hiccup when switching characters.")
-        NeedToKnow_Globals.NextProfile = maxKey + 1
+    if ( not TimerBars_Globals.NextProfile or maxKey > TimerBars_Globals.NextProfile ) then
+        print("Warning, TimerBars forgot how many profiles it had allocated.  New account profiles may hiccup when switching characters.")
+        TimerBars_Globals.NextProfile = maxKey + 1
     end
 
     local spec = g_GetActiveTalentGroup()
-    local curKey = NeedToKnow.CharSettings.Specs[spec]
-    if ( curKey and not NeedToKnow_Profiles[curKey] ) then
+    local curKey = TimerBars.CharSettings.Specs[spec]
+    if ( curKey and not TimerBars_Profiles[curKey] ) then
         print("Current profile (" .. curKey .. ") has been deleted!");
-        curKey = NeedToKnow.CreateProfile(CopyTable(NEEDTOKNOW.PROFILE_DEFAULTS), spec)
-        local curProf = NeedToKnow_Profiles[curKey]
-        NeedToKnow.CharSettings.Specs[spec] = curKey
+        curKey = TimerBars.CreateProfile(CopyTable(NEEDTOKNOW.PROFILE_DEFAULTS), spec)
+        local curProf = TimerBars_Profiles[curKey]
+        TimerBars.CharSettings.Specs[spec] = curKey
     end
 
 
      -- TODO: check the required members for existence and delete any corrupted profiles
 end
 
-function NeedToKnow.DeepCopy(object)
+function TimerBars.DeepCopy(object)
     if type(object) ~= "table" then
         return object
     else
         local new_table = {}
         for k,v in pairs(object) do
-            new_table[k] = NeedToKnow.DeepCopy(v)
+            new_table[k] = TimerBars.DeepCopy(v)
         end
         return new_table
     end
@@ -1153,7 +1153,7 @@ end
 ---- Copies anything (int, table, whatever).  Unlike DeepCopy (and CopyTable), CopyRefGraph can
 ---- recreate a recursive reference structure (CopyTable will stack overflow.)
 ---- Copied from http://lua-users.org/wiki/CopyTable
---function NeedToKnow.CopyRefGraph(object)
+--function TimerBars.CopyRefGraph(object)
     --local lookup_table = {}
     --local function _copy(object)
         --if type(object) ~= "table" then
@@ -1171,11 +1171,11 @@ end
     --return _copy(object)
 --end
 
-function NeedToKnow.RestoreTableFromCopy(dest, source)
+function TimerBars.RestoreTableFromCopy(dest, source)
     for key,value in pairs(source) do
         if type(value) == "table" then
            if dest[key] then
-               NeedToKnow.RestoreTableFromCopy(dest[key], value)
+               TimerBars.RestoreTableFromCopy(dest[key], value)
            else
                dest[key] = value
            end
@@ -1190,23 +1190,23 @@ function NeedToKnow.RestoreTableFromCopy(dest, source)
     end
 end
 
-function NeedToKnow.Update()
-    if UnitExists("player") and NeedToKnow.ProfileSettings then
-        for groupID = 1, NeedToKnow.ProfileSettings.nGroups do
-            NeedToKnow.Group_Update(groupID)
+function TimerBars.Update()
+    if UnitExists("player") and TimerBars.ProfileSettings then
+        for groupID = 1, TimerBars.ProfileSettings.nGroups do
+            TimerBars.Group_Update(groupID)
         end
     end
 end
 
 
-function NeedToKnow.Show(bShow)
-    NeedToKnow_Visible = bShow
-    for groupID = 1, NeedToKnow.ProfileSettings.nGroups do
-        local groupName = "NeedToKnow_Group"..groupID
+function TimerBars.Show(bShow)
+    TimerBars_Visible = bShow
+    for groupID = 1, TimerBars.ProfileSettings.nGroups do
+        local groupName = "TimerBars_Group"..groupID
         local group = _G[groupName]
-        local groupSettings = NeedToKnow.ProfileSettings.Groups[groupID]
+        local groupSettings = TimerBars.ProfileSettings.Groups[groupID]
 
-        if (NeedToKnow_Visible and groupSettings.Enabled) then
+        if (TimerBars_Visible and groupSettings.Enabled) then
             group:Show()
         else
             group:Hide()
@@ -1215,8 +1215,8 @@ function NeedToKnow.Show(bShow)
 end
 
 do
-    local executiveFrame = CreateFrame("Frame", "NeedToKnow_ExecutiveFrame")
-    executiveFrame:SetScript("OnEvent", NeedToKnow.ExecutiveFrame_OnEvent)
+    local executiveFrame = CreateFrame("Frame", "TimerBars_ExecutiveFrame")
+    executiveFrame:SetScript("OnEvent", TimerBars.ExecutiveFrame_OnEvent)
     executiveFrame:RegisterEvent("ADDON_LOADED")
     executiveFrame:RegisterEvent("PLAYER_LOGIN")
 end
@@ -1227,27 +1227,27 @@ end
 -- GROUPS
 -- ------
 
-function NeedToKnow.Group_Update(groupID)
-    local groupName = "NeedToKnow_Group"..groupID
+function TimerBars.Group_Update(groupID)
+    local groupName = "TimerBars_Group"..groupID
     local group = _G[groupName]
-    local groupSettings = NeedToKnow.ProfileSettings.Groups[groupID]
+    local groupSettings = TimerBars.ProfileSettings.Groups[groupID]
 
     local bar
     for barID = 1, groupSettings.NumberBars do
         local barName = groupName.."Bar"..barID
-        bar = _G[barName] or CreateFrame("Frame", barName, group, "NeedToKnow_BarTemplate")
+        bar = _G[barName] or CreateFrame("Frame", barName, group, "TimerBars_BarTemplate")
         bar:SetID(barID)
 
         if ( barID > 1 ) then
-            bar:SetPoint("TOP", _G[groupName.."Bar"..(barID-1)], "BOTTOM", 0, -NeedToKnow.ProfileSettings.BarSpacing)
+            bar:SetPoint("TOP", _G[groupName.."Bar"..(barID-1)], "BOTTOM", 0, -TimerBars.ProfileSettings.BarSpacing)
         else
             bar:SetPoint("TOPLEFT", group, "TOPLEFT")
         end
 
-        NeedToKnow.Bar_Update(groupID, barID)
+        TimerBars.Bar_Update(groupID, barID)
 
         if ( not groupSettings.Enabled ) then
-            NeedToKnow.ClearScripts(bar)
+            TimerBars.ClearScripts(bar)
         end
     end
 
@@ -1259,14 +1259,14 @@ function NeedToKnow.Group_Update(groupID)
         bar = _G[groupName.."Bar"..barID]
         if bar then
             bar:Hide()
-            NeedToKnow.ClearScripts(bar)
+            TimerBars.ClearScripts(bar)
             barID = barID + 1
         else
             break
         end
     end
 
-    if ( NeedToKnow.CharSettings["Locked"] ) then
+    if ( TimerBars.CharSettings["Locked"] ) then
         resizeButton:Hide()
     else
         resizeButton:Show()
@@ -1281,7 +1281,7 @@ function NeedToKnow.Group_Update(groupID)
         group:SetScale(groupSettings.Scale)
     end
 
-    if ( NeedToKnow_Visible and groupSettings.Enabled ) then
+    if ( TimerBars_Visible and groupSettings.Enabled ) then
         group:Show()
     else
         group:Hide()
@@ -1299,7 +1299,7 @@ end
 -- This may fail for valid names if the client doesn't have the data for
 -- that spell yet (just logged in or changed talent specs), in which case
 -- we mark that spell to try again later
-function NeedToKnow.SetupSpellCooldown(bar, entry)
+function TimerBars.SetupSpellCooldown(bar, entry)
     local id = entry.id
     local name = entry.name
     local idx = entry.idxName
@@ -1310,14 +1310,14 @@ function NeedToKnow.SetupSpellCooldown(bar, entry)
             bar.settings.bAutoShot = true
             bar.cd_functions[idx] = mfn_GetAutoShotCooldown
         else
-            local item_id = NeedToKnow.GetItemIDString(name)
+            local item_id = TimerBars.GetItemIDString(name)
             if item_id then
                 entry.id = item_id
                 entry.name = nil
-                bar.cd_functions[idx] = NeedToKnow.GetItemCooldown
+                bar.cd_functions[idx] = TimerBars.GetItemCooldown
             else
                 local betterSpellID
-                betterSpellID = NeedToKnow.TryToFindSpellWithCD(name)
+                betterSpellID = TimerBars.TryToFindSpellWithCD(name)
                 if nil ~= betterSpell then
                     entry.id = betterSpell
                     entry.name = nil
@@ -1341,19 +1341,19 @@ end
 
 -- Called when the configuration of the bar has changed, when the addon
 -- is loaded or when ntk is locked and unlocked
-function NeedToKnow.Bar_Update(groupID, barID)
-    local groupSettings = NeedToKnow.ProfileSettings.Groups[groupID]
+function TimerBars.Bar_Update(groupID, barID)
+    local groupSettings = TimerBars.ProfileSettings.Groups[groupID]
 
-    local barName = "NeedToKnow_Group"..groupID.."Bar"..barID
+    local barName = "TimerBars_Group"..groupID.."Bar"..barID
     local bar = _G[barName]
     if not bar then
         -- New bar added in the UI; need to create it!
-        local group = _G["NeedToKnow_Group"..groupID]
-        bar = CreateFrame("Button", barName, group, "NeedToKnow_BarTemplate")
+        local group = _G["TimerBars_Group"..groupID]
+        bar = CreateFrame("Button", barName, group, "TimerBars_BarTemplate")
         if barID > 1 then
-            bar:SetPoint("TOPLEFT", "NeedToKnow_Group"..groupID.."Bar"..(barID-1), "BOTTOMLEFT", 0, 0)
+            bar:SetPoint("TOPLEFT", "TimerBars_Group"..groupID.."Bar"..(barID-1), "BOTTOMLEFT", 0, 0)
         else
-            bar:SetPoint("TOPLEFT", "NeedToKnow_Group"..groupID, "TOPLEFT")
+            bar:SetPoint("TOPLEFT", "TimerBars_Group"..groupID, "TOPLEFT")
         end
         bar:SetPoint("RIGHT", group, "RIGHT", 0, 0)
         --trace("Creating bar for", groupID, barID)
@@ -1393,13 +1393,13 @@ function NeedToKnow.Bar_Update(groupID, barID)
 
     bar.max_value = 1
     mfn_SetStatusBarValue(bar,bar.bar1,1)
-    bar.bar1:SetTexture(NeedToKnow.LSM:Fetch("statusbar", NeedToKnow.ProfileSettings["BarTexture"]))
+    bar.bar1:SetTexture(TimerBars.LSM:Fetch("statusbar", TimerBars.ProfileSettings["BarTexture"]))
     if ( bar.bar2 ) then
-        bar.bar2:SetTexture(NeedToKnow.LSM:Fetch("statusbar", NeedToKnow.ProfileSettings["BarTexture"]))
+        bar.bar2:SetTexture(TimerBars.LSM:Fetch("statusbar", TimerBars.ProfileSettings["BarTexture"]))
     end
-    local fontPath = NeedToKnow.LSM:Fetch("font", NeedToKnow.ProfileSettings["BarFont"])
+    local fontPath = TimerBars.LSM:Fetch("font", TimerBars.ProfileSettings["BarFont"])
     if ( fontPath ) then
-        local ol = NeedToKnow.ProfileSettings["FontOutline"]
+        local ol = TimerBars.ProfileSettings["FontOutline"]
         if ( ol == 0 ) then
           ol = nil
         elseif (ol == 1) then
@@ -1408,16 +1408,16 @@ function NeedToKnow.Bar_Update(groupID, barID)
           ol = "THICKOUTLINE"
         end
 
-        bar.text:SetFont(fontPath, NeedToKnow.ProfileSettings["FontSize"],ol)
-        bar.time:SetFont(fontPath, NeedToKnow.ProfileSettings["FontSize"],ol)
+        bar.text:SetFont(fontPath, TimerBars.ProfileSettings["FontSize"],ol)
+        bar.time:SetFont(fontPath, TimerBars.ProfileSettings["FontSize"],ol)
     end
 
     bar:SetWidth(groupSettings.Width)
     bar.text:SetWidth(groupSettings.Width-60)
-    NeedToKnow.SizeBackground(bar, barSettings.show_icon)
+    TimerBars.SizeBackground(bar, barSettings.show_icon)
 
-    background:SetHeight(bar:GetHeight() + 2*NeedToKnow.ProfileSettings["BarPadding"])
-    background:SetVertexColor(unpack(NeedToKnow.ProfileSettings["BkgdColor"]))
+    background:SetHeight(bar:GetHeight() + 2*TimerBars.ProfileSettings["BarPadding"])
+    background:SetVertexColor(unpack(TimerBars.ProfileSettings["BkgdColor"]))
 
     -- Set up the Visual Cast Time overlay.  It isn't a part of the template
     -- because most bars won't use it and thus don't need to pay the cost of
@@ -1443,13 +1443,13 @@ function NeedToKnow.Bar_Update(groupID, barID)
         bar.icon:SetWidth(size)
         bar.icon:SetHeight(size)
         bar.icon:ClearAllPoints()
-        bar.icon:SetPoint("TOPRIGHT", bar, "TOPLEFT", -NeedToKnow.ProfileSettings["BarPadding"], 0)
+        bar.icon:SetPoint("TOPRIGHT", bar, "TOPLEFT", -TimerBars.ProfileSettings["BarPadding"], 0)
         bar.icon:Show()
     elseif (bar.icon) then
         bar.icon:Hide()
     end
 
-    if ( NeedToKnow.CharSettings["Locked"] ) then
+    if ( TimerBars.CharSettings["Locked"] ) then
         local enabled = groupSettings.Enabled and barSettings.Enabled
         if enabled then
             -- Set up the bar to be functional
@@ -1501,7 +1501,7 @@ function NeedToKnow.Bar_Update(groupID, barID)
 
             barSettings.bAutoShot = nil
             bar.is_counter = nil
-            bar.ticker = NeedToKnow.Bar_OnUpdate
+            bar.ticker = TimerBars.Bar_OnUpdate
 
             -- Determine which helper functions to use
             if     "BUFFCD" == barSettings.BuffOrDebuff then
@@ -1521,7 +1521,7 @@ function NeedToKnow.Bar_Update(groupID, barID)
                 bar.fnCheck = mfn_AuraCheck_CASTCD
                 for idx, entry in ipairs(bar.spells) do
                     table.insert(bar.cd_functions, mfn_GetSpellCooldown)
-                    NeedToKnow.SetupSpellCooldown(bar, entry)
+                    TimerBars.SetupSpellCooldown(bar, entry)
                 end
             elseif barSettings.show_all_stacks then
                 bar.fnCheck = mfn_AuraCheck_AllStacks
@@ -1537,15 +1537,15 @@ function NeedToKnow.Bar_Update(groupID, barID)
                 end
             end
 
-            NeedToKnow.SetScripts(bar)
+            TimerBars.SetScripts(bar)
             -- Events were cleared while unlocked, so need to check the bar again now
             mfn_Bar_AuraCheck(bar)
         else
-            NeedToKnow.ClearScripts(bar)
+            TimerBars.ClearScripts(bar)
             bar:Hide()
         end
     else
-        NeedToKnow.ClearScripts(bar)
+        TimerBars.ClearScripts(bar)
         -- Set up the bar to be configured
         bar:EnableMouse(true)
 
@@ -1574,7 +1574,7 @@ function NeedToKnow.Bar_Update(groupID, barID)
             if "" ~= barSettings.show_text_user then
                 txt = barSettings.show_text_user
             else
-                txt = txt .. NeedToKnow.PrettyName(barSettings)
+                txt = txt .. TimerBars.PrettyName(barSettings)
             end
 
             if ( barSettings.append_cd
@@ -1603,7 +1603,7 @@ function NeedToKnow.Bar_Update(groupID, barID)
 end
 
 
-function NeedToKnow.CheckCombatLogRegistration(bar, force)
+function TimerBars.CheckCombatLogRegistration(bar, force)
     if UnitExists(bar.unit) then
         bar:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
     else
@@ -1612,8 +1612,8 @@ function NeedToKnow.CheckCombatLogRegistration(bar, force)
 end
 
 
-function NeedToKnow.SetScripts(bar)
-    bar:SetScript("OnEvent", NeedToKnow.Bar_OnEvent)
+function TimerBars.SetScripts(bar)
+    bar:SetScript("OnEvent", TimerBars.Bar_OnEvent)
 
     if ( bar.ticker ) then
         bar:SetScript("OnUpdate", bar.ticker)
@@ -1636,7 +1636,7 @@ function NeedToKnow.SetScripts(bar)
         bar:RegisterEvent("PLAYER_TARGET_CHANGED")
         bar:RegisterEvent("UNIT_TARGET")
         -- WORKAROUND: Don't get UNIT_AURA for targettarget
-        NeedToKnow.CheckCombatLogRegistration(bar)
+        TimerBars.CheckCombatLogRegistration(bar)
     else
         bar:RegisterEvent("UNIT_AURA")
     end
@@ -1648,11 +1648,11 @@ function NeedToKnow.SetScripts(bar)
     elseif ( bar.unit == "pet" ) then
         bar:RegisterEvent("UNIT_PET")
     elseif ( "lastraid" == bar.settings.Unit ) then
-        if ( not NeedToKnow.BarsForPSS ) then
-            NeedToKnow.BarsForPSS = {}
+        if ( not TimerBars.BarsForPSS ) then
+            TimerBars.BarsForPSS = {}
         end
-        NeedToKnow.BarsForPSS[bar] = true
-        NeedToKnow.RegisterSpellcastSent()
+        TimerBars.BarsForPSS[bar] = true
+        TimerBars.RegisterSpellcastSent()
     end
 
     if bar.settings.bDetectExtends then
@@ -1673,17 +1673,17 @@ function NeedToKnow.SetScripts(bar)
                 print("Warning! NTK could not get name for ", entry.id)
             end
         end
-        NeedToKnow.RegisterSpellcastSent()
+        TimerBars.RegisterSpellcastSent()
     end
     if bar.settings.blink_enabled and bar.settings.blink_boss then
-        if not NeedToKnow.BossStateBars then
-            NeedToKnow.BossStateBars = {}
+        if not TimerBars.BossStateBars then
+            TimerBars.BossStateBars = {}
         end
-        NeedToKnow.BossStateBars[bar] = 1;
+        TimerBars.BossStateBars[bar] = 1;
     end
 end
 
-function NeedToKnow.ClearScripts(bar)
+function TimerBars.ClearScripts(bar)
     bar:SetScript("OnEvent", nil)
     bar:SetScript("OnUpdate", nil)
     bar:UnregisterEvent("PLAYER_TARGET_CHANGED")
@@ -1696,29 +1696,29 @@ function NeedToKnow.ClearScripts(bar)
     bar:UnregisterEvent("START_AUTOREPEAT_SPELL")
     bar:UnregisterEvent("STOP_AUTOREPEAT_SPELL")
     bar:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
-    if NeedToKnow.BossStateBars then
-        NeedToKnow.BossStateBars[bar] = nil;
+    if TimerBars.BossStateBars then
+        TimerBars.BossStateBars[bar] = nil;
     end
 
     if bar.settings.bDetectExtends then
-        NeedToKnow.UnregisterSpellcastSent()
+        TimerBars.UnregisterSpellcastSent()
     end
-    if NeedToKnow.BarsForPSS and NeedToKnow.BarsForPSS[bar] then
-        NeedToKnow.BarsForPSS[bar] = nil
-        if nil == next(NeedToKnow.BarsForPSS) then
-            NeedToKnow.BarsForPSS = nil
-            NeedToKnow.UnregisterSpellcastSent();
+    if TimerBars.BarsForPSS and TimerBars.BarsForPSS[bar] then
+        TimerBars.BarsForPSS[bar] = nil
+        if nil == next(TimerBars.BarsForPSS) then
+            TimerBars.BarsForPSS = nil
+            TimerBars.UnregisterSpellcastSent();
         end
     end
 end
 
-function NeedToKnow.Bar_OnMouseUp(self, button)
+function TimerBars.Bar_OnMouseUp(self, button)
     if ( button == "RightButton" ) then
-        NeedToKnowRMB.ShowMenu(self);
+        TimerBarsRMB.ShowMenu(self);
      end
 end
 
-function NeedToKnow.Bar_OnSizeChanged(self)
+function TimerBars.Bar_OnSizeChanged(self)
     if (self.bar1.cur_value) then mfn_SetStatusBarValue(self, self.bar1, self.bar1.cur_value) end
     if (self.bar2 and self.bar2.cur_value) then mfn_SetStatusBarValue(self, self.bar2, self.bar2.cur_value, self.bar1.cur_value) end
 end
@@ -1728,7 +1728,7 @@ end
 
 -- AuraCheck calls on this to compute the "text" of the bar
 -- It is separated out like this in part to be hooked by other addons
-function NeedToKnow.ComputeBarText(buffName, count, extended, buff_stacks, bar)
+function TimerBars.ComputeBarText(buffName, count, extended, buff_stacks, bar)
     local text
     if ( count > 1 ) then
         text = buffName.."  ["..count.."]"
@@ -1754,7 +1754,7 @@ end
 -- Called by mfn_UpdateVCT, which is called from AuraCheck and possibly
 -- by Bar_Update depending on vct_refresh. In addition to refactoring out some
 -- code from the long AuraCheck, this also provides a convenient hook for other addons
-function NeedToKnow.ComputeVCTDuration(bar)
+function TimerBars.ComputeVCTDuration(bar)
     local vct_duration = 0
 
     local spellToTime = bar.settings.vct_spell
@@ -1778,7 +1778,7 @@ function NeedToKnow.ComputeVCTDuration(bar)
 end
 
 mfn_UpdateVCT = function (bar)
-    local vct_duration = NeedToKnow.ComputeVCTDuration(bar)
+    local vct_duration = TimerBars.ComputeVCTDuration(bar)
 
     local dur = bar.fixedDuration or bar.duration
     if ( dur ) then
@@ -1798,15 +1798,15 @@ mfn_UpdateVCT = function (bar)
     end
 end
 
-function NeedToKnow.SizeBackground(bar, i_show_icon)
+function TimerBars.SizeBackground(bar, i_show_icon)
     local background = _G[bar:GetName() .. "Background"]
-    local bgWidth = bar:GetWidth() + 2*NeedToKnow.ProfileSettings["BarPadding"]
-    local y = NeedToKnow.ProfileSettings["BarPadding"]
+    local bgWidth = bar:GetWidth() + 2*TimerBars.ProfileSettings["BarPadding"]
+    local y = TimerBars.ProfileSettings["BarPadding"]
     local x = -y
     background:ClearAllPoints()
 
     if ( i_show_icon ) then
-        local iconExtra = bar:GetHeight() + NeedToKnow.ProfileSettings["BarPadding"]
+        local iconExtra = bar:GetHeight() + TimerBars.ProfileSettings["BarPadding"]
         bgWidth = bgWidth + iconExtra
         x = x - iconExtra
     end
@@ -1814,7 +1814,7 @@ function NeedToKnow.SizeBackground(bar, i_show_icon)
     background:SetPoint("TOPLEFT", bar, "TOPLEFT", x, y)
 end
 
-function NeedToKnow.CreateBar2(bar)
+function TimerBars.CreateBar2(bar)
     if ( not bar.bar2 ) then
         local n = bar:GetName() .. "Bar2"
         bar.bar2 = bar:CreateTexture(n, "BORDER")
@@ -1824,35 +1824,35 @@ function NeedToKnow.CreateBar2(bar)
     end
 end
 
-function NeedToKnow.PrettyName(barSettings)
+function TimerBars.PrettyName(barSettings)
     if ( barSettings.BuffOrDebuff == "EQUIPSLOT" ) then
         local idx = tonumber(barSettings.AuraName)
         if idx then return NEEDTOKNOW.ITEM_NAMES[idx] end
         return ""
     elseif ( barSettings.BuffOrDebuff == "POWER" ) then
         local idx = tonumber(barSettings.AuraName)
-        if idx then return NeedToKnow.GetPowerName(idx) end
+        if idx then return TimerBars.GetPowerName(idx) end
         return ""
     else
         return barSettings.AuraName
     end
 end
 
-function NeedToKnow.ConfigureVisibleBar(bar, count, extended, buff_stacks)
+function TimerBars.ConfigureVisibleBar(bar, count, extended, buff_stacks)
     local text = ""
     if ( bar.settings.show_icon and bar.iconPath and bar.icon ) then
         bar.icon:SetTexture(bar.iconPath)
         bar.icon:Show()
-        NeedToKnow.SizeBackground(bar, true)
+        TimerBars.SizeBackground(bar, true)
     elseif bar.icon then
         bar.icon:Hide()
-        NeedToKnow.SizeBackground(bar, false)
+        TimerBars.SizeBackground(bar, false)
     end
 
     bar.bar1:SetVertexColor(bar.settings.BarColor.r, bar.settings.BarColor.g, bar.settings.BarColor.b)
     bar.bar1:SetAlpha(bar.settings.BarColor.a)
     if ( bar.max_expirationTime and bar.max_expirationTime ~= bar.expirationTime ) then
-        NeedToKnow.CreateBar2(bar)
+        TimerBars.CreateBar2(bar)
         bar.bar2:SetTexture(bar.bar1:GetTexture())
         bar.bar2:SetVertexColor(bar.settings.BarColor.r, bar.settings.BarColor.g, bar.settings.BarColor.b)
         bar.bar2:SetAlpha(bar.settings.BarColor.a * 0.5)
@@ -1880,7 +1880,7 @@ function NeedToKnow.ConfigureVisibleBar(bar, count, extended, buff_stacks)
     if not bar.settings.show_count then
         c = 1
     end
-    local to_append = NeedToKnow.ComputeBarText(n, c, extended, buff_stacks, bar)
+    local to_append = TimerBars.ComputeBarText(n, c, extended, buff_stacks, bar)
     if to_append and to_append ~= "" then
         txt = txt .. to_append
     end
@@ -1912,7 +1912,7 @@ function NeedToKnow.ConfigureVisibleBar(bar, count, extended, buff_stacks)
         -- This will call UpdateVCT again, but that seems ok
         bar.nextUpdate = -c_UPDATE_INTERVAL
         if bar.expirationTime > g_GetTime() then
-            NeedToKnow.Bar_OnUpdate(bar, 0)
+            TimerBars.Bar_OnUpdate(bar, 0)
         end
 
         bar.time:Show()
@@ -1944,7 +1944,7 @@ function NeedToKnow.ConfigureVisibleBar(bar, count, extended, buff_stacks)
     end
 end
 
-function NeedToKnow.ConfigureBlinkingBar(bar)
+function TimerBars.ConfigureBlinkingBar(bar)
     local settings = bar.settings
     if ( not bar.blink ) then
         bar.blink=true
@@ -1960,17 +1960,17 @@ function NeedToKnow.ConfigureBlinkingBar(bar)
 
     if ( bar.icon ) then
         bar.icon:Hide()
-        NeedToKnow.SizeBackground(bar, false)
+        TimerBars.SizeBackground(bar, false)
     end
     if ( bar.bar2 ) then
         bar.bar2:Hide()
     end
 end
 
-function NeedToKnow.GetUtilityTooltips()
-    if ( not NeedToKnow_Tooltip1 ) then
+function TimerBars.GetUtilityTooltips()
+    if ( not TimerBars_Tooltip1 ) then
         for idxTip = 1,2 do
-            local ttname = "NeedToKnow_Tooltip"..idxTip
+            local ttname = "TimerBars_Tooltip"..idxTip
             local tt = CreateFrame("GameTooltip", ttname)
             tt:SetOwner(UIParent, "ANCHOR_NONE")
             tt.left = {}
@@ -1990,15 +1990,15 @@ function NeedToKnow.GetUtilityTooltips()
             end
          end
     end
-    local tt1,tt2 = NeedToKnow_Tooltip1, NeedToKnow_Tooltip2
+    local tt1,tt2 = TimerBars_Tooltip1, TimerBars_Tooltip2
 
     tt1:ClearLines()
     tt2:ClearLines()
     return tt1,tt2
 end
 
-function NeedToKnow.DetermineTempEnchantFromTooltip(i_invID)
-    local tt1,tt2 = NeedToKnow.GetUtilityTooltips()
+function TimerBars.DetermineTempEnchantFromTooltip(i_invID)
+    local tt1,tt2 = TimerBars.GetUtilityTooltips()
 
     tt1:SetInventoryItem("player", i_invID)
     local n,h = tt1:GetItem()
@@ -2041,17 +2041,17 @@ end
 -- Looks at the tooltip for the given spell to see if a cooldown
 -- is listed with a duration in seconds.  Longer cooldowns don't
 -- need this logic, so we don't need to do unit conversion
-function NeedToKnow.DetermineShortCooldownFromTooltip(spell)
-    if not NeedToKnow.short_cds then
-        NeedToKnow.short_cds = {}
+function TimerBars.DetermineShortCooldownFromTooltip(spell)
+    if not TimerBars.short_cds then
+        TimerBars.short_cds = {}
     end
-    if not NeedToKnow.short_cds[spell] then
+    if not TimerBars.short_cds[spell] then
         -- Figure out what a cooldown in seconds should look like
         local ref = SecondsToTime(10):lower()
         local unit_ref = ref:match("10 (.+)")
 
         -- Get the number and unit of the cooldown from the tooltip
-        local tt1 = NeedToKnow.GetUtilityTooltips()
+        local tt1 = TimerBars.GetUtilityTooltips()
         local lnk = GetSpellLink(spell)
         local cd, n_cd, unit_cd
         if lnk and lnk ~= "" then
@@ -2070,23 +2070,23 @@ function NeedToKnow.DetermineShortCooldownFromTooltip(spell)
         -- unit_ref will be "|4sec:sec;" in english, so do a find rather than a ==
         if not n_cd then
             -- If we couldn't parse the tooltip, assume there's no cd
-            NeedToKnow.short_cds[spell] = 0
+            TimerBars.short_cds[spell] = 0
         elseif unit_ref:find(unit_cd) then
-            NeedToKnow.short_cds[spell] = tonumber(n_cd)
+            TimerBars.short_cds[spell] = tonumber(n_cd)
         else
             -- Not a short cooldown.  Record it as a minute
-            NeedToKnow.short_cds[spell] = 60
+            TimerBars.short_cds[spell] = 60
         end
     end
 
-    return NeedToKnow.short_cds[spell]
+    return TimerBars.short_cds[spell]
 end
 
 
 -- Search the player's spellbook for a spell that matches
 -- todo: cache this result?
-function NeedToKnow.TryToFindSpellWithCD(barSpell)
-    if NeedToKnow.DetermineShortCooldownFromTooltip(barSpell) > 0 then return barSpell end
+function TimerBars.TryToFindSpellWithCD(barSpell)
+    if TimerBars.DetermineShortCooldownFromTooltip(barSpell) > 0 then return barSpell end
 
     for iBook = 1, g_GetNumSpellTabs() do
         local sBook,_,iFirst,nSpells = g_GetSpellTabInfo(iBook)
@@ -2097,7 +2097,7 @@ function NeedToKnow.TryToFindSpellWithCD(barSpell)
                 local sID = sLink:match("spell:(%d+)")
                 local start = GetSpellCooldown(sID)
                 if start then
-                    local ttcd = NeedToKnow.DetermineShortCooldownFromTooltip(sID)
+                    local ttcd = TimerBars.DetermineShortCooldownFromTooltip(sID)
                     if ttcd and ttcd>0 then
                         return sID
                     end
@@ -2108,7 +2108,7 @@ function NeedToKnow.TryToFindSpellWithCD(barSpell)
 end
 
 
-function NeedToKnow.GetItemIDString(id_or_name)
+function TimerBars.GetItemIDString(id_or_name)
     local _, link = GetItemInfo(id_or_name)
     if link then
         local idstring = link:match("item:(%d+):")
@@ -2133,7 +2133,7 @@ end
 
 -- Helper for mfn_AuraCheck_CASTCD for names we haven't figured out yet
 mfn_GetUnresolvedCooldown = function(bar, entry)
-    NeedToKnow.SetupSpellCooldown(bar, entry)
+    TimerBars.SetupSpellCooldown(bar, entry)
     local fn = bar.cd_functions[entry.idxName]
     if mfn_GetUnresolvedCooldown ~= fn then
         return fn(bar, entry)
@@ -2149,12 +2149,12 @@ mfn_GetSpellCooldown = function(bar, entry)
     if start and start > 0 then
         local spellName, _, spellIconPath, _, _, _, spellId = g_GetSpellInfo(barSpell)
         if not spellName then
-            if not NeedToKnow.GSIBroken then
-                NeedToKnow.GSIBroken = {}
+            if not TimerBars.GSIBroken then
+                TimerBars.GSIBroken = {}
             end
-            if  not NeedToKnow.GSIBroken[barSpell] then
-                print("NeedToKnow: Warning! Unable to get spell info for",barSpell,".  Try using Spell ID instead.")
-                NeedToKnow.GSIBroken[barSpell] = true;
+            if  not TimerBars.GSIBroken[barSpell] then
+                print("TimerBars: Warning! Unable to get spell info for",barSpell,".  Try using Spell ID instead.")
+                TimerBars.GSIBroken[barSpell] = true;
             end
             spellName = tostring(barSpell)
         end
@@ -2162,7 +2162,7 @@ mfn_GetSpellCooldown = function(bar, entry)
         if 0 == enable then
             -- Filter out conditions like Stealth while stealthed
             start = nil
-        elseif NeedToKnow.is_DK == 1 then
+        elseif TimerBars.is_DK == 1 then
 		    local usesRunes=nil
 		    local costInfo = g_GetSpellPowerCost(spellId)
 			local nCosts = table.getn(costInfo)
@@ -2184,7 +2184,7 @@ mfn_GetSpellCooldown = function(bar, entry)
 						-- We think the spell was just cast, and a CD just started but it's short.
 						-- Look at the tooltip to tell what the correct CD should be. If it's supposed
 						-- to be short (Ghoul Frenzy, Howling Blast), then start a CD bar
-						cd_len = NeedToKnow.DetermineShortCooldownFromTooltip(barSpell)
+						cd_len = TimerBars.DetermineShortCooldownFromTooltip(barSpell)
 						if cd_len == 0 or cd_len > 10 then
 							start = nil
 						end
@@ -2223,7 +2223,7 @@ end
 
 -- Wrapper around GetItemCooldown
 -- Expected to return start, cd_len, enable, buffName, iconpath
-function NeedToKnow.GetItemCooldown(bar, entry)
+function TimerBars.GetItemCooldown(bar, entry)
     local start, cd_len, enable = GetItemCooldown(entry.id)
     if start then
         local name, _, _, _, _, _, _, _, _, icon = GetItemInfo(entry.id)
@@ -2273,21 +2273,21 @@ mfn_AuraCheck_TOTEM = function(bar, bar_entry, all_stacks)
             -- a latency meaning it can be significantly low.  So we cache the g_GetTime
             -- that the totem actually appeared, so long as g_GetTime is reasonably close to
             -- startTime (since the totems may have been out for awhile before this runs.)
-            if ( not NeedToKnow.totem_drops[iSlot] or
-                 NeedToKnow.totem_drops[iSlot] < startTime )
+            if ( not TimerBars.totem_drops[iSlot] or
+                 TimerBars.totem_drops[iSlot] < startTime )
             then
                 local precise = g_GetTime()
                 if ( precise - startTime > 1 ) then
                     precise = startTime + 1
                 end
-                NeedToKnow.totem_drops[iSlot] = precise
+                TimerBars.totem_drops[iSlot] = precise
             end
 
             mfn_AddInstanceToStacks(all_stacks, bar_entry,
                    totemDuration,                              -- duration
                    totemName,                                  -- name
                    1,                                          -- count
-                   NeedToKnow.totem_drops[iSlot] + totemDuration, -- expiration time
+                   TimerBars.totem_drops[iSlot] + totemDuration, -- expiration time
                    totemIcon,                                  -- icon path
                    "player" )                                  -- caster
         end
@@ -2306,7 +2306,7 @@ mfn_AuraCheck_EQUIPSLOT = function (bar, bar_entry, all_stacks)
         if id then
             local item_entry = m_scratch.bar_entry
             item_entry.id = id
-            local start, cd_len, enable, name, icon = NeedToKnow.GetItemCooldown(bar, item_entry)
+            local start, cd_len, enable, name, icon = TimerBars.GetItemCooldown(bar, item_entry)
 
             if ( start and start > 0 ) then
                 mfn_AddInstanceToStacks(all_stacks, bar_entry,
@@ -2379,7 +2379,7 @@ mfn_AuraCheck_POWER = function (bar, bar_entry, all_stacks)
 
             mfn_AddInstanceToStacks(all_stacks, bar_entry,
                    0,                                          -- duration
-                   NeedToKnow.GetPowerName(pt),                -- name
+                   TimerBars.GetPowerName(pt),                -- name
                    1,                                          -- count
                    0,                                          -- expiration time
                    nil,                                        -- icon path
@@ -2396,7 +2396,7 @@ end
 
 -- Bar_AuraCheck helper that checks for spell/item use cooldowns
 -- Relies on mfn_GetAutoShotCooldown, mfn_GetSpellCooldown
--- and NeedToKnow.GetItemCooldown. Bar_Update will have already pre-processed
+-- and TimerBars.GetItemCooldown. Bar_Update will have already pre-processed
 -- this list so that bar.cd_functions[idxName] can do something with bar_entry
 mfn_AuraCheck_CASTCD = function(bar, bar_entry, all_stacks)
     local idxName = bar_entry.idxName
@@ -2789,7 +2789,7 @@ mfn_Bar_AuraCheck = function (bar)
         -- Mark the bar as not blinking before calling ConfigureVisibleBar,
         -- since it calls OnUpdate which checks bar.blink
         bar.blink=false
-        NeedToKnow.ConfigureVisibleBar(bar, count, extended, all_stacks)
+        TimerBars.ConfigureVisibleBar(bar, count, extended, all_stacks)
         bar:Show()
     else
         if (settings.bDetectExtends and bar.buffName) then
@@ -2822,7 +2822,7 @@ mfn_Bar_AuraCheck = function (bar)
             end
         end
         if ( bBlink ) then
-            NeedToKnow.ConfigureBlinkingBar(bar)
+            TimerBars.ConfigureBlinkingBar(bar)
             bar:Show()
         else
             bar.blink=false
@@ -2832,12 +2832,12 @@ mfn_Bar_AuraCheck = function (bar)
 end
 
 
-function NeedToKnow.Fmt_SingleUnit(i_fSeconds)
+function TimerBars.Fmt_SingleUnit(i_fSeconds)
     return string.format(SecondsToTimeAbbrev(i_fSeconds))
 end
 
 
-function NeedToKnow.Fmt_TwoUnits(i_fSeconds)
+function TimerBars.Fmt_TwoUnits(i_fSeconds)
   if ( i_fSeconds < 6040 ) then
       local nMinutes, nSeconds
       nMinutes = floor(i_fSeconds / 60)
@@ -2848,11 +2848,11 @@ function NeedToKnow.Fmt_TwoUnits(i_fSeconds)
   end
 end
 
-function NeedToKnow.Fmt_Float(i_fSeconds)
+function TimerBars.Fmt_Float(i_fSeconds)
   return string.format("%0.1f", i_fSeconds)
 end
 
-function NeedToKnow.Bar_OnUpdate(self, elapsed)
+function TimerBars.Bar_OnUpdate(self, elapsed)
     local now = g_GetTime()
     if ( now > self.nextUpdate ) then
         self.nextUpdate = now + c_UPDATE_INTERVAL
@@ -2889,7 +2889,7 @@ function NeedToKnow.Bar_OnUpdate(self, elapsed)
             end
             mfn_SetStatusBarValue(self, self.bar1, bar1_timeLeft);
             if ( self.settings.show_time ) then
-                local fn = NeedToKnow[self.settings.TimeFormat]
+                local fn = TimerBars[self.settings.TimeFormat]
                 local oldText = self.time:GetText()
                 local newText
                 if ( fn ) then
@@ -2999,14 +2999,14 @@ EDT["UNIT_DISPLAYPOWER"] = fnAuraCheckIfUnitMatches
 EDT["UNIT_HEALTH"] = mfn_Bar_AuraCheck
 EDT["PLAYER_TARGET_CHANGED"] = function(self, unit)
     if self.unit == "targettarget" then
-        NeedToKnow.CheckCombatLogRegistration(self)
+        TimerBars.CheckCombatLogRegistration(self)
     end
     mfn_Bar_AuraCheck(self)
 end
 EDT["PLAYER_FOCUS_CHANGED"] = EDT["PLAYER_TARGET_CHANGED"]
 EDT["UNIT_TARGET"] = function(self, unit)
     if unit == "target" and self.unit == "targettarget" then
-        NeedToKnow.CheckCombatLogRegistration(self)
+        TimerBars.CheckCombatLogRegistration(self)
     end
     mfn_Bar_AuraCheck(self)
 end
@@ -3039,14 +3039,14 @@ EDT["UNIT_SPELLCAST_SUCCEEDED"] = function(self, unit, ...)
     end
 end
 
-function NeedToKnow.Bar_OnEvent(self, event, unit, ...)
+function TimerBars.Bar_OnEvent(self, event, unit, ...)
     local fn = EDT[event]
     if fn then
         fn(self, unit, ...)
     end
 end
 
-function NeedToKnow.GetPowerName(idx)
+function TimerBars.GetPowerName(idx)
     for k,v in pairs(Enum.PowerType) do
         if v == idx then
             return k

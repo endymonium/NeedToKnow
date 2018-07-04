@@ -1,11 +1,11 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\..\..\Blizza~1\FrameXML\UI.xsd">
 
-    <Script file="NeedToKnow_Localization.lua"/>
-    <Script file="NeedToKnow.lua"/>
-    <Script file="NeedToKnow_Options.lua"/>
+    <Script file="TimerBars_Localization.lua"/>
+    <Script file="TimerBars.lua"/>
+    <Script file="TimerBars_Options.lua"/>
 
-    <Frame name="NeedToKnow_GroupTemplate" virtual="true">
+    <Frame name="TimerBars_GroupTemplate" virtual="true">
         <Size>
             <AbsDimension x="1" y="1"/>
         </Size>
@@ -26,7 +26,7 @@
                 </Anchors>
                 <Layers>
                     <Layer level="BACKGROUND">
-                        <Texture name="$parentTexture" file="Interface\AddOns\NeedToKnow\Textures\Resize">
+                        <Texture name="$parentTexture" file="Interface\AddOns\TimerBars\Textures\Resize">
                             <Size>
                                 <AbsDimension x="10" y="10"/>
                             </Size>
@@ -38,13 +38,13 @@
                         getglobal(self:GetName().."Texture"):SetVertexColor(0.6, 0.6, 0.6);
                     </OnLoad>
                     <OnMouseDown>
-                        NeedToKnow.StartSizing(self, button);
+                        TimerBars.StartSizing(self, button);
                     </OnMouseDown>
                     <OnMouseUp>
-                        NeedToKnow.StopSizing(self, button);
+                        TimerBars.StopSizing(self, button);
                     </OnMouseUp>
                     <OnEnter>
-                        NeedToKnow.Resizebutton_OnEnter(self);
+                        TimerBars.Resizebutton_OnEnter(self);
                         getglobal(self:GetName().."Texture"):SetVertexColor(1, 1, 1);
                     </OnEnter>
                     <OnLeave>
@@ -56,7 +56,7 @@
         </Frames>
     </Frame>
 
-    <Frame name="NeedToKnow_BarTemplate" toplevel="true" enableMouse="true" virtual="true">
+    <Frame name="TimerBars_BarTemplate" toplevel="true" enableMouse="true" virtual="true">
         <Size>
             <AbsDimension x="271" y="18"/>
         </Size>
@@ -142,22 +142,22 @@
                 GameTooltip:Hide();
             </OnLeave>
             <OnMouseUp>
-                NeedToKnow.Bar_OnMouseUp(self, button);
+                TimerBars.Bar_OnMouseUp(self, button);
             </OnMouseUp>
             <OnSizeChanged>
-                NeedToKnow.Bar_OnSizeChanged(self)
+                TimerBars.Bar_OnSizeChanged(self)
             </OnSizeChanged>
             <OnDragStart>
                 self:GetParent():StartMoving();
             </OnDragStart>
             <OnDragStop>
                 self:GetParent():StopMovingOrSizing();
-                NeedToKnow.SavePosition(self:GetParent(), self:GetParent():GetID());
+                TimerBars.SavePosition(self:GetParent(), self:GetParent():GetID());
             </OnDragStop>
         </Scripts>
     </Frame>
 
-    <Frame name="NeedToKnow_Group1" inherits="NeedToKnow_GroupTemplate" toplevel="true" movable="true" parent="UIParent" id="1">
+    <Frame name="TimerBars_Group1" inherits="TimerBars_GroupTemplate" toplevel="true" movable="true" parent="UIParent" id="1">
         <Anchors>
             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
                 <Offset>
@@ -166,7 +166,7 @@
             </Anchor>
         </Anchors>
     </Frame>
-    <Frame name="NeedToKnow_Group2" inherits="NeedToKnow_GroupTemplate" toplevel="true" movable="true" parent="UIParent" id="2">
+    <Frame name="TimerBars_Group2" inherits="TimerBars_GroupTemplate" toplevel="true" movable="true" parent="UIParent" id="2">
         <Anchors>
             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
                 <Offset>
@@ -175,7 +175,7 @@
             </Anchor>
         </Anchors>
     </Frame>
-    <Frame name="NeedToKnow_Group3" inherits="NeedToKnow_GroupTemplate" toplevel="true" movable="true" parent="UIParent" id="3">
+    <Frame name="TimerBars_Group3" inherits="TimerBars_GroupTemplate" toplevel="true" movable="true" parent="UIParent" id="3">
         <Anchors>
             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
                 <Offset>
@@ -184,7 +184,7 @@
             </Anchor>
         </Anchors>
     </Frame>
-    <Frame name="NeedToKnow_Group4" inherits="NeedToKnow_GroupTemplate" toplevel="true" movable="true" parent="UIParent" id="4">
+    <Frame name="TimerBars_Group4" inherits="TimerBars_GroupTemplate" toplevel="true" movable="true" parent="UIParent" id="4">
         <Anchors>
             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
                 <Offset>
