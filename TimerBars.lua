@@ -493,7 +493,7 @@ function TimerBars.ExecutiveFrame_ADDON_LOADED(addon)
 
         SlashCmdList["TIMERBARS"] = TimerBars.SlashCommand
         SLASH_TIMERBARS1 = "/timerbars"
-        SLASH_TIMERBARS2 = "/tb"
+        SLASH_TIMERBARS2 = "/tbs"
     end
 end
 
@@ -2745,7 +2745,7 @@ mfn_Bar_AuraCheck = function (bar)
             local guidTarget = UnitGUID(bar.unit)
             local r = m_last_guid[buffName]
 
-            if ( not r[guidTarget] ) then -- Should only happen from /reload or /tb while the aura is active
+            if ( not r[guidTarget] ) then -- Should only happen from /reload or /tbs while the aura is active
                 -- This went off for me, but I don't know a repro yet.  I suspect it has to do with bear/cat switching
                 --trace("WARNING! allocating guid slot for ", buffName, "on", guidTarget, "due to UNIT_AURA");
                 r[guidTarget] = { time=curStart, dur=duration, expiry=expirationTime }

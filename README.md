@@ -9,6 +9,11 @@ If you find a bug report it at:
 * [https://wow.curseforge.com/projects/timer-bars/issues](https://wow.curseforge.com/projects/timer-bars/issues)
 * [https://github.com/endymonium/TimerBars/issues](https://github.com/endymonium/TimerBars/issues)
 
+## How to use
+
+* type `/tbs` or `/timerbars` to unlock
+* right click on a bar for configuration menu
+
 ## Notable changes
 
 * Removed bars of type "Power": the original implementation was marked as exprimental and to many things changed.
@@ -21,3 +26,5 @@ If you find a bug report it at:
 ## [CHANGELOG](https://github.com/endymonium/TimerBars/blob/master/CHANGELOG.md)
 
 ## [Repository](https://github.com/endymonium/TimerBars)
+
+## Check also my other addon out [Keystroke Launcher](https://wow.curseforge.com/projects/keystroke-launcher)

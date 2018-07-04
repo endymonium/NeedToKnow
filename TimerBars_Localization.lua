@@ -75,7 +75,6 @@ TIMERBARS.ITEM_NAMES =
 
 
     TIMERBARS.UIPANEL_SUBTEXT1 = "These options allow you to customize TimerBars's timer bar groups.";
---    TIMERBARS.UIPANEL_SUBTEXT2 = "Bars work when locked. When unlocked, you can move/size bar groups and right click individual bars for more settings. You can also type '/timerbars' or '/tb' to lock/unlock.";
     TIMERBARS.UIPANEL_BARGROUP = "Group ";
     TIMERBARS.UIPANEL_NUMBERBARS = "Number of bars";
     TIMERBARS.UIPANEL_FIXEDDURATION = "Max bar duration";
@@ -149,7 +148,7 @@ TIMERBARS.ITEM_NAMES =
 if ( GetLocale() == "deDE" ) then
     -- by sp00n and Fxfighter EU-Echsenkessel
     TIMERBARS.BAR_TOOLTIP1 = "TimerBars";
-    TIMERBARS.BAR_TOOLTIP2 = "Rechtsklick auf einen Balken für Einstellungen. Mehr Optionen sind im Blizzard Interface vorhanden. Zum Festsetzen und Aktivieren /timerbars oder /tb eingeben.";
+    TIMERBARS.BAR_TOOLTIP2 = "Rechtsklick auf einen Balken für Einstellungen. Mehr Optionen sind im Blizzard Interface vorhanden. Zum Festsetzen und Aktivieren /timerbars oder /tbs eingeben.";
     TIMERBARS.RESIZE_TOOLTIP = "Klicken und ziehen, um die Größe zu ändern";
     TIMERBARS.BARMENU_ENABLE = "Leiste aktivieren";
     TIMERBARS.BARMENU_CHOOSENAME = "Buff/Debuff auswählen";
@@ -168,7 +167,7 @@ if ( GetLocale() == "deDE" ) then
     TIMERBARS.BARMENU_BARCOLOR = "Farbe des Balken";
     TIMERBARS.BARMENU_CLEARSETTINGS = "Einstellungen löschen";
     TIMERBARS.UIPANEL_SUBTEXT1 = "Diese Einstellungen ändern die Anzahl und die Gruppierung der Balken.";
-    TIMERBARS.UIPANEL_SUBTEXT2 = "Die Darstellung funktioniert auch bei festgesetzen Balken. Wenn sie freigesetzt sind, können die Gruppierungen verschoben und deren Größe verändert werden. Ein Rechtsklick auf einen Balken zeigt weitere Einstellungsmöglichkeiten an. '/timerbars' oder '/tb' kann ebenfalls zum Festsetzen und Freistellen verwendet werden.";
+    TIMERBARS.UIPANEL_SUBTEXT2 = "Die Darstellung funktioniert auch bei festgesetzen Balken. Wenn sie freigesetzt sind, können die Gruppierungen verschoben und deren Größe verändert werden. Ein Rechtsklick auf einen Balken zeigt weitere Einstellungsmöglichkeiten an. '/timerbars' oder '/tbs' kann ebenfalls zum Festsetzen und Freistellen verwendet werden.";
     TIMERBARS.UIPANEL_BARGROUP = "Gruppe ";
     TIMERBARS.UIPANEL_NUMBERBARS = "Anzahl der Balken";
     TIMERBARS.UIPANEL_FIXEDDURATION = "Max bar duration";
@@ -186,7 +185,7 @@ if ( GetLocale() == "deDE" ) then
 elseif ( GetLocale() == "koKR" ) then
     -- by metalchoir
     TIMERBARS.BAR_TOOLTIP1 = "TimerBars";
-    TIMERBARS.BAR_TOOLTIP2 = "우?�릭: 메뉴 불러오기\n세부옵션? �기본 ?�터페?�스 설정?�서 가능\n/tb 명령어로 잠근 후? �애드온 사용가능";
+    TIMERBARS.BAR_TOOLTIP2 = "우?�릭: 메뉴 불러오기\n세부옵션? �기본 ?�터페?�스 설정?�서 가능\n/tbs 명령어로 잠근 후? �애드온 사용가능";
     TIMERBARS.RESIZE_TOOLTIP = "드래그: ?�기 변경";
     TIMERBARS.BARMENU_ENABLE = "바 사용";
     TIMERBARS.BARMENU_CHOOSENAME = "입력: 주문 ?�름";
@@ -206,7 +205,7 @@ elseif ( GetLocale() == "koKR" ) then
     TIMERBARS.BARMENU_BARCOLOR = "바 색?";
     TIMERBARS.BARMENU_CLEARSETTINGS = "�설정 초기화";
     TIMERBARS.UIPANEL_SUBTEXT1 = "아래? �옵션?�서 타?�머? �그룹과 ? �그룹별 바 갯수를 설정하실 수 있습니다.";
-    TIMERBARS.UIPANEL_SUBTEXT2 = "바는 잠근 후? �작?�합니다. 풀렸? �때 바? �?�?�과 ?�기 조절, 그리고 ?�?�? �바? �우?�릭? �함으로? �설정? �하실 수 있습니다. '/timerbars' ?�는 '/tb' 명령어를 통해서? �잠금/품 전환? �가능합니다.";
+    TIMERBARS.UIPANEL_SUBTEXT2 = "바는 잠근 후? �작?�합니다. 풀렸? �때 바? �?�?�과 ?�기 조절, 그리고 ?�?�? �바? �우?�릭? �함으로? �설정? �하실 수 있습니다. '/timerbars' ?�는 '/tbs' 명령어를 통해서? �잠금/품 전환? �가능합니다.";
     TIMERBARS.UIPANEL_BARGROUP = "그룹 ";
     TIMERBARS.UIPANEL_NUMBERBARS = "바 갯수";
     TIMERBARS.UIPANEL_FIXEDDURATION = "Max bar duration";
@@ -224,7 +223,7 @@ elseif ( GetLocale() == "koKR" ) then
 elseif ( GetLocale() == "ruRU" ) then
     -- by Vlakarados
     TIMERBARS.BAR_TOOLTIP1 = "TimerBars";
-    TIMERBARS.BAR_TOOLTIP2 = "Клик правой кнопкой мыши по полосе для настройки. Больше настроек в Интерфейс / Модификации / TimerBars меню. Ввести /timerbars или /tb для блокировки и включения.";
+    TIMERBARS.BAR_TOOLTIP2 = "Клик правой кнопкой мыши по полосе для настройки. Больше настроек в Интерфейс / Модификации / TimerBars меню. Ввести /timerbars или /tbs для блокировки и включения.";
     TIMERBARS.RESIZE_TOOLTIP = "Кликнуть и тащить для изменения размера";
     TIMERBARS.BARMENU_ENABLE = "Включить полосу";
     TIMERBARS.BARMENU_CHOOSENAME = "Выбрать бафф/дебафф для слежения";
@@ -244,7 +243,7 @@ elseif ( GetLocale() == "ruRU" ) then
     TIMERBARS.BARMENU_BARCOLOR = "Цвет полосы";
     TIMERBARS.BARMENU_CLEARSETTINGS = "Очистить настройки";
     TIMERBARS.UIPANEL_SUBTEXT1 = "Эти настройки позволяют настроить бафф/дебафф полосы слежения.";
-    TIMERBARS.UIPANEL_SUBTEXT2 = "Полосы работают только когда заблокированы группы. Можно менять размер и перемещать группы полос и кликнуть правой кнопкой мыши для изменения индивидуальных настроек. Ввести '/timerbars' или '/tb' to блокировки/разблокировки.";
+    TIMERBARS.UIPANEL_SUBTEXT2 = "Полосы работают только когда заблокированы группы. Можно менять размер и перемещать группы полос и кликнуть правой кнопкой мыши для изменения индивидуальных настроек. Ввести '/timerbars' или '/tbs' to блокировки/разблокировки.";
     TIMERBARS.UIPANEL_BARGROUP = "Группа ";
     TIMERBARS.UIPANEL_NUMBERBARS = "Количество полос";
     TIMERBARS.UIPANEL_FIXEDDURATION = "Максимальное время на полосе";
@@ -281,7 +280,7 @@ elseif ( GetLocale() == "zhCN" ) then
     TIMERBARS.BARMENU_BARCOLOR = "计时条颜色";
     TIMERBARS.BARMENU_CLEARSETTINGS = "清除设置";
     TIMERBARS.UIPANEL_SUBTEXT1 = "这些选项允许你自定义Buff/Debuff计时条.";
-    TIMERBARS.UIPANEL_SUBTEXT2 = "计时条锁定后才能正常工作. 当解锁时, 你可以移动或修改计时条分组的大小, 右键点击单独的计时条可以进行更多的设置. 你也可以输入 '/timerbars' 或 '/tb' 来锁定/解锁.";
+    TIMERBARS.UIPANEL_SUBTEXT2 = "计时条锁定后才能正常工作. 当解锁时, 你可以移动或修改计时条分组的大小, 右键点击单独的计时条可以进行更多的设置. 你也可以输入 '/timerbars' 或 '/tbs' 来锁定/解锁.";
     TIMERBARS.UIPANEL_BARGROUP = "分组 ";
     TIMERBARS.UIPANEL_NUMBERBARS = "计时条数量";
     TIMERBARS.UIPANEL_FIXEDDURATION = "计时条最大持续时间";
@@ -318,7 +317,7 @@ elseif ( GetLocale() == "zhTW" ) then
     TIMERBARS.BARMENU_BARCOLOR = "計時條顏色";
     TIMERBARS.BARMENU_CLEARSETTINGS = "清除設置";
     TIMERBARS.UIPANEL_SUBTEXT1 = "這些選項允許妳自定義Buff/Debuff計時條.";
-    TIMERBARS.UIPANEL_SUBTEXT2 = "計時條鎖定後才能正常工作. 當解鎖時, 妳可以移動或修改計時條分組的大小, 右鍵點擊單獨的計時條可以進行更多的設置. 妳也可以輸入 '/timerbars' 或 '/tb' 來鎖定/解鎖.";
+    TIMERBARS.UIPANEL_SUBTEXT2 = "計時條鎖定後才能正常工作. 當解鎖時, 妳可以移動或修改計時條分組的大小, 右鍵點擊單獨的計時條可以進行更多的設置. 妳也可以輸入 '/timerbars' 或 '/tbs' 來鎖定/解鎖.";
     TIMERBARS.UIPANEL_BARGROUP = "分組 ";
     TIMERBARS.UIPANEL_NUMBERBARS = "計時條數量";
     TIMERBARS.UIPANEL_FIXEDDURATION = "計時條最大持續時間";

@@ -15,7 +15,7 @@ TimerBars allows you to monitor specific buffs and debuffs of your choosing as t
 Instructions
 ------------
 
-General options are available in the Blizzard interface options menu.  You can type "/timerbars" or "/tb" to lock/unlock the addon.  To configure individual bars, right click them while unlocked.  Bars work while locked.  (The bars should be unlocked the first time you log in with TB.)
+General options are available in the Blizzard interface options menu.  You can type "/timerbars" or "/tbs" to lock/unlock the addon.  To configure individual bars, right click them while unlocked.  Bars work while locked.  (The bars should be unlocked the first time you log in with TB.)
 
 When entering your settings, be careful with your spelling and capitalization.  Also remember that buffs and debuffs sometimes have different names than the items and abilities that apply them.  The Death Knight ability Icy Touch, for example, applies a DoT called Frost Fever.
 
@@ -196,7 +196,7 @@ Change log
 - Added support for a new "Buff or Debuff" type: Totem. Type in the name of the totem to watch for (can be a partial string.)
 - Fixed a parse error in the DE localization
 - Slightly improved performance of "target of target"
-- Added two new /tb options: show and hide. They can be used to temporarily show and hide the tb groups.
+- Added two new /tbs options: show and hide. They can be used to temporarily show and hide the tb groups.
 
 2.5.2
 -Changed event parsing to try to be more robust (see autobot's errors)
