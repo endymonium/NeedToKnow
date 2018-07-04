@@ -114,9 +114,9 @@ m_scratch.bar_entry =
         barSpell = "",
         isSpellID = false,
     }
--- NEEDTOKNOW = {} is defined in the localization file, which must be loaded before this file
+-- TIMERBARS = {} is defined in the localization file, which must be loaded before this file
 
-NEEDTOKNOW.VERSION = GetAddOnMetadata("TimerBars", "Version")
+TIMERBARS.VERSION = GetAddOnMetadata("TimerBars", "Version")
 
 local c_UPDATE_INTERVAL = 0.05
 local c_MAXBARS = 20
@@ -138,7 +138,7 @@ local c_AURAEVENTS = {
 }
 
 
-NEEDTOKNOW.BAR_DEFAULTS = {
+TIMERBARS.BAR_DEFAULTS = {
     Enabled         = true,
     AuraName        = "",
     Unit            = "player",
@@ -174,30 +174,30 @@ NEEDTOKNOW.BAR_DEFAULTS = {
     append_cd       = true,
     append_usable   = false,
 }
-NEEDTOKNOW.GROUP_DEFAULTS = {
+TIMERBARS.GROUP_DEFAULTS = {
     Enabled          = true,
     NumberBars       = 3,
     Scale            = 1.0,
     Width            = 270,
-    Bars             = { NEEDTOKNOW.BAR_DEFAULTS, NEEDTOKNOW.BAR_DEFAULTS, NEEDTOKNOW.BAR_DEFAULTS },
+    Bars             = { TIMERBARS.BAR_DEFAULTS, TIMERBARS.BAR_DEFAULTS, TIMERBARS.BAR_DEFAULTS },
     Position         = { "TOPLEFT", "TOPLEFT", 100, -100 },
     FixedDuration    = 0,
 }
-NEEDTOKNOW.DEFAULTS = {
-    Version       = NEEDTOKNOW.VERSION,
-    OldVersion  = NEEDTOKNOW.VERSION,
+TIMERBARS.DEFAULTS = {
+    Version       = TIMERBARS.VERSION,
+    OldVersion  = TIMERBARS.VERSION,
     Profiles    = {},
     Chars       = {},
 }
-NEEDTOKNOW.CHARACTER_DEFAULTS = {
+TIMERBARS.CHARACTER_DEFAULTS = {
     Specs       = {},
     Locked      = false,
     Profiles    = {},
 }
-NEEDTOKNOW.PROFILE_DEFAULTS = {
+TIMERBARS.PROFILE_DEFAULTS = {
     name        = "Default",
     nGroups     = 1,
-    Groups      = { NEEDTOKNOW.GROUP_DEFAULTS },
+    Groups      = { TIMERBARS.GROUP_DEFAULTS },
     BarTexture  = "BantoBar",
     BarFont     = "Fritz Quadrata TT",
     BkgdColor   = { 0, 0, 0, 0.8 },
@@ -207,7 +207,7 @@ NEEDTOKNOW.PROFILE_DEFAULTS = {
     FontOutline = 0,
 }
 
-NEEDTOKNOW.SHORTENINGS= {
+TIMERBARS.SHORTENINGS= {
     Enabled         = "On",
     AuraName        = "Aura",
     --Unit            = "Unit",
@@ -266,7 +266,7 @@ NEEDTOKNOW.SHORTENINGS= {
     --FontOutline = "FOl",
 }
 
-NEEDTOKNOW.LENGTHENINGS= {
+TIMERBARS.LENGTHENINGS= {
    On = "Enabled",
    Aura = "AuraName",
 --   Unit = "Unit",
@@ -491,9 +491,9 @@ function TimerBars.ExecutiveFrame_ADDON_LOADED(addon)
         m_last_guid = {} -- [spell][guidTarget] = { time, dur, expiry }
         TimerBars.totem_drops = {} -- array 1-4 of precise times the totems appeared
 
-        SlashCmdList["NEEDTOKNOW"] = TimerBars.SlashCommand
-        SLASH_NEEDTOKNOW1 = "/needtoknow"
-        SLASH_NEEDTOKNOW2 = "/ntk"
+        SlashCmdList["TIMERBARS"] = TimerBars.SlashCommand
+        SLASH_TIMERBARS1 = "/timerbars"
+        SLASH_TIMERBARS2 = "/tb"
     end
 end
 
@@ -569,7 +569,7 @@ function TimerBars.ExecutiveFrame_PLAYER_TALENT_UPDATE()
         local profile_key = TimerBars.CharSettings.Specs[spec]
         if not profile_key then
             print("TimerBars: Switching to spec",spec,"for the first time")
-            profile_key = TimerBars.CreateProfile(CopyTable(NEEDTOKNOW.PROFILE_DEFAULTS), spec)
+            profile_key = TimerBars.CreateProfile(CopyTable(TIMERBARS.PROFILE_DEFAULTS), spec)
         end
 
         TimerBars.ChangeProfile(profile_key);
@@ -722,7 +722,7 @@ function TimerBars.CompressProfile(profileSettings)
             end
         end
     end
-    TimerBars.RemoveDefaultValues(profileSettings, NEEDTOKNOW.PROFILE_DEFAULTS);
+    TimerBars.RemoveDefaultValues(profileSettings, TIMERBARS.PROFILE_DEFAULTS);
 end
 
 -- DEBUG: remove k, it's just for debugging
@@ -782,7 +782,7 @@ function TimerBars.UncompressProfile(profileSettings)
         end
     end
 
-    TimerBars.AddDefaultsToTable(profileSettings, NEEDTOKNOW.PROFILE_DEFAULTS)
+    TimerBars.AddDefaultsToTable(profileSettings, TIMERBARS.PROFILE_DEFAULTS)
 
     profileSettings.bUncompressed = true
 end
@@ -809,7 +809,7 @@ function TimerBars.ChangeProfile(profile_key)
         TimerBars.ProfileSettings.nGroups = 4
         for groupID = 1,4 do
             if ( nil == TimerBars.ProfileSettings.Groups[groupID] ) then
-                TimerBars.ProfileSettings.Groups[groupID] = CopyTable( NEEDTOKNOW.GROUP_DEFAULTS )
+                TimerBars.ProfileSettings.Groups[groupID] = CopyTable( TIMERBARS.GROUP_DEFAULTS )
                 local groupSettings = TimerBars.ProfileSettings.Groups[groupID]
                 groupSettings.Enabled = false;
                 groupSettings.Position[4] = -100 - (groupID-1) * 100
@@ -864,7 +864,7 @@ end
 
 
 function TimerBarsLoader.Reset(bResetCharacter)
-    TimerBars_Globals = CopyTable( NEEDTOKNOW.DEFAULTS )
+    TimerBars_Globals = CopyTable( TIMERBARS.DEFAULTS )
 
     if bResetCharacter == nil or bResetCharacter then
         TimerBars.ResetCharacter()
@@ -874,7 +874,7 @@ end
 
 function TimerBars.ResetCharacter(bCreateSpecProfile)
     local charKey = UnitName("player") .. ' - ' .. GetRealmName();
-    TimerBars_CharSettings = CopyTable(NEEDTOKNOW.CHARACTER_DEFAULTS)
+    TimerBars_CharSettings = CopyTable(TIMERBARS.CHARACTER_DEFAULTS)
     TimerBars.CharSettings = TimerBars_CharSettings
     if bCreateSpecProfile == nil or bCreateSpecProfile then
         TimerBars.ExecutiveFrame_PLAYER_TALENT_UPDATE()
@@ -997,7 +997,7 @@ function TimerBarsLoader.MigrateCharacterSettings()
     if ( oldSettings["Spec"] ) then -- The Spec member existed from versions 2.4 to 3.1.7
         for idxSpec = 1,2 do
             local newprofile = oldSettings.Spec[idxSpec]
-            for kD,_ in pairs(NEEDTOKNOW.PROFILE_DEFAULTS) do
+            for kD,_ in pairs(TIMERBARS.PROFILE_DEFAULTS) do
               if oldSettings[kD] then
                 newprofile[kD] = oldSettings[kD]
               end
@@ -1034,12 +1034,12 @@ function TimerBarsLoader.FindFontName(fontPath)
             return fontName
         end
     end
-    return NEEDTOKNOW.PROFILE_DEFAULTS.BarFont
+    return TIMERBARS.PROFILE_DEFAULTS.BarFont
 end
 
 function TimerBarsLoader.SafeUpgrade()
     local defPath = GameFontHighlight:GetFont()
-    NEEDTOKNOW.PROFILE_DEFAULTS.BarFont = TimerBarsLoader.FindFontName(defPath)
+    TIMERBARS.PROFILE_DEFAULTS.BarFont = TimerBarsLoader.FindFontName(defPath)
     TimerBars_Profiles = {}
 
     -- If there had been an error during the previous upgrade, TimerBars_Settings
@@ -1128,7 +1128,7 @@ function TimerBarsLoader.SafeUpgrade()
     local curKey = TimerBars.CharSettings.Specs[spec]
     if ( curKey and not TimerBars_Profiles[curKey] ) then
         print("Current profile (" .. curKey .. ") has been deleted!");
-        curKey = TimerBars.CreateProfile(CopyTable(NEEDTOKNOW.PROFILE_DEFAULTS), spec)
+        curKey = TimerBars.CreateProfile(CopyTable(TIMERBARS.PROFILE_DEFAULTS), spec)
         local curProf = TimerBars_Profiles[curKey]
         TimerBars.CharSettings.Specs[spec] = curKey
     end
@@ -1340,7 +1340,7 @@ function TimerBars.SetupSpellCooldown(bar, entry)
 end
 
 -- Called when the configuration of the bar has changed, when the addon
--- is loaded or when ntk is locked and unlocked
+-- is loaded or when tb is locked and unlocked
 function TimerBars.Bar_Update(groupID, barID)
     local groupSettings = TimerBars.ProfileSettings.Groups[groupID]
 
@@ -1368,8 +1368,8 @@ function TimerBars.Bar_Update(groupID, barID)
     local barSettings = groupSettings["Bars"][barID]
     if not barSettings then
         --trace("Adding bar settings for", groupID, barID)
-        barSettings = CopyTable(NEEDTOKNOW.BAR_DEFAULTS)
-        groupSettings.Bars[barID] = CopyTable(NEEDTOKNOW.BAR_DEFAULTS)
+        barSettings = CopyTable(TIMERBARS.BAR_DEFAULTS)
+        groupSettings.Bars[barID] = CopyTable(TIMERBARS.BAR_DEFAULTS)
     end
     bar.auraName = barSettings.AuraName
 
@@ -1670,7 +1670,7 @@ function TimerBars.SetScripts(bar)
                     m_last_guid[spellName] = { time=0, dur=0, expiry=0 }
                 end
             else
-                print("Warning! NTK could not get name for ", entry.id)
+                print("Warning! TB could not get name for ", entry.id)
             end
         end
         TimerBars.RegisterSpellcastSent()
@@ -1827,7 +1827,7 @@ end
 function TimerBars.PrettyName(barSettings)
     if ( barSettings.BuffOrDebuff == "EQUIPSLOT" ) then
         local idx = tonumber(barSettings.AuraName)
-        if idx then return NEEDTOKNOW.ITEM_NAMES[idx] end
+        if idx then return TIMERBARS.ITEM_NAMES[idx] end
         return ""
     elseif ( barSettings.BuffOrDebuff == "POWER" ) then
         local idx = tonumber(barSettings.AuraName)
@@ -2332,11 +2332,11 @@ mfn_AuraCheck_POWER = function (bar, bar_entry, all_stacks)
     local pt = bar_entry.id
 
     if ( pt ) then
-        if pt == NEEDTOKNOW.SPELL_POWER_PRIMARY then pt = cpt end
-        if (pt == NEEDTOKNOW.SPELL_POWER_LEGACY_CP) then pt = SPELL_POWER_COMBO_POINTS end
+        if pt == TIMERBARS.SPELL_POWER_PRIMARY then pt = cpt end
+        if (pt == TIMERBARS.SPELL_POWER_LEGACY_CP) then pt = SPELL_POWER_COMBO_POINTS end
 
         local curPower, maxPower;
-        if (pt == NEEDTOKNOW.SPELL_POWER_STAGGER ) then
+        if (pt == TIMERBARS.SPELL_POWER_STAGGER ) then
 		    curPower = UnitStagger(bar.unit)
 			maxPower = UnitHealthMax(bar.unit)
         else
@@ -2402,7 +2402,7 @@ mfn_AuraCheck_CASTCD = function(bar, bar_entry, all_stacks)
     local idxName = bar_entry.idxName
     local func = bar.cd_functions[idxName]
     if ( not func ) then
-        print("NTK ERROR setting up index",idxName,"on bar",bar:GetName(),bar.settings.AuraName);
+        print("TB ERROR setting up index",idxName,"on bar",bar:GetName(),bar.settings.AuraName);
         return;
     end
     local start, cd_len, should_cooldown, buffName, iconPath, stacks, start_2 = func(bar, bar_entry)
@@ -2745,7 +2745,7 @@ mfn_Bar_AuraCheck = function (bar)
             local guidTarget = UnitGUID(bar.unit)
             local r = m_last_guid[buffName]
 
-            if ( not r[guidTarget] ) then -- Should only happen from /reload or /ntk while the aura is active
+            if ( not r[guidTarget] ) then -- Should only happen from /reload or /tb while the aura is active
                 -- This went off for me, but I don't know a repro yet.  I suspect it has to do with bear/cat switching
                 --trace("WARNING! allocating guid slot for ", buffName, "on", guidTarget, "due to UNIT_AURA");
                 r[guidTarget] = { time=curStart, dur=duration, expiry=expirationTime }

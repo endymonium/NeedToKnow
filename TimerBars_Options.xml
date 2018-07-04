@@ -30,14 +30,14 @@
                 <Scripts>
                     <OnLoad>
                         local text = getglobal(self:GetName().."Text");
-                        text:SetText(NEEDTOKNOW.UIPANEL_BARGROUP..self:GetParent():GetID());
+                        text:SetText(TIMERBARS.UIPANEL_BARGROUP..self:GetParent():GetID());
                     </OnLoad>
                     <OnClick>
                         TimerBarsOptions.GroupEnableButton_OnClick(self);
                     </OnClick>
                     <OnEnter>
                         GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT");
-                        GameTooltip:SetText(NEEDTOKNOW.UIPANEL_TOOLTIP_ENABLEGROUP, nil, nil, nil, nil, 1);
+                        GameTooltip:SetText(TIMERBARS.UIPANEL_TOOLTIP_ENABLEGROUP, nil, nil, nil, nil, 1);
                     </OnEnter>
                     <OnLeave>
                         GameTooltip:Hide();
@@ -163,7 +163,7 @@
                 <Scripts>
                     <OnEnter>
                         GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT");
-                        GameTooltip:SetText(NEEDTOKNOW.UIPANEL_TOOLTIP_FIXEDDURATION, nil, nil, nil, nil, 1);
+                        GameTooltip:SetText(TIMERBARS.UIPANEL_TOOLTIP_FIXEDDURATION, nil, nil, nil, nil, 1);
                     </OnEnter>
                     <OnLeave>
                         GameTooltip:Hide();
@@ -173,7 +173,7 @@
                         --	local prevGroup = max(1, self:GetParent():GetID() - 1);
                         --	_G[self:GetParent():GetParent():GetName().."Group"..prevGroup.."FixedDurationBox"]:SetFocus();
                         --else
-                        --	local nextGroup = min(NEEDTOKNOW.MAXGROUPS, self:GetParent():GetID() + 1);
+                        --	local nextGroup = min(TIMERBARS.MAXGROUPS, self:GetParent():GetID() + 1);
                         --	_G[self:GetParent():GetParent():GetName().."Group"..nextGroup.."FixedDurationBox"]:SetFocus();
                         --end
                     </OnTabPressed>
@@ -346,14 +346,14 @@
                 </Anchors>
                 <Scripts>
                     <OnLoad>
-                        _G[self:GetName().."Text"]:SetText(NEEDTOKNOW.UIPANEL_CONFIGMODE);
+                        _G[self:GetName().."Text"]:SetText(TIMERBARS.UIPANEL_CONFIGMODE);
                     </OnLoad>
                     <OnClick>
                         TimerBars.LockToggle(false);
                     </OnClick>
                     <OnEnter>
                         GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
-                        GameTooltip:SetText(NEEDTOKNOW.UIPANEL_CONFIGMODE_TOOLTIP, nil, nil, nil, nil, 1);
+                        GameTooltip:SetText(TIMERBARS.UIPANEL_CONFIGMODE_TOOLTIP, nil, nil, nil, nil, 1);
                     </OnEnter>
                     <OnLeave function="GameTooltip_Hide"/>
                 </Scripts>
@@ -373,14 +373,14 @@
                 </Anchors>
                 <Scripts>
                     <OnLoad>
-                        _G[self:GetName().."Text"]:SetText(NEEDTOKNOW.UIPANEL_PLAYMODE);
+                        _G[self:GetName().."Text"]:SetText(TIMERBARS.UIPANEL_PLAYMODE);
                     </OnLoad>
                     <OnClick>
                         TimerBars.LockToggle(true);
                     </OnClick>
                     <OnEnter>
                         GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
-                        GameTooltip:SetText(NEEDTOKNOW.UIPANEL_PLAYMODE_TOOLTIP, nil, nil, nil, nil, 1);
+                        GameTooltip:SetText(TIMERBARS.UIPANEL_PLAYMODE_TOOLTIP, nil, nil, nil, nil, 1);
                     </OnEnter>
                     <OnLeave function="GameTooltip_Hide"/>
                 </Scripts>
@@ -575,7 +575,7 @@
                 </Anchors>
                 <Scripts>
                     <OnLoad>
-                        _G[self:GetName().."Label"]:SetText(NEEDTOKNOW.UIPANEL_BACKGROUNDCOLOR);
+                        _G[self:GetName().."Label"]:SetText(TIMERBARS.UIPANEL_BACKGROUNDCOLOR);
                         self:RegisterForClicks("LeftButtonUp");
                     </OnLoad>
                     <OnClick>
@@ -595,7 +595,7 @@
                 <Scripts>
                     <OnValueChanged>
                         TimerBars.ProfileSettings["BarSpacing"] = value;
-                        _G[self:GetName().."Text"]:SetText(NEEDTOKNOW.UIPANEL_BARSPACING..": "..value);
+                        _G[self:GetName().."Text"]:SetText(TIMERBARS.UIPANEL_BARSPACING..": "..value);
                         TimerBars.Update();
                     </OnValueChanged>
                 </Scripts>
@@ -619,7 +619,7 @@
                 <Scripts>
                     <OnValueChanged>
                         TimerBars.ProfileSettings["BarPadding"] = value;
-                        _G[self:GetName().."Text"]:SetText(NEEDTOKNOW.UIPANEL_BARPADDING..": "..value);
+                        _G[self:GetName().."Text"]:SetText(TIMERBARS.UIPANEL_BARPADDING..": "..value);
                         TimerBars.Update();
                     </OnValueChanged>
                 </Scripts>
@@ -673,14 +673,14 @@
                 </Anchors>
                 <Scripts>
                     <OnLoad>
-                        _G[self:GetName().."Text"]:SetText(NEEDTOKNOW.UIPANEL_CONFIGMODE);
+                        _G[self:GetName().."Text"]:SetText(TIMERBARS.UIPANEL_CONFIGMODE);
                     </OnLoad>
                     <OnClick>
                         TimerBars.LockToggle(false);
                     </OnClick>
                     <OnEnter>
                         GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
-                        GameTooltip:SetText(NEEDTOKNOW.UIPANEL_CONFIGMODE_TOOLTIP, nil, nil, nil, nil, 1);
+                        GameTooltip:SetText(TIMERBARS.UIPANEL_CONFIGMODE_TOOLTIP, nil, nil, nil, nil, 1);
                     </OnEnter>
                     <OnLeave function="GameTooltip_Hide"/>
                 </Scripts>
@@ -701,14 +701,14 @@
                 </Anchors>
                 <Scripts>
                     <OnLoad>
-                        _G[self:GetName().."Text"]:SetText(NEEDTOKNOW.UIPANEL_PLAYMODE);
+                        _G[self:GetName().."Text"]:SetText(TIMERBARS.UIPANEL_PLAYMODE);
                     </OnLoad>
                     <OnClick>
                         TimerBars.LockToggle(true);
                     </OnClick>
                     <OnEnter>
                         GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
-                        GameTooltip:SetText(NEEDTOKNOW.UIPANEL_PLAYMODE_TOOLTIP, nil, nil, nil, nil, 1);
+                        GameTooltip:SetText(TIMERBARS.UIPANEL_PLAYMODE_TOOLTIP, nil, nil, nil, nil, 1);
                     </OnEnter>
                     <OnLeave function="GameTooltip_Hide"/>
                 </Scripts>
@@ -785,14 +785,14 @@
                 </Anchors>
                 <Scripts>
                     <OnLoad>
-                        _G[self:GetName().."Text"]:SetText(NEEDTOKNOW.UIPANEL_PROFILE_SWITCHTO);
+                        _G[self:GetName().."Text"]:SetText(TIMERBARS.UIPANEL_PROFILE_SWITCHTO);
                     </OnLoad>
                     <OnClick>
                         TimerBarsOptions.UIPanel_Profile_SwitchToSelected(self:GetParent());
                     </OnClick>
                     <OnEnter>
                         GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
-                        GameTooltip:SetText(NEEDTOKNOW.UIPANEL_SWITCHPROFILE_TOOLTIP, nil, nil, nil, nil, 1);
+                        GameTooltip:SetText(TIMERBARS.UIPANEL_SWITCHPROFILE_TOOLTIP, nil, nil, nil, nil, 1);
                     </OnEnter>
                     <OnLeave function="GameTooltip_Hide"/>
                 </Scripts>
@@ -809,14 +809,14 @@
                 </Anchors>
                 <Scripts>
                     <OnLoad>
-                        _G[self:GetName().."Text"]:SetText(NEEDTOKNOW.UIPANEL_PROFILE_DELETE);
+                        _G[self:GetName().."Text"]:SetText(TIMERBARS.UIPANEL_PROFILE_DELETE);
                     </OnLoad>
                     <OnClick>
                         TimerBarsOptions.UIPanel_Profile_DeleteSelected(self:GetParent());
                     </OnClick>
                     <OnEnter>
                         GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
-                        GameTooltip:SetText(NEEDTOKNOW.UIPANEL_DELETEPROFILE_TOOLTIP, nil, nil, nil, nil, 1);
+                        GameTooltip:SetText(TIMERBARS.UIPANEL_DELETEPROFILE_TOOLTIP, nil, nil, nil, nil, 1);
                     </OnEnter>
                     <OnLeave function="GameTooltip_Hide"/>
                 </Scripts>
@@ -834,14 +834,14 @@
                 </Anchors>
                 <Scripts>
                     <OnLoad>
-                        _G[self:GetName().."Text"]:SetText(NEEDTOKNOW.UIPANEL_PROFILE_MAKEPUBLIC);
+                        _G[self:GetName().."Text"]:SetText(TIMERBARS.UIPANEL_PROFILE_MAKEPUBLIC);
                     </OnLoad>
                     <OnClick>
                         TimerBarsOptions.UIPanel_Profile_PublicizeSelected(self:GetParent(), true);
                     </OnClick>
                     <OnEnter>
                         GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
-                        GameTooltip:SetText(NEEDTOKNOW.UIPANEL_PUBLICPROFILE_TOOLTIP, nil, nil, nil, nil, 1);
+                        GameTooltip:SetText(TIMERBARS.UIPANEL_PUBLICPROFILE_TOOLTIP, nil, nil, nil, nil, 1);
                     </OnEnter>
                     <OnLeave function="GameTooltip_Hide"/>
                 </Scripts>
@@ -859,14 +859,14 @@
                 </Anchors>
                 <Scripts>
                     <OnLoad>
-                        _G[self:GetName().."Text"]:SetText(NEEDTOKNOW.UIPANEL_PROFILE_MAKEPRIVATE);
+                        _G[self:GetName().."Text"]:SetText(TIMERBARS.UIPANEL_PROFILE_MAKEPRIVATE);
                     </OnLoad>
                     <OnClick>
                         TimerBarsOptions.UIPanel_Profile_PrivatizeSelected(self:GetParent(), false);
                     </OnClick>
                     <OnEnter>
                         GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
-                        GameTooltip:SetText(NEEDTOKNOW.UIPANEL_PRIVATEPROFILE_TOOLTIP, nil, nil, nil, nil, 1);
+                        GameTooltip:SetText(TIMERBARS.UIPANEL_PRIVATEPROFILE_TOOLTIP, nil, nil, nil, nil, 1);
                     </OnEnter>
                     <OnLeave function="GameTooltip_Hide"/>
                 </Scripts>
@@ -902,7 +902,7 @@
                         TimerBarsOptions.UpdateProfileList()
                     </OnTextChanged>
                     <OnLoad>
-                        _G[self:GetParent():GetName().."EditLabel"]:SetText(NEEDTOKNOW.UIPANEL_PROFILE_NAMELABEL);
+                        _G[self:GetParent():GetName().."EditLabel"]:SetText(TIMERBARS.UIPANEL_PROFILE_NAMELABEL);
                         self:SetTextColor(1,1,1)
                     </OnLoad>
                 </Scripts>
@@ -918,14 +918,14 @@
                 </Anchors>
                 <Scripts>
                     <OnLoad>
-                        _G[self:GetName().."Text"]:SetText(NEEDTOKNOW.UIPANEL_PROFILE_DUPLICATE);
+                        _G[self:GetName().."Text"]:SetText(TIMERBARS.UIPANEL_PROFILE_DUPLICATE);
                     </OnLoad>
                     <OnClick>
                         TimerBarsOptions.UIPanel_Profile_CopySelected(self:GetParent());
                     </OnClick>
                     <OnEnter>
                         GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
-                        GameTooltip:SetText(NEEDTOKNOW.UIPANEL_COPYPROFILE_TOOLTIP, nil, nil, nil, nil, 1);
+                        GameTooltip:SetText(TIMERBARS.UIPANEL_COPYPROFILE_TOOLTIP, nil, nil, nil, nil, 1);
                     </OnEnter>
                     <OnLeave function="GameTooltip_Hide"/>
                 </Scripts>
@@ -942,14 +942,14 @@
                 </Anchors>
                 <Scripts>
                     <OnLoad>
-                        _G[self:GetName().."Text"]:SetText(NEEDTOKNOW.UIPANEL_PROFILE_RENAME);
+                        _G[self:GetName().."Text"]:SetText(TIMERBARS.UIPANEL_PROFILE_RENAME);
                     </OnLoad>
                     <OnClick>
                         TimerBarsOptions.UIPanel_Profile_RenameSelected(self:GetParent());
                     </OnClick>
                     <OnEnter>
                         GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
-                        GameTooltip:SetText(NEEDTOKNOW.UIPANEL_RENAMEPROFILE_TOOLTIP, nil, nil, nil, nil, 1);
+                        GameTooltip:SetText(TIMERBARS.UIPANEL_RENAMEPROFILE_TOOLTIP, nil, nil, nil, nil, 1);
                     </OnEnter>
                     <OnLeave function="GameTooltip_Hide"/>
                 </Scripts>

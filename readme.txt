@@ -15,7 +15,7 @@ TimerBars allows you to monitor specific buffs and debuffs of your choosing as t
 Instructions
 ------------
 
-General options are available in the Blizzard interface options menu.  You can type "/needtoknow" or "/ntk" to lock/unlock the addon.  To configure individual bars, right click them while unlocked.  Bars work while locked.  (The bars should be unlocked the first time you log in with NTK.)
+General options are available in the Blizzard interface options menu.  You can type "/timerbars" or "/tb" to lock/unlock the addon.  To configure individual bars, right click them while unlocked.  Bars work while locked.  (The bars should be unlocked the first time you log in with TB.)
 
 When entering your settings, be careful with your spelling and capitalization.  Also remember that buffs and debuffs sometimes have different names than the items and abilities that apply them.  The Death Knight ability Icy Touch, for example, applies a DoT called Frost Fever.
 
@@ -29,13 +29,13 @@ Change log
 
 4.0.02
  - Fixed: Cancelling out of the interface options could cause values set to false to reset to true the next time the profile was loaded
- - Tweaked "boss only" blink bars so that if the target is friendly, NTK will track if anyone in the raid is in combat with a boss
+ - Tweaked "boss only" blink bars so that if the target is friendly, TB will track if anyone in the raid is in combat with a boss
  - Improved the look of the per-bar configuration menu, getting rid of radio button backgrounds
  - Improved the usability of the equipment slot feature, changing the buff/debuff name into a submenu when equipment slot is chosen
  - New feature: Import/Export bar settings. This allows settings to be copy and pasted between bars, or shared between users, or with me as tech support. This replaces the old "clear settings" menu option. To clear the settings now, just blank out the import/export string.
 
 4.0.01
- - Fixed: Characters which had never used NTK before could only use the first bar group (Ticket 116)
+ - Fixed: Characters which had never used TB before could only use the first bar group (Ticket 116)
 
 4.0.00
  -Major update to support profiles
@@ -154,7 +154,7 @@ Change log
 
 2.8.6
 - Improved: Blinking bars try to be a little smarter about when to blink and when to just be hidden. Especially the case of debuff bars blinking when no target.
-- Improved: Weapon imbue names now capture (I hope) the full name from the tooltip to compare against. The name to watch for (in the NTK config) is then regarded as a substring search. So you could configure NTK to watch for Poison to catch all poisons.
+- Improved: Weapon imbue names now capture (I hope) the full name from the tooltip to compare against. The name to watch for (in the TB config) is then regarded as a substring search. So you could configure TB to watch for Poison to catch all poisons.
 
 2.8.5
 - Added: Option to show a spell icon to the left of active bars
@@ -196,7 +196,7 @@ Change log
 - Added support for a new "Buff or Debuff" type: Totem. Type in the name of the totem to watch for (can be a partial string.)
 - Fixed a parse error in the DE localization
 - Slightly improved performance of "target of target"
-- Added two new /ntk options: show and hide. They can be used to temporarily show and hide the ntk groups.
+- Added two new /tb options: show and hide. They can be used to temporarily show and hide the tb groups.
 
 2.5.2
 -Changed event parsing to try to be more robust (see autobot's errors)

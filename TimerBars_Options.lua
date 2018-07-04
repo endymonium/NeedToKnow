@@ -1,7 +1,7 @@
 ﻿local trace = print
 
-NEEDTOKNOW.MAXBARSPACING = 24;
-NEEDTOKNOW.MAXBARPADDING = 12;
+TIMERBARS.MAXBARSPACING = 24;
+TIMERBARS.MAXBARPADDING = 12;
 
 local GetActiveTalentGroup = _G.GetActiveSpecGroup
 
@@ -34,13 +34,13 @@ function TimerBars.SlashCommand(cmd)
 
     if not cmd then
         TimerBars.LockToggle();
-    elseif ( cmd == NEEDTOKNOW.CMD_RESET ) then
+    elseif ( cmd == TIMERBARS.CMD_RESET ) then
         TimerBars.Reset();
-    elseif ( cmd == NEEDTOKNOW.CMD_SHOW ) then
+    elseif ( cmd == TIMERBARS.CMD_SHOW ) then
         TimerBars.Show(true);
-    elseif ( cmd == NEEDTOKNOW.CMD_HIDE ) then
+    elseif ( cmd == TIMERBARS.CMD_HIDE ) then
         TimerBars.Show(false);
-    elseif ( cmd == NEEDTOKNOW.CMD_PROFILE ) then
+    elseif ( cmd == TIMERBARS.CMD_PROFILE ) then
         if args[1] then
             local profileName = table.concat(args, " ")
             local key = TimerBars.FindProfileByName( profileName )
@@ -87,11 +87,11 @@ function TimerBarsOptions.UIPanel_OnLoad(self)
     local panelName = self:GetName();
     local numberbarsLabel = _G[panelName.."NumberbarsLabel"];
     local fixedDurationLabel = _G[panelName.."FixedDurationLabel"];
-    _G[panelName.."Version"]:SetText(NEEDTOKNOW.VERSION);
-    _G[panelName.."SubText1"]:SetText(NEEDTOKNOW.UIPANEL_SUBTEXT1);
-    numberbarsLabel:SetText(NEEDTOKNOW.UIPANEL_NUMBERBARS);
+    _G[panelName.."Version"]:SetText(TIMERBARS.VERSION);
+    _G[panelName.."SubText1"]:SetText(TIMERBARS.UIPANEL_SUBTEXT1);
+    numberbarsLabel:SetText(TIMERBARS.UIPANEL_NUMBERBARS);
     numberbarsLabel:SetWidth(50);
-    fixedDurationLabel:SetText(NEEDTOKNOW.UIPANEL_FIXEDDURATION);
+    fixedDurationLabel:SetText(TIMERBARS.UIPANEL_FIXEDDURATION);
     fixedDurationLabel:SetWidth(50);
 end
 
@@ -143,7 +143,7 @@ function TimerBarsOptions.NumberbarsWidget_Update(groupID)
     rightButton:Enable();
     if ( numberBars == 1 ) then
         leftButton:Disable();
-    elseif ( numberBars == NEEDTOKNOW.MAXBARS ) then
+    elseif ( numberBars == TIMERBARS.MAXBARS ) then
         rightButton:Disable();
     end
 end
@@ -153,7 +153,7 @@ function TimerBarsOptions.NumberbarsButton_OnClick(self, increment)
     local oldNumber = TimerBars.ProfileSettings.Groups[groupID]["NumberBars"];
     if ( oldNumber == 1 ) and ( increment < 0 ) then
         return;
-    elseif ( oldNumber == NEEDTOKNOW.MAXBARS ) and ( increment > 0 ) then
+    elseif ( oldNumber == TIMERBARS.MAXBARS ) and ( increment > 0 ) then
         return;
     end
     TimerBars.ProfileSettings.Groups[groupID]["NumberBars"] = oldNumber + increment;
@@ -188,7 +188,7 @@ TimerBarsOptions.DefaultSelectedColor =   { 0.1, 0.6, 0.8, 1 }
 TimerBarsOptions.DefaultNormalColor = { 0.7, 0.7, 0.7, 0 }
 
 function TimerBarsOptions.UIPanel_Appearance_OnLoad(self)
-    self.name = NEEDTOKNOW.UIPANEL_APPEARANCE;
+    self.name = TIMERBARS.UIPANEL_APPEARANCE;
     self.parent = "TimerBars"
     self.default = TimerBars.ResetCharacter
     self.cancel = TimerBarsOptions.Cancel
@@ -196,8 +196,8 @@ function TimerBarsOptions.UIPanel_Appearance_OnLoad(self)
     InterfaceOptions_AddCategory(self)
 
     local panelName = self:GetName()
-    _G[panelName.."Version"]:SetText(NEEDTOKNOW.VERSION)
-    _G[panelName.."SubText1"]:SetText(NEEDTOKNOW.UIPANEL_APPEARANCE_SUBTEXT1)
+    _G[panelName.."Version"]:SetText(TIMERBARS.VERSION)
+    _G[panelName.."SubText1"]:SetText(TIMERBARS.UIPANEL_APPEARANCE_SUBTEXT1)
 
     self.Textures.fnClick = TimerBarsOptions.OnClickTextureItem
     self.Textures.configure = function(i, btn, label)
@@ -265,10 +265,10 @@ function TimerBarsOptions.UIPanel_Appearance_Update()
     local r,g,b = unpack(settings.BkgdColor);
     _G[panelName.."BackgroundColorButtonNormalTexture"]:SetVertexColor(r,g,b,1);
 
-    barSpacingSlider:SetMinMaxValues(0, NEEDTOKNOW.MAXBARSPACING);
+    barSpacingSlider:SetMinMaxValues(0, TIMERBARS.MAXBARSPACING);
     barSpacingSlider:SetValue(settings.BarSpacing);
     barSpacingSlider:SetValueStep(0.25);
-    barPaddingSlider:SetMinMaxValues(0, NEEDTOKNOW.MAXBARPADDING);
+    barPaddingSlider:SetMinMaxValues(0, TIMERBARS.MAXBARPADDING);
     barPaddingSlider:SetValue(settings.BarPadding);
     barPaddingSlider:SetValueStep(0.25);
     fontSizeSlider:SetMinMaxValues(5,20);
@@ -287,7 +287,7 @@ end
 -- -----------------------------------
 
 function TimerBarsOptions.UIPanel_Profile_OnLoad(self)
-    self.name = NEEDTOKNOW.UIPANEL_PROFILE;
+    self.name = TIMERBARS.UIPANEL_PROFILE;
     self.parent = "TimerBars";
     self.default = TimerBars.ResetCharacter;
     ---- self.cancel = TimerBars.Cancel;
@@ -295,8 +295,8 @@ function TimerBarsOptions.UIPanel_Profile_OnLoad(self)
     InterfaceOptions_AddCategory(self);
 
     local panelName = self:GetName();
-    _G[panelName.."Version"]:SetText(NEEDTOKNOW.VERSION);
-    _G[panelName.."SubText1"]:SetText(NEEDTOKNOW.UIPANEL_PROFILES_SUBTEXT1);
+    _G[panelName.."Version"]:SetText(TIMERBARS.VERSION);
+    _G[panelName.."SubText1"]:SetText(TIMERBARS.UIPANEL_PROFILES_SUBTEXT1);
 
     self.Profiles.configure = function(i, btn, label)
         btn.Bg:SetTexture(TimerBars.LSM:Fetch("statusbar","Minimalist"))
@@ -318,7 +318,7 @@ function TimerBarsOptions.UIPanel_Profile_Update()
     local panelName = "InterfaceOptionsTimerBarsProfilePanel";
     local title
 	-- FIXME: Use GetSpecializationInfoForClassID(UnitClass("player"), GetSpecialization()) instead of primary
-    _G[panelName.."ProfilesTitle"]:SetText(NEEDTOKNOW.UIPANEL_CURRENTPRIMARY)
+    _G[panelName.."ProfilesTitle"]:SetText(TIMERBARS.UIPANEL_CURRENTPRIMARY)
     local self = _G[panelName]
     if not self:IsVisible() then return end
     TimerBarsOptions.UpdateProfileList()
@@ -440,7 +440,7 @@ function TimerBarsOptions.UIPanel_Profile_SwitchToSelected(panel)
     end
 end
 
-StaticPopupDialogs["NEEDTOKNOW.CONFIRMDLG"] = {
+StaticPopupDialogs["TIMERBARS.CONFIRMDLG"] = {
     button1 = YES,
     button2 = NO,
     timeout = 0,
@@ -460,7 +460,7 @@ function TimerBarsOptions.UIPanel_Profile_DeleteSelected(panel)
     local curSel = scrollPanel.curSel
     if curSel then
         local k = scrollPanel.profileMap[curSel].key
-        local dlgInfo = StaticPopupDialogs["NEEDTOKNOW.CONFIRMDLG"]
+        local dlgInfo = StaticPopupDialogs["TIMERBARS.CONFIRMDLG"]
         dlgInfo.text = "Are you sure you want to delete the profile: ".. curSel .."?"
         dlgInfo.OnAccept = function(self, data)
             if TimerBars_Profiles[k] == TimerBars.ProfileSettings then
@@ -477,7 +477,7 @@ function TimerBarsOptions.UIPanel_Profile_DeleteSelected(panel)
                 TimerBarsOptions.RebuildProfileList(panel)
             end
         end
-        StaticPopup_Show("NEEDTOKNOW.CONFIRMDLG");
+        StaticPopup_Show("TIMERBARS.CONFIRMDLG");
     end
 end
 
@@ -679,8 +679,8 @@ end
 
 TimerBarsRMB.CurrentBar = { groupID = 1, barID = 1 };        -- a dirty hack, i know.
 
-StaticPopupDialogs["NEEDTOKNOW.CHOOSENAME_DIALOG"] = {
-    text = NEEDTOKNOW.CHOOSENAME_DIALOG,
+StaticPopupDialogs["TIMERBARS.CHOOSENAME_DIALOG"] = {
+    text = TIMERBARS.CHOOSENAME_DIALOG,
     button1 = ACCEPT,
     button2 = CANCEL,
     hasEditBox = 1,
@@ -694,7 +694,7 @@ StaticPopupDialogs["NEEDTOKNOW.CHOOSENAME_DIALOG"] = {
         end
     end,
     EditBoxOnEnterPressed = function(self)
-        StaticPopupDialogs["NEEDTOKNOW.CHOOSENAME_DIALOG"].OnAccept(self:GetParent())
+        StaticPopupDialogs["TIMERBARS.CHOOSENAME_DIALOG"].OnAccept(self:GetParent())
         self:GetParent():Hide();
     end,
     EditBoxOnEscapePressed = function(self)
@@ -715,16 +715,16 @@ StaticPopupDialogs["NEEDTOKNOW.CHOOSENAME_DIALOG"] = {
 };
 
 TimerBarsRMB.BarMenu_MoreOptions = {
-    { VariableName = "Enabled", MenuText = NEEDTOKNOW.BARMENU_ENABLE },
-    { VariableName = "AuraName", MenuText = NEEDTOKNOW.BARMENU_CHOOSENAME, Type = "Dialog", DialogText = "CHOOSENAME_DIALOG" },
-    { VariableName = "BuffOrDebuff", MenuText = NEEDTOKNOW.BARMENU_BUFFORDEBUFF, Type = "Submenu" },
+    { VariableName = "Enabled", MenuText = TIMERBARS.BARMENU_ENABLE },
+    { VariableName = "AuraName", MenuText = TIMERBARS.BARMENU_CHOOSENAME, Type = "Dialog", DialogText = "CHOOSENAME_DIALOG" },
+    { VariableName = "BuffOrDebuff", MenuText = TIMERBARS.BARMENU_BUFFORDEBUFF, Type = "Submenu" },
     { VariableName = "Options", MenuText = "Settings", Type = "Submenu" },
     {},
-    { VariableName = "TimeFormat", MenuText = NEEDTOKNOW.BARMENU_TIMEFORMAT, Type = "Submenu" },
-    { VariableName = "Show", MenuText = NEEDTOKNOW.BARMENU_SHOW, Type = "Submenu" },
-    { VariableName = "VisualCastTime", MenuText = NEEDTOKNOW.BARMENU_VISUALCASTTIME, Type = "Submenu" },
+    { VariableName = "TimeFormat", MenuText = TIMERBARS.BARMENU_TIMEFORMAT, Type = "Submenu" },
+    { VariableName = "Show", MenuText = TIMERBARS.BARMENU_SHOW, Type = "Submenu" },
+    { VariableName = "VisualCastTime", MenuText = TIMERBARS.BARMENU_VISUALCASTTIME, Type = "Submenu" },
     { VariableName = "BlinkSettings", MenuText = "Blink Settings", Type = "Submenu" }, -- LOCME
-    { VariableName = "BarColor", MenuText = NEEDTOKNOW.BARMENU_BARCOLOR, Type = "Color" },
+    { VariableName = "BarColor", MenuText = TIMERBARS.BARMENU_BARCOLOR, Type = "Color" },
     {},
     { VariableName = "ImportExport", MenuText = "Import/Export Bar Settings", Type = "Dialog", DialogText = "IMPORTEXPORT_DIALOG" },
 }
@@ -732,49 +732,49 @@ TimerBarsRMB.BarMenu_MoreOptions = {
 TimerBarsRMB.BarMenu_SubMenus = {
     -- the keys on this table need to match the settings variable names
     BuffOrDebuff = {
-          { Setting = "HELPFUL", MenuText = NEEDTOKNOW.BARMENU_HELPFUL },
-          { Setting = "HARMFUL", MenuText = NEEDTOKNOW.BARMENU_HARMFUL },
-          { Setting = "TOTEM", MenuText = NEEDTOKNOW.BARMENU_TOTEM },
-          { Setting = "CASTCD", MenuText = NEEDTOKNOW.BARMENU_CASTCD },
-          { Setting = "BUFFCD", MenuText = NEEDTOKNOW.BARMENU_BUFFCD },
+          { Setting = "HELPFUL", MenuText = TIMERBARS.BARMENU_HELPFUL },
+          { Setting = "HARMFUL", MenuText = TIMERBARS.BARMENU_HARMFUL },
+          { Setting = "TOTEM", MenuText = TIMERBARS.BARMENU_TOTEM },
+          { Setting = "CASTCD", MenuText = TIMERBARS.BARMENU_CASTCD },
+          { Setting = "BUFFCD", MenuText = TIMERBARS.BARMENU_BUFFCD },
 -- Now that Victory Rush adds a buff when you can use it, this confusing option is being removed.
 -- The code that drives it remains so that any existing users' bars won't break.
---          { Setting = "USABLE", MenuText = NEEDTOKNOW.BARMENU_USABLE },
-          { Setting = "EQUIPSLOT", MenuText = NEEDTOKNOW.BARMENU_EQUIPSLOT },
-        --   { Setting = "POWER", MenuText = NEEDTOKNOW.BARMENU_POWER }
+--          { Setting = "USABLE", MenuText = TIMERBARS.BARMENU_USABLE },
+          { Setting = "EQUIPSLOT", MenuText = TIMERBARS.BARMENU_EQUIPSLOT },
+        --   { Setting = "POWER", MenuText = TIMERBARS.BARMENU_POWER }
     },
     TimeFormat = {
-          { Setting = "Fmt_SingleUnit", MenuText = NEEDTOKNOW.FMT_SINGLEUNIT },
-          { Setting = "Fmt_TwoUnits", MenuText = NEEDTOKNOW.FMT_TWOUNITS },
-          { Setting = "Fmt_Float", MenuText = NEEDTOKNOW.FMT_FLOAT },
+          { Setting = "Fmt_SingleUnit", MenuText = TIMERBARS.FMT_SINGLEUNIT },
+          { Setting = "Fmt_TwoUnits", MenuText = TIMERBARS.FMT_TWOUNITS },
+          { Setting = "Fmt_Float", MenuText = TIMERBARS.FMT_FLOAT },
     },
     Unit = {
-        { Setting = "player", MenuText = NEEDTOKNOW.BARMENU_PLAYER },
-        { Setting = "target", MenuText = NEEDTOKNOW.BARMENU_TARGET },
-        { Setting = "targettarget", MenuText = NEEDTOKNOW.BARMENU_TARGETTARGET },
-        { Setting = "focus", MenuText = NEEDTOKNOW.BARMENU_FOCUS },
-        { Setting = "pet", MenuText = NEEDTOKNOW.BARMENU_PET },
-        { Setting = "vehicle", MenuText = NEEDTOKNOW.BARMENU_VEHICLE },
-        { Setting = "lastraid", MenuText = NEEDTOKNOW.BARMENU_LAST_RAID },
+        { Setting = "player", MenuText = TIMERBARS.BARMENU_PLAYER },
+        { Setting = "target", MenuText = TIMERBARS.BARMENU_TARGET },
+        { Setting = "targettarget", MenuText = TIMERBARS.BARMENU_TARGETTARGET },
+        { Setting = "focus", MenuText = TIMERBARS.BARMENU_FOCUS },
+        { Setting = "pet", MenuText = TIMERBARS.BARMENU_PET },
+        { Setting = "vehicle", MenuText = TIMERBARS.BARMENU_VEHICLE },
+        { Setting = "lastraid", MenuText = TIMERBARS.BARMENU_LAST_RAID },
     },
     DebuffUnit = {
-        { Setting = "player", MenuText = NEEDTOKNOW.BARMENU_PLAYER },
-        { Setting = "target", MenuText = NEEDTOKNOW.BARMENU_TARGET },
-        { Setting = "targettarget", MenuText = NEEDTOKNOW.BARMENU_TARGETTARGET },
-        { Setting = "focus", MenuText = NEEDTOKNOW.BARMENU_FOCUS },
-        { Setting = "pet", MenuText = NEEDTOKNOW.BARMENU_PET },
-        { Setting = "vehicle", MenuText = NEEDTOKNOW.BARMENU_VEHICLE },
+        { Setting = "player", MenuText = TIMERBARS.BARMENU_PLAYER },
+        { Setting = "target", MenuText = TIMERBARS.BARMENU_TARGET },
+        { Setting = "targettarget", MenuText = TIMERBARS.BARMENU_TARGETTARGET },
+        { Setting = "focus", MenuText = TIMERBARS.BARMENU_FOCUS },
+        { Setting = "pet", MenuText = TIMERBARS.BARMENU_PET },
+        { Setting = "vehicle", MenuText = TIMERBARS.BARMENU_VEHICLE },
     },
     Opt_HELPFUL = {
-      { VariableName = "Unit", MenuText = NEEDTOKNOW.BARMENU_CHOOSEUNIT, Type = "Submenu" },
+      { VariableName = "Unit", MenuText = TIMERBARS.BARMENU_CHOOSEUNIT, Type = "Submenu" },
       { VariableName = "bDetectExtends", MenuText = "Track duration increases" }, -- LOCME
-      { VariableName = "OnlyMine", MenuText = NEEDTOKNOW.BARMENU_ONLYMINE },
+      { VariableName = "OnlyMine", MenuText = TIMERBARS.BARMENU_ONLYMINE },
       { VariableName = "show_all_stacks", MenuText = "Sum stacks from all casters" },
     },
     Opt_HARMFUL = {
-      { VariableName = "DebuffUnit", MenuText = NEEDTOKNOW.BARMENU_CHOOSEUNIT, Type = "Submenu" },
+      { VariableName = "DebuffUnit", MenuText = TIMERBARS.BARMENU_CHOOSEUNIT, Type = "Submenu" },
       { VariableName = "bDetectExtends", MenuText = "Track duration increases" }, -- LOCME
-      { VariableName = "OnlyMine", MenuText = NEEDTOKNOW.BARMENU_ONLYMINE },
+      { VariableName = "OnlyMine", MenuText = TIMERBARS.BARMENU_ONLYMINE },
       { VariableName = "show_all_stacks", MenuText = "Sum stacks from all casters" },
     },
     Opt_TOTEM = {},
@@ -789,7 +789,7 @@ TimerBarsRMB.BarMenu_SubMenus = {
     },
     -- Opt_POWER =
     -- {
-    --   { VariableName = "Unit", MenuText = NEEDTOKNOW.BARMENU_CHOOSEUNIT, Type = "Submenu" },
+    --   { VariableName = "Unit", MenuText = TIMERBARS.BARMENU_CHOOSEUNIT, Type = "Submenu" },
     --   { VariableName = "power_sole", MenuText = "Only Show When Primary" }, -- LOCME
     -- },
     Opt_BUFFCD =
@@ -805,46 +805,46 @@ TimerBarsRMB.BarMenu_SubMenus = {
     },
     EquipmentSlotList =
     {
-        { Setting = "1", MenuText = NEEDTOKNOW.ITEM_NAMES[1] },
-        { Setting = "2", MenuText = NEEDTOKNOW.ITEM_NAMES[2] },
-        { Setting = "3", MenuText = NEEDTOKNOW.ITEM_NAMES[3] },
-        { Setting = "4", MenuText = NEEDTOKNOW.ITEM_NAMES[4] },
-        { Setting = "5", MenuText = NEEDTOKNOW.ITEM_NAMES[5] },
-        { Setting = "6", MenuText = NEEDTOKNOW.ITEM_NAMES[6] },
-        { Setting = "7", MenuText = NEEDTOKNOW.ITEM_NAMES[7] },
-        { Setting = "8", MenuText = NEEDTOKNOW.ITEM_NAMES[8] },
-        { Setting = "9", MenuText = NEEDTOKNOW.ITEM_NAMES[9] },
-        { Setting = "10", MenuText = NEEDTOKNOW.ITEM_NAMES[10] },
-        { Setting = "11", MenuText = NEEDTOKNOW.ITEM_NAMES[11] },
-        { Setting = "12", MenuText = NEEDTOKNOW.ITEM_NAMES[12] },
-        { Setting = "13", MenuText = NEEDTOKNOW.ITEM_NAMES[13] },
-        { Setting = "14", MenuText = NEEDTOKNOW.ITEM_NAMES[14] },
-        { Setting = "15", MenuText = NEEDTOKNOW.ITEM_NAMES[15] },
-        { Setting = "16", MenuText = NEEDTOKNOW.ITEM_NAMES[16] },
-        { Setting = "17", MenuText = NEEDTOKNOW.ITEM_NAMES[17] },
-        { Setting = "18", MenuText = NEEDTOKNOW.ITEM_NAMES[18] },
-        { Setting = "19", MenuText = NEEDTOKNOW.ITEM_NAMES[19] },
+        { Setting = "1", MenuText = TIMERBARS.ITEM_NAMES[1] },
+        { Setting = "2", MenuText = TIMERBARS.ITEM_NAMES[2] },
+        { Setting = "3", MenuText = TIMERBARS.ITEM_NAMES[3] },
+        { Setting = "4", MenuText = TIMERBARS.ITEM_NAMES[4] },
+        { Setting = "5", MenuText = TIMERBARS.ITEM_NAMES[5] },
+        { Setting = "6", MenuText = TIMERBARS.ITEM_NAMES[6] },
+        { Setting = "7", MenuText = TIMERBARS.ITEM_NAMES[7] },
+        { Setting = "8", MenuText = TIMERBARS.ITEM_NAMES[8] },
+        { Setting = "9", MenuText = TIMERBARS.ITEM_NAMES[9] },
+        { Setting = "10", MenuText = TIMERBARS.ITEM_NAMES[10] },
+        { Setting = "11", MenuText = TIMERBARS.ITEM_NAMES[11] },
+        { Setting = "12", MenuText = TIMERBARS.ITEM_NAMES[12] },
+        { Setting = "13", MenuText = TIMERBARS.ITEM_NAMES[13] },
+        { Setting = "14", MenuText = TIMERBARS.ITEM_NAMES[14] },
+        { Setting = "15", MenuText = TIMERBARS.ITEM_NAMES[15] },
+        { Setting = "16", MenuText = TIMERBARS.ITEM_NAMES[16] },
+        { Setting = "17", MenuText = TIMERBARS.ITEM_NAMES[17] },
+        { Setting = "18", MenuText = TIMERBARS.ITEM_NAMES[18] },
+        { Setting = "19", MenuText = TIMERBARS.ITEM_NAMES[19] },
     },
     VisualCastTime = {
-        { VariableName = "vct_enabled", MenuText = NEEDTOKNOW.BARMENU_VCT_ENABLE },
-        { VariableName = "vct_color", MenuText = NEEDTOKNOW.BARMENU_VCT_COLOR, Type = "Color" },
-        { VariableName = "vct_spell", MenuText = NEEDTOKNOW.BARMENU_VCT_SPELL, Type = "Dialog", DialogText = "CHOOSE_VCT_SPELL_DIALOG" },
-        { VariableName = "vct_extra", MenuText = NEEDTOKNOW.BARMENU_VCT_EXTRA, Type = "Dialog", DialogText = "CHOOSE_VCT_EXTRA_DIALOG", Numeric=true },
+        { VariableName = "vct_enabled", MenuText = TIMERBARS.BARMENU_VCT_ENABLE },
+        { VariableName = "vct_color", MenuText = TIMERBARS.BARMENU_VCT_COLOR, Type = "Color" },
+        { VariableName = "vct_spell", MenuText = TIMERBARS.BARMENU_VCT_SPELL, Type = "Dialog", DialogText = "CHOOSE_VCT_SPELL_DIALOG" },
+        { VariableName = "vct_extra", MenuText = TIMERBARS.BARMENU_VCT_EXTRA, Type = "Dialog", DialogText = "CHOOSE_VCT_EXTRA_DIALOG", Numeric=true },
     },
     Show = {
-        { VariableName = "show_icon",      MenuText = NEEDTOKNOW.BARMENU_SHOW_ICON },
-        { VariableName = "show_text",      MenuText = NEEDTOKNOW.BARMENU_SHOW_TEXT },
-        { VariableName = "show_count",     MenuText = NEEDTOKNOW.BARMENU_SHOW_COUNT },
-        { VariableName = "show_time",      MenuText = NEEDTOKNOW.BARMENU_SHOW_TIME },
-        { VariableName = "show_spark",     MenuText = NEEDTOKNOW.BARMENU_SHOW_SPARK },
-        { VariableName = "show_mypip",     MenuText = NEEDTOKNOW.BARMENU_SHOW_MYPIP },
-        { VariableName = "show_ttn1",      MenuText = NEEDTOKNOW.BARMENU_SHOW_TTN1 },
-        { VariableName = "show_ttn2",      MenuText = NEEDTOKNOW.BARMENU_SHOW_TTN2 },
-        { VariableName = "show_ttn3",      MenuText = NEEDTOKNOW.BARMENU_SHOW_TTN3 },
-        { VariableName = "show_text_user", MenuText = NEEDTOKNOW.BARMENU_SHOW_TEXT_USER, Type = "Dialog", DialogText = "CHOOSE_OVERRIDE_TEXT", Checked = function(settings) return "" ~= settings.show_text_user end },
+        { VariableName = "show_icon",      MenuText = TIMERBARS.BARMENU_SHOW_ICON },
+        { VariableName = "show_text",      MenuText = TIMERBARS.BARMENU_SHOW_TEXT },
+        { VariableName = "show_count",     MenuText = TIMERBARS.BARMENU_SHOW_COUNT },
+        { VariableName = "show_time",      MenuText = TIMERBARS.BARMENU_SHOW_TIME },
+        { VariableName = "show_spark",     MenuText = TIMERBARS.BARMENU_SHOW_SPARK },
+        { VariableName = "show_mypip",     MenuText = TIMERBARS.BARMENU_SHOW_MYPIP },
+        { VariableName = "show_ttn1",      MenuText = TIMERBARS.BARMENU_SHOW_TTN1 },
+        { VariableName = "show_ttn2",      MenuText = TIMERBARS.BARMENU_SHOW_TTN2 },
+        { VariableName = "show_ttn3",      MenuText = TIMERBARS.BARMENU_SHOW_TTN3 },
+        { VariableName = "show_text_user", MenuText = TIMERBARS.BARMENU_SHOW_TEXT_USER, Type = "Dialog", DialogText = "CHOOSE_OVERRIDE_TEXT", Checked = function(settings) return "" ~= settings.show_text_user end },
     },
     BlinkSettings = {
-        { VariableName = "blink_enabled", MenuText = NEEDTOKNOW.BARMENU_VCT_ENABLE },
+        { VariableName = "blink_enabled", MenuText = TIMERBARS.BARMENU_VCT_ENABLE },
         { VariableName = "blink_label", MenuText = "Bar text while blinking...", Type = "Dialog", DialogText="CHOOSE_BLINK_TITLE_DIALOG" },
         { VariableName = "MissingBlink", MenuText = "Bar color when blinking...", Type = "Color" }, -- LOCME
         { VariableName = "blink_ooc", MenuText = "Blink out of combat" }, -- LOCME
@@ -888,7 +888,7 @@ function TimerBarsRMB.BarMenu_AddButton(barSettings, i_desc, i_parent)
     end
 
     if ( not varSettings and (item_type == "Check" or item_type == "Color") ) then
-        print (string.format("NTK: Could not find %s in", info.value), barSettings);
+        print (string.format("TB: Could not find %s in", info.value), barSettings);
         return
     end
 
@@ -1134,7 +1134,7 @@ function TimerBarsRMB.BarMenu_UpdateSettings(barSettings)
             arrow:Show();
         end
         -- LOCME
-        lbl = lbl .. NEEDTOKNOW["BARMENU_"..type].. " Settings";
+        lbl = lbl .. TIMERBARS["BARMENU_"..type].. " Settings";
         button:SetText(lbl);
     end
 
@@ -1149,7 +1149,7 @@ function TimerBarsRMB.BarMenu_UpdateSettings(barSettings)
             arrow:Show();
             button.hasArrow = true
             button.value = "EquipmentSlotList"
-            button:SetText(NEEDTOKNOW.BARMENU_CHOOSESLOT)
+            button:SetText(TIMERBARS.BARMENU_CHOOSESLOT)
             -- TODO: really should disable the button press verb somehow
         end
     else
@@ -1160,7 +1160,7 @@ function TimerBarsRMB.BarMenu_UpdateSettings(barSettings)
             arrow:Hide();
             button.hasArrow = false
             if button.oldvalue then button.value = button.oldvalue end
-            button:SetText(NEEDTOKNOW.BARMENU_CHOOSENAME)
+            button:SetText(TIMERBARS.BARMENU_CHOOSENAME)
         end
     end
 end
@@ -1227,7 +1227,7 @@ function TimerBarsIE.TableToString(v)
         end
         local k
         if index ~= i then
-            k = NEEDTOKNOW.SHORTENINGS[index] or index
+            k = TIMERBARS.SHORTENINGS[index] or index
         end
         if  type(value) == "table" then
             value = TimerBarsIE.TableToString(value)
@@ -1241,7 +1241,7 @@ end
 
 function TimerBarsIE.ExportBarSettingsToString(barSettings)
     local pruned = CopyTable(barSettings)
-    TimerBars.RemoveDefaultValues(pruned, NEEDTOKNOW.BAR_DEFAULTS)
+    TimerBars.RemoveDefaultValues(pruned, TIMERBARS.BAR_DEFAULTS)
     return 'bv1:' .. TimerBarsIE.TableToString(pruned);
 end
 
@@ -1346,7 +1346,7 @@ function TimerBarsIE.StringToTable(text, ofs)
             k = i
         else
             k = text:sub(cur,eq-1)
-            k = NEEDTOKNOW.LENGTHENINGS[k] or k
+            k = TIMERBARS.LENGTHENINGS[k] or k
             if not k or k == "" then
                 print("Error parsing key at", cur)
                 return nil,nil
@@ -1420,16 +1420,16 @@ function TimerBarsIE.ImportBarSettingsFromString(text, bars, barID)
     end
 
     if pruned then
-        TimerBars.AddDefaultsToTable(pruned, NEEDTOKNOW.BAR_DEFAULTS)
+        TimerBars.AddDefaultsToTable(pruned, TIMERBARS.BAR_DEFAULTS)
         bars[barID] = pruned
     end
 end
 
 function TimerBarsRMB.BarMenu_ShowNameDialog(self, a1, a2, checked)
-    if not self.value.text or not NEEDTOKNOW[self.value.text] then return end
+    if not self.value.text or not TIMERBARS[self.value.text] then return end
 
-    StaticPopupDialogs["NEEDTOKNOW.CHOOSENAME_DIALOG"].text = NEEDTOKNOW[self.value.text];
-    local dialog = StaticPopup_Show("NEEDTOKNOW.CHOOSENAME_DIALOG");
+    StaticPopupDialogs["TIMERBARS.CHOOSENAME_DIALOG"].text = TIMERBARS[self.value.text];
+    local dialog = StaticPopup_Show("TIMERBARS.CHOOSENAME_DIALOG");
     dialog.variable = self.value.variable;
 
     local edit = _G[dialog:GetName().."EditBox"];
@@ -1553,7 +1553,7 @@ end
 function TimerBars.Resizebutton_OnEnter(self)
     local tooltip = _G["GameTooltip"];
     GameTooltip_SetDefaultAnchor(tooltip, self);
-    tooltip:AddLine(NEEDTOKNOW.RESIZE_TOOLTIP, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b, 1);
+    tooltip:AddLine(TIMERBARS.RESIZE_TOOLTIP, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b, 1);
     tooltip:Show();
 end
 
