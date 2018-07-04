@@ -1,6 +1,6 @@
 # Timer Bars
 
-TimerBars is a BFA read fork of [TimerBars](https://www.curseforge.com/wow/addons/need-to-know).
+TimerBars is a BFA ready fork of [NeedToKnow](https://www.curseforge.com/wow/addons/need-to-know).
 
 As long as the original author isn't around, I'll try to keep this addon updated and working. Bug fixes only.
 
