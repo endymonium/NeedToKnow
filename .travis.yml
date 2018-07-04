@@ -8,7 +8,7 @@ addons:
   
 #script: curl -s https://raw.githubusercontent.com/BigWigsMods/packager/master/release.sh
 #after_script: bash release.sh -g 7.3.5
-script: curl -s https://raw.githubusercontent.com/BigWigsMods/packager/master/release.sh | bash
+script: curl -s https://raw.githubusercontent.com/BigWigsMods/packager/master/release.sh | bash -s -- -g 8.0.1
  
 branches:
   only:
