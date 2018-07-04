@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0
+
+* fork and rename to Timerbars
+
 ## 4.3.1
 
 * death knight mount up spell nil fix
