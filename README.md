@@ -4,9 +4,9 @@ TimerBars is a BFA ready fork of [NeedToKnow](https://www.curseforge.com/wow/add
 
 As long as the original author isn't around, I'll try to keep this addon updated and working. Bug fixes only.
 
-**If it does not work for you, first delete the `TimerBars.lua` in the WTF folder**. If the error persists comment or create an issue here:
+If you have any errors comment or create and issue here:
 
-* [https://wow.curseforge.com/projects/timer-bars/issues](https://wow.curseforge.com/projects/timer-bars/issues)
+* [https://www.curseforge.com/wow/addons/timer-bars](https://www.curseforge.com/wow/addons/timer-bars)
 * [https://github.com/endymonium/TimerBars/issues](https://github.com/endymonium/TimerBars/issues)
 
 ## How to use
