@@ -17,6 +17,7 @@ If you find a bug report it at:
 ## Notable changes
 
 * Removed bars of type "Power": the original implementation was marked as exprimental and to many things changed.
+* Seperator for multiple spells is ";"
 
 ## BFA API changes
 

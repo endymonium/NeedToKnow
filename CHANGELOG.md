@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1
+
+* _SPELLCAST_ event signature changes adaption
+
 ## 1.0
 
 * fork and rename to Timerbars
