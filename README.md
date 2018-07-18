@@ -11,7 +11,7 @@ If you have any errors comment or create and issue here:
 
 ## How to use
 
-* type `/tbs` or `/timerbars` to unlock
+* type `/tbs`, `/tmb` or `/timerbars` to unlock
 * right click on a bar for configuration menu
 
 ## Notable changes

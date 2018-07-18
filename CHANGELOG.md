@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2
+
+* added `/tmb` shortcut
+
 ## 1.1
 
 * _SPELLCAST_ event signature changes adaption

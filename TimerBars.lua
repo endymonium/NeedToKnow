@@ -511,6 +511,7 @@ function TimerBars.ExecutiveFrame_ADDON_LOADED(addon)
         SlashCmdList["TIMERBARS"] = TimerBars.SlashCommand
         SLASH_TIMERBARS1 = "/timerbars"
         SLASH_TIMERBARS2 = "/tbs"
+        SLASH_TIMERBARS3 = "/tmb"
     end
 end
 
