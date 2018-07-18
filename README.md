@@ -24,7 +24,12 @@ If you have any errors comment or create and issue here:
 
 The following should work most of the time, if it doesn't you probably used a setting which changed. In that case you need to start from scratch I'm afraid.
 
-Go to `World of Warcraft\WTF\Account\<account name>\<server>\<character>\SavedVariables` and `World of Warcraft\WTF\Account\<account name>\SavedVariables`. There do:
+Go to these directories:
+
+* *World of Warcraft\WTF\Account\ (account name) \ (server) \ (character) \SavedVariables*
+* *World of Warcraft\WTF\Account\ (account name) \SavedVariables*
+
+And do:
 
 1. Rename `NeedToKnow.lua` to `TimerBars.lua`
 2. Edit renamed file and replace all occurences of `NeedToKnow` with `TimerBars`
