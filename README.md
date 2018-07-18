@@ -1,10 +1,10 @@
-# Timer Bars
+# [Timer Bars](https://www.curseforge.com/wow/addons/timer-bars)
 
 TimerBars is a BFA ready fork of [NeedToKnow](https://www.curseforge.com/wow/addons/need-to-know).
 
-As long as the original author isn't around, I'll try to keep this addon updated and working. Bug fixes only. **Only works with Patch 8.0**.
+As long as the original author isn't around, I'll try to keep this addon updated and working. Bug fixes only.
 
-If you find a bug report it at:
+**If it does not work for you, first delete the `TimerBars.lua` in the WTF folder**. If the error persists comment or create an issue here:
 
 * [https://wow.curseforge.com/projects/timer-bars/issues](https://wow.curseforge.com/projects/timer-bars/issues)
 * [https://github.com/endymonium/TimerBars/issues](https://github.com/endymonium/TimerBars/issues)
@@ -16,8 +16,17 @@ If you find a bug report it at:
 
 ## Notable changes
 
-* Removed bars of type "Power": the original implementation was marked as exprimental and to many things changed.
+* Removed bars of type "Power": the original implementation was marked as experimental and to many things changed.
 * Seperator for multiple spells is ";"
+
+## How to migrate from NeedToKnow
+
+The following should work most of the time, if it doesn't you probably used a setting which changed. In that case you need to start from scratch I'm afraid.
+
+Go to `World of Warcraft\WTF\Account\<account name>\<server>\<character>\SavedVariables` and `World of Warcraft\WTF\Account\<account name>\SavedVariables`. There do:
+
+1. Rename `NeedToKnow.lua` to `TimerBars.lua`
+2. Edit renamed file and replace all occurences of `NeedToKnow` with `TimerBars`
 
 ## BFA API changes
 
