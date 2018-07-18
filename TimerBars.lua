@@ -358,8 +358,14 @@ function TimerBars.ExecutiveFrame_OnEvent(self, event, ...)
     end
 end
 
-function TimerBars.ExecutiveFrame_UNIT_SPELLCAST_SENT(unit, spell, rank_str, tgt, serialno)
+function TimerBars.ExecutiveFrame_UNIT_SPELLCAST_SENT(unit, tgt, serialno, spellid)
+    -- BFA
+    -- 1. unit
+    -- 2. target
+    -- 3. serialno
+    -- 4. spellId
     -- spell is nil when you mount up as death knight, but not as any other class ... ??
+    local spell = spell_id_to_name(spellid)
     if unit == "player" and spell then
         -- TODO: I hate to pay this memory cost for every "spell" ever cast.
         --       Would be nice to at least garbage collect this data at some point, but that
@@ -394,8 +400,17 @@ function TimerBars.ExecutiveFrame_UNIT_SPELLCAST_SENT(unit, spell, rank_str, tgt
     end
 end
 
+function spell_id_to_name(spellId)
+    local name = GetSpellInfo(spellId)
+    return name
+end
 
-function TimerBars.ExecutiveFrame_UNIT_SPELLCAST_SUCCEEDED(unit, spell, rank_str, serialno, spellid)
+function TimerBars.ExecutiveFrame_UNIT_SPELLCAST_SUCCEEDED(unit, serialno, spellid)
+    -- BFA:
+    -- 1. caster
+    -- 2. serialno
+    -- 3. spell id
+    local spell = spell_id_to_name(spellid)
     if unit == "player" then
         local found
         local t = m_last_cast
@@ -428,12 +443,14 @@ function TimerBars.ExecutiveFrame_UNIT_SPELLCAST_SUCCEEDED(unit, spell, rank_str
     end
 end
 
-function TimerBars.ExecutiveFrame_COMBAT_LOG_EVENT_UNFILTERED(tod, event, hideCaster, guidCaster, ...)
+function TimerBars.ExecutiveFrame_COMBAT_LOG_EVENT_UNFILTERED()
+    -- BFA 8.0: no event payload, need to get it manually
+    local tod, event, hideCaster, guidCaster, sourceName, sourceFlags, sourceRaidFlags, guidTarget,
+    nameTarget, _, _, spellid, spell = CombatLogGetCurrentEventInfo()
     -- the time that's passed in appears to be time of day, not game time like everything else.
     local time = g_GetTime()
     -- TODO: Is checking r.state sufficient or must event be checked instead?
     if ( guidCaster == TimerBars.guidPlayer and event=="SPELL_CAST_SUCCESS") then
-        local guidTarget, nameTarget, _, _, spellid, spell = select(4, ...) -- source_name, source_flags, source_flags2,
 
         local found
         local t = m_last_cast
@@ -2970,12 +2987,11 @@ end
 
 local EDT = {}
 EDT["COMBAT_LOG_EVENT_UNFILTERED"] = function(self, unit, ...)
-    local combatEvent = select(1, ...)
+    local tod, combatEvent, hideCaster, unit, sourceName, sourceFlags, sourceRaidFlags,
+    guidTarget, nameTarget, _, _, idSpell, nameSpell = CombatLogGetCurrentEventInfo()
 
     if ( c_AURAEVENTS[combatEvent] ) then
-        local guidTarget = select(7, ...)
         if ( guidTarget == g_UnitGUID(self.unit) ) then
-            local idSpell, nameSpell = select(11, ...)
             if (self.auraName:find(idSpell) or
                     self.auraName:find(nameSpell))
             then
@@ -2983,8 +2999,7 @@ EDT["COMBAT_LOG_EVENT_UNFILTERED"] = function(self, unit, ...)
             end
         end
     elseif ( combatEvent == "UNIT_DIED" ) then
-        local guidDeceased = select(7, ...)
-        if ( guidDeceased == UnitGUID(self.unit) ) then
+        if ( guidTarget == UnitGUID(self.unit) ) then
             mfn_Bar_AuraCheck(self)
         end
     end
